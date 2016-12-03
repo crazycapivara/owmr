@@ -3,6 +3,7 @@
 export("%>%")
 export(.get)
 export(get_current)
+export(get_forecast)
 export(owmr_settings)
 importFrom(magrittr,"%<>%")
 importFrom(magrittr,"%>%")
