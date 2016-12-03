@@ -1,0 +1,32 @@
+---
+title: "OpenWeatherMap api wrapper for R"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("tmp/settings.R")
+```
+
+## Installation
+
+```{r installation, eval=FALSE}
+require("devtools")
+
+install_github("https://github.com/crazycapivara/owmr.git")
+```
+
+## Status
+
+Early beta
+
+## Usage
+
+```{r usage, echo=TRUE, eval=TRUE}
+library(owmr)
+
+api_key_ = "your-api-key"
+owmr_settings(api_key = api_key)
+
+get_current(city = "London", units = "metric") %>% head()
+```
