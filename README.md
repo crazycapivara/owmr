@@ -3,7 +3,7 @@ Installation
 
     require("devtools")
 
-    install_github("https://github.com/crazycapivara/owmr.git")
+    install_github("crazycapivara/owmr")
 
 Status
 ------
@@ -16,7 +16,7 @@ Usage
     library(owmr)
 
     ## owmr 0.0.0.9000
-    ##     the craziest way to talk to openweathermap's api
+    ##     another crazy way to talk to openweathermap's api
 
     api_key_ = "your-api-key"
     owmr_settings(api_key = api_key)
@@ -30,13 +30,13 @@ Usage
     ## [1] 51.51
     ## 
     ## $weather.id
-    ## [1] 802
+    ## [1] 801
     ## 
     ## $weather.main
     ## [1] "Clouds"
     ## 
     ## $weather.description
-    ## [1] "scattered clouds"
+    ## [1] "few clouds"
     ## 
     ## $weather.icon
-    ## [1] "03n"
+    ## [1] "02n"

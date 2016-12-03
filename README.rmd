@@ -13,7 +13,7 @@ source("tmp/settings.R")
 ```{r installation, eval=FALSE}
 require("devtools")
 
-install_github("https://github.com/crazycapivara/owmr.git")
+install_github("crazycapivara/owmr")
 ```
 
 ## Status
