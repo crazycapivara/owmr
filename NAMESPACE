@@ -2,5 +2,7 @@
 
 export("%>%")
 export(.get)
+export(get_current)
 export(owmr_settings)
+importFrom(magrittr,"%<>%")
 importFrom(magrittr,"%>%")
