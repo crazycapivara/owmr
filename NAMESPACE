@@ -2,4 +2,5 @@
 
 export("%>%")
 export(.get)
+export(owmr_settings)
 importFrom(magrittr,"%>%")
