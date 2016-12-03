@@ -6,8 +6,11 @@ api <- "http://api.openweathermap.org/data/2.5/"
 
 #' @export
 #' 
-.get <- function(parse = TRUE){
-  query = list(appid = get_api_key(), q = "London")
-  api <- paste0(api, "weather")
-  httr::GET(api, query = query) %>% .parse()
+.get <- function(appendix = "weather"){
+  query = list(appid = get_api_key())
+  api <- paste0(api, appendix)
+  function(city){
+    query$q <- city
+    httr::GET(api, query = query) %>% .parse()
+  }
 }
