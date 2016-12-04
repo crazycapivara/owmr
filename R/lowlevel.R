@@ -4,7 +4,7 @@ api <- "http://api.openweathermap.org/data/2.5/"
 #'
 owmr_parse <- function(response){
   httr::content(response, as = "text") %>%
-    jsonlite::fromJSON()
+    jsonlite::fromJSON(flatten = T)
 }
 
 #' @export
