@@ -34,4 +34,17 @@ get_current(city = "London", units = "metric") %>% str()
 
 # get forecast
 forecast <- get_forecast(city = "London", units = "metric")
+
+forecast %>% names()
+
+sprintf("%s, %s", forecast$city$name, forecast$city$id)
+
+forecast$cnt
+
+forecast$list %>% nrow()
+
+forecast$list %>% names()
+
+forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>% head()
+
 ```
