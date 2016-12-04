@@ -1,6 +1,6 @@
 ---
 title: "OpenWeatherMap api wrapper for R"
-output: md_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
