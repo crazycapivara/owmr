@@ -1,18 +1,15 @@
 api <- "http://api.openweathermap.org/data/2.5/"
 
-# parse owm response
-.parse <- function(response, raw = FALSE){
-  x <- httr::content(response)
-  if(raw) return(x)
-  x %>%
-    as.data.frame(stringsAsFactors = FALSE) %>%
-    as.list()
+#' @export
+#'
+owmr_parse <- function(response){
+  httr::content(response, as = "text") %>%
+    jsonlite::fromJSON()
 }
 
 #' @export
 #'
-# wrapper
-.get <- function(appendix = "weather"){
+owmr_wrap_get <- function(appendix = "weather"){
   query = list(appid = get_api_key())
   api <- paste0(api, appendix)
   function(city, ...){

@@ -10,6 +10,6 @@
 #'    get_forecast("Kassel", units = "metric")
 #' }
 get_forecast <- function(city, ...){
-  wrapper <- .get("forecast")
-  wrapper(city, ...) %>% .parse(raw = TRUE)
+  get <- owmr_wrap_get("forecast")
+  get(city, ...) %>% owmr_parse()
 }

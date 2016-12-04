@@ -10,6 +10,6 @@
 #'    get_current("London", units = "metric")
 #' }
 get_current <- function(city = NA, ...){
-  wrapper <- .get("weather")
-  wrapper(city, ...) %>% .parse()
+  get <- owmr_wrap_get("weather")
+  get(city, ...) %>% owmr_parse()
 }
