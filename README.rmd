@@ -25,8 +25,13 @@ Early beta
 ```{r usage, echo=TRUE, eval=TRUE}
 library(owmr)
 
+# pass api key
 api_key_ = "your-api-key"
 owmr_settings(api_key = api_key)
 
-get_current(city = "London", units = "metric") %>% head()
+# get current weather
+get_current(city = "London", units = "metric") %>% str()
+
+# get forecast
+forecast <- get_forecast(city = "London", units = "metric")
 ```
