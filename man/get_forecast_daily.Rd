@@ -2,7 +2,7 @@
 % Please edit documentation in R/forecast-daily.R
 \name{get_forecast_daily}
 \alias{get_forecast_daily}
-\title{Title}
+\title{get daily forcast up to 16 days}
 \usage{
 get_forecast_daily(loc = NA, ...)
 }
@@ -15,7 +15,7 @@ get_forecast_daily(loc = NA, ...)
 list
 }
 \description{
-Title
+get daily forcast up to 16 days
 }
 \examples{
 \dontrun{

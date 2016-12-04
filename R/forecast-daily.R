@@ -1,4 +1,4 @@
-#' Title
+#' get daily forcast up to 16 days
 #'
 #' @param loc city name
 #' @param ... see owm api parameters
