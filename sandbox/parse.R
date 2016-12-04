@@ -4,11 +4,11 @@ owmr_parse <- function(response){
 }
 
 get_current_new <- function(city){
-  get <- "weather" %>% .get()
+  get <- "weather" %>% owmr_wrap_get()
   get(city)
 }
 
 get_forecast_new <- function(city){
-  get <- "forecast" %>% .get()
+  get <- "forecast" %>% owmr_wrap_get()
   get(city) %>% owmr_parse()
 }
