@@ -2,12 +2,12 @@
 % Please edit documentation in R/current.R
 \name{get_current}
 \alias{get_current}
-\title{get current}
+\title{get current weather for given city}
 \usage{
 get_current(city = NA, ...)
 }
 \arguments{
-\item{city}{city name}
+\item{city}{city name or id}
 
 \item{...}{see owm api for optional parameters}
 }
@@ -15,7 +15,7 @@ get_current(city = NA, ...)
 list
 }
 \description{
-get current
+get current weather for given city
 }
 \examples{
 \dontrun{
