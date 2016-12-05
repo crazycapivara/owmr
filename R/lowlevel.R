@@ -1,6 +1,8 @@
 api <- "http://api.openweathermap.org/data/2.5/"
 
 assign_loc <- function(query, loc){
+  # skip in case (lat, lon) or zip code is passed instead of city name or id
+  if(is.na(loc)) {return(query)}
   if(is.numeric(loc)) {
     query$id <- loc
   } else{
@@ -21,7 +23,7 @@ owmr_parse <- function(response){
 owmr_wrap_get <- function(appendix = "weather"){
   query = list(appid = get_api_key())
   api <- paste0(api, appendix)
-  function(loc, ...){
+  function(loc = NA, ...){
     #query$q <- city
     query %<>% assign_loc(loc)
     query %<>% c(list(...))
