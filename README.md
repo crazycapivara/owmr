@@ -7,7 +7,11 @@ Installation
 ``` r
 require("devtools")
 
+# stable
 install_github("crazycapivara/owmr")
+
+# bleeding edge
+install_github("crazycapivara/owmr", ref = "develop")
 ```
 
 Status
@@ -22,7 +26,7 @@ Usage
 library(owmr)
 ```
 
-    ## owmr 0.2.0
+    ## owmr 0.3.0
     ##    another crazy way to talk to OpenWeatherMap's api
 
 ``` r
@@ -45,25 +49,25 @@ get_current("London", units = "metric") %>% str()
     ##   ..$ icon       : chr [1:2] "50n" "50n"
     ##  $ base      : chr "stations"
     ##  $ main      :List of 5
-    ##   ..$ temp    : num 2.34
-    ##   ..$ pressure: int 1025
-    ##   ..$ humidity: int 100
+    ##   ..$ temp    : num 1.36
+    ##   ..$ pressure: int 1026
+    ##   ..$ humidity: int 93
     ##   ..$ temp_min: int -1
-    ##   ..$ temp_max: int 5
-    ##  $ visibility: int 3500
+    ##   ..$ temp_max: int 4
+    ##  $ visibility: int 2000
     ##  $ wind      :List of 2
     ##   ..$ speed: num 1.5
-    ##   ..$ deg  : int 20
+    ##   ..$ deg  : int 350
     ##  $ clouds    :List of 1
     ##   ..$ all: int 36
-    ##  $ dt        : int 1480971000
+    ##  $ dt        : int 1480974600
     ##  $ sys       :List of 6
     ##   ..$ type   : int 1
     ##   ..$ id     : int 5091
-    ##   ..$ message: num 0.0034
+    ##   ..$ message: num 0.596
     ##   ..$ country: chr "GB"
-    ##   ..$ sunrise: int 1480924244
-    ##   ..$ sunset : int 1480953145
+    ##   ..$ sunrise: int 1480924246
+    ##   ..$ sunset : int 1480953144
     ##  $ id        : int 2643743
     ##  $ name      : chr "London"
     ##  $ cod       : int 200
@@ -82,7 +86,7 @@ get_current(rio$id, units = "metric") %>%
 ```
 
     ##             name        main.temp 
-    ## "Rio de Janeiro"          "22.29"
+    ## "Rio de Janeiro"          "22.26"
 
 ``` r
 # ... by coordinates
@@ -91,7 +95,7 @@ get_current(lon = rio$lon, lat = rio$lat) %>%
   as.numeric() %>% as.POSIXct(origin = "1970-01-01")
 ```
 
-    ## [1] "2016-12-05 08:59:35 CET" "2016-12-05 22:28:42 CET"
+    ## [1] "2016-12-05 08:59:35 CET" "2016-12-05 22:28:43 CET"
 
 ``` r
 # get weather from stations
@@ -101,10 +105,10 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
 
     ##   distance station.id station.name last.main.temp
     ## 1   13.276       4926         EDVK         269.15
-    ## 2   26.926       4954         ETHF         268.15
-    ## 3   69.579       4910         EDLP         269.15
-    ## 4   89.149      73733    Uwe Kruse         268.35
-    ## 5   93.344 1460732694        hlw31         265.68
+    ## 2   26.926       4954         ETHF         269.15
+    ## 3   69.579       4910         EDLP         270.15
+    ## 4   89.149      73733    Uwe Kruse         267.85
+    ## 5   93.344 1460732694        hlw31         273.15
     ## 6   97.934 1442728908         AmiH         273.15
     ## 7   98.978       4951         ETHB         270.15
 
@@ -151,9 +155,9 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>% head(
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2016-12-06 00:00:00     -0.95         -0.95       1.18
-    ## 2 2016-12-06 03:00:00     -1.26         -1.26       1.16
-    ## 3 2016-12-06 06:00:00     -1.25         -1.25       1.87
-    ## 4 2016-12-06 09:00:00      1.56          1.56       2.60
+    ## 1 2016-12-06 00:00:00      0.93          0.93       1.18
+    ## 2 2016-12-06 03:00:00      0.20          0.20       1.16
+    ## 3 2016-12-06 06:00:00     -0.23         -0.23       1.87
+    ## 4 2016-12-06 09:00:00      2.16          2.16       2.60
     ## 5 2016-12-06 12:00:00      8.30          8.30       1.72
     ## 6 2016-12-06 15:00:00      8.88          8.88       1.71

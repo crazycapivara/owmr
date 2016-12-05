@@ -13,7 +13,11 @@ source("tmp/settings.R")
 ```{r installation, eval=FALSE}
 require("devtools")
 
+# stable
 install_github("crazycapivara/owmr")
+
+# bleeding edge
+install_github("crazycapivara/owmr", ref = "develop")
 ```
 
 ## Status
