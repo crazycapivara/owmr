@@ -4,7 +4,7 @@
 \alias{fetch_test_data}
 \title{helper function to fetch test data}
 \usage{
-fetch_test_data(run_test = TRUE)
+fetch_test_data(run_tests = TRUE)
 }
 \arguments{
 \item{run_tests}{set to true in order to run tests after data

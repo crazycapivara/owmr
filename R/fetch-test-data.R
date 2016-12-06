@@ -11,7 +11,7 @@ folder_test_data <- "tests/testthat/data/"
 #'
 #' @export
 #'
-fetch_test_data <- function(run_test = TRUE){
+fetch_test_data <- function(run_tests = TRUE){
   if(is.null(.pkg_env$api_key)){
     stop("Set api key before trying to fetch data!", call. = F)
   }
@@ -24,5 +24,5 @@ fetch_test_data <- function(run_test = TRUE){
   save(stations_data,
        file = paste0(folder_test_data, "stations_data.rda"))
   sprintf("data files saved to %s", folder_test_data) %>% cat
-  if(run_test) devtools::test(reporter = "tap")
+  if(run_tests) testthat::test_dir("tests/testthat", reporter = "tap")
 }
