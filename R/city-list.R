@@ -11,7 +11,8 @@
 #' @examples
 #' # TODO
 search_city_list <- function(city, country_code = ""){
-  result <- grepl(city, owm_cities$nm) &
-    grepl(country_code, owm_cities$countryCode)
-  owm_cities[result, ]
+  #data("owm_cities", package = "owmr")
+  result <- grepl(city, owmr::owm_cities$nm) &
+    grepl(country_code, owmr::owm_cities$countryCode)
+  owmr::owm_cities[result, ]
 }
