@@ -1,2 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+data-raw/
+tmp/
+sandbox/
+helpers/
+TODO.md
