@@ -1,0 +1,33 @@
+---
+title: "owmr - An R Interface to OpenWeatherMap"
+output:
+  html_document:
+    theme: united
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+```{r introduction}
+library(owmr)
+
+owm_cities %>% head()
+```
+
+## Installation
+
+```{r installation, eval=F}
+require("devtools")
+
+devtools::install_github("crazycapivara/owmr")
+```
+
+## Usage
+
+```
+## TODO ##
+```
