@@ -1,7 +1,7 @@
-#' get current weather for given city
+#' get current weather data for given city
 #'
 #' @param city city name or id
-#' @param ... see owm api for optional parameters
+#' @param ... see owm api
 #'
 #' @return list
 #' @export
@@ -14,15 +14,15 @@ get_current <- function(city = NA, ...){
   get(city, ...) %>% owmr_parse()
 }
 
-#' find city by name or (lat, lon)
+#' find city by name or coords (lat, lon)
 #'
 #' either search for city by name or fetch weather
-#' for a number of cities around geo point
+#' data for a number of cities around geo point
 #'
 #' @param city city name (and country code)
 #' @param ... see owm api
 #'
-#' @return weather list for matches
+#' @return list of weather data for matches
 #' @export
 #'
 #' @examples \dontrun{

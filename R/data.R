@@ -1,8 +1,8 @@
-#' owm city list containing id and coords of cities.
+#' owm city list containing ids and coords of cities.
 #'
-#' A dataset containing city ids which can be used in queries
+#' a dataset containing city ids which can be used in queries
 #'
-#' @format A data frame with 74071 rows and 4 variables:
+#' @format a data frame with 74071 rows and 4 variables:
 #' \describe{
 #'   \item{id}{city id}
 #'   \item{nm}{city name}
