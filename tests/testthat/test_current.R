@@ -1,4 +1,4 @@
-context("current weather")
+context("current weather data")
 
 load("data/current_weather.rda")
 
