@@ -4,7 +4,7 @@ folder_test_data <- "tests/testthat/data/"
 save_test_data <- function(x, filename){
   (fn <- paste0(folder_test_data, filename)) %>%
     saveRDS(x, .)
-  sprintf("data written to %s", fn) %>% cat
+  sprintf("data written to %s\n", fn) %>% cat
 }
 
 save_current_multiple <- function(){
@@ -35,6 +35,8 @@ fetch_test_data <- function(run_tests = TRUE){
   stations_data <- find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 15)
   save(stations_data,
        file = paste0(folder_test_data, "stations_data.rda"))
-  sprintf("data files saved to %s", folder_test_data) %>% cat
+  sprintf("data files saved to %s\n", folder_test_data) %>% cat
+  # fetch data for 3 cities at once
+  save_current_multiple()
   if(run_tests) testthat::test_dir("tests/testthat", reporter = "tap")
 }
