@@ -3,8 +3,8 @@
 \docType{data}
 \name{owm_cities}
 \alias{owm_cities}
-\title{owm city list containing id and coords of cities.}
-\format{A data frame with 74071 rows and 4 variables:
+\title{owm city list containing ids and coords of cities.}
+\format{a data frame with 74071 rows and 4 variables:
 \describe{
   \item{id}{city id}
   \item{nm}{city name}
@@ -19,7 +19,7 @@
 owm_cities
 }
 \description{
-A dataset containing city ids which can be used in queries
+a dataset containing city ids which can be used in queries
 }
 \keyword{datasets}
 

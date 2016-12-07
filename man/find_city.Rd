@@ -2,7 +2,7 @@
 % Please edit documentation in R/current.R
 \name{find_city}
 \alias{find_city}
-\title{find city by name or (lat, lon)}
+\title{find city by name or coords (lat, lon)}
 \usage{
 find_city(city = NA, ...)
 }
@@ -12,11 +12,11 @@ find_city(city = NA, ...)
 \item{...}{see owm api}
 }
 \value{
-weather list for matches
+list of weather data for matches
 }
 \description{
 either search for city by name or fetch weather
-for a number of cities around geo point
+data for a number of cities around geo point
 }
 \examples{
 \dontrun{
