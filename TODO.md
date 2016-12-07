@@ -1,8 +1,8 @@
 # TODO
 
-* use `testthat` function instead of `devtools::test()` in helper function to fetch data for tests --DONE--
+* use `testthat` function instead of `devtools::test()` in helper function to fetch data for tests _DONE_
 * document low level functions or exclude from export
-* document `owm_cities` dataset
+* document `owm_cities` dataset _DONE_
 * update README file
 * add documentation via github pages
 * refactor `owmr_wrap_get` function

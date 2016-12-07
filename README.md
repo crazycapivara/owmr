@@ -14,10 +14,10 @@ install_github("crazycapivara/owmr")
 install_github("crazycapivara/owmr", ref = "develop")
 ```
 
-Status
-------
+Current Version
+---------------
 
-Beta
+0.4.0
 
 Usage
 -----
