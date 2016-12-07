@@ -8,4 +8,6 @@
 * Added tests for current data.
    - Added Helper function to fetch 'fresh' data used in tests.
 
+# owmr 0.4.1
 
+* Added function to fetch current weather data for multiple cities at once

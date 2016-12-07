@@ -17,7 +17,7 @@ install_github("crazycapivara/owmr", ref = "develop")
 Current Version
 ---------------
 
-0.4.0
+0.4.1
 
 Usage
 -----
