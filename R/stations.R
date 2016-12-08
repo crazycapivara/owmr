@@ -18,6 +18,12 @@ find_stations_by_geo_point <- function(lat, lon, cnt = 10){
   get(lat = lat, lon = lon, cnt = cnt) %>% owmr_parse()
 }
 
+#' get current weather data from given station
+#'
+#' @param station_id station id
+#' @param ... see owm api
+#'
+#' @return list
 #' @export
 #'
 # TODO: document it, example id: 4926
