@@ -6,3 +6,6 @@ sandbox/
 helpers/
 TODO.md
 ^\.travis\.yml$
+doc/
+NEWS.md
+README.rmd
