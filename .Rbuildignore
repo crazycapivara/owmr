@@ -5,3 +5,4 @@ tmp/
 sandbox/
 helpers/
 TODO.md
+^\.travis\.yml$
