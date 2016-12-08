@@ -11,15 +11,15 @@ assign_loc <- function(query, loc){
   query
 }
 
-#' @export
-#'
+# TODO: document in order to export
+# @export
 owmr_parse <- function(response){
   httr::content(response, as = "text") %>%
     jsonlite::fromJSON(flatten = T)
 }
 
-#' @export
-#'
+# TODO: document in order to export
+# @export
 owmr_wrap_get <- function(appendix = "weather"){
   query = list(appid = get_api_key())
   api <- paste0(api, appendix)
