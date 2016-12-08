@@ -1,5 +1,6 @@
 # TODO
 
+* put check for api key in wrapper function of get
 * use `testthat` function instead of `devtools::test()` in helper function to fetch data for tests __DONE__
 * document low level functions or exclude from export
 * document `owm_cities` dataset __DONE__
@@ -11,3 +12,8 @@
 * write tests for forcast responses
 * run win builder check to put package to CRAN
 * add license file
+
+# Build notes
+
+* found 1 marked UTF-8 string in data
+  - owm_cities$nm[7053]
