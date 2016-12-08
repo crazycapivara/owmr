@@ -1,6 +1,8 @@
 OpenWeatherMap api wrapper for R
 ================
 
+[![Travis-CI Build Status](https://travis-ci.org/crazycapivara/owmr.svg?branch=master)](https://travis-ci.org/crazycapivara/owmr)
+
 Installation
 ------------
 
