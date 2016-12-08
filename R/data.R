@@ -11,4 +11,6 @@
 #'   \item{countryCode}{two letter country code}
 #' }
 #' @source \url{http://openweathermap.org/help/city_list.txt}
+#'
+# TODO: Fix build note: UTF-8 string found in `owm_cities$nm[7053]`
 "owm_cities"
