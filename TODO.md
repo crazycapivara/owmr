@@ -16,4 +16,4 @@
 # Build notes
 
 * found 1 marked UTF-8 string in data
-  - owm_cities$nm[7053]
+  - owm_cities$nm[7053] <- Metabetchouan-Lac-a-la-Croix"
