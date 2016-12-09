@@ -25,6 +25,7 @@ get_current_for_group <- function(city_ids, ...){
 #' @param lat latitude of geo point
 #' @param lon longitude of geo point
 #' @param cnt number of cities
+#' @param ... see owm api documentation
 #'
 #' @return list containing data frame with weather data
 #'

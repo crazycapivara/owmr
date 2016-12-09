@@ -12,6 +12,8 @@ find_cities_by_geo_point(lat, lon, cnt = 3, ...)
 \item{lon}{longitude of geo point}
 
 \item{cnt}{number of cities}
+
+\item{...}{see owm api documentation}
 }
 \value{
 list containing data frame with weather data
