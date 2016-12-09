@@ -1,7 +1,14 @@
 OpenWeatherMap api wrapper for R
 ================
 
+Builds
+------
+
+**master**
+
 [![Travis-CI Build Status](https://travis-ci.org/crazycapivara/owmr.svg?branch=master)](https://travis-ci.org/crazycapivara/owmr)
+
+**develop**
 
 [![Travis-CI Build Status](https://travis-ci.org/crazycapivara/owmr.svg?branch=develop)](https://travis-ci.org/crazycapivara/owmr)
 
@@ -18,63 +25,50 @@ install_github("crazycapivara/owmr")
 install_github("crazycapivara/owmr", ref = "develop")
 ```
 
-Current Version
+Current version
 ---------------
-
-0.4.1
-
-Usage
------
 
 ``` r
 library(owmr)
 ```
 
-    ## owmr 0.3.0
+    ## owmr 0.5.0
     ##    another crazy way to talk to OpenWeatherMap's api
+    ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
+    ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/
+
+Introduction
+------------
 
 ``` r
 # pass api key
 api_key_ = "your-api-key"
 owmr_settings(api_key = api_key)
 
-# get current weather by city name
-get_current("London", units = "metric") %>% str()
+# get current weather data by city name
+get_current("London", units = "metric") %>% unlist()
 ```
 
-    ## List of 12
-    ##  $ coord     :List of 2
-    ##   ..$ lon: num -0.13
-    ##   ..$ lat: num 51.5
-    ##  $ weather   :'data.frame':  2 obs. of  4 variables:
-    ##   ..$ id         : int [1:2] 701 741
-    ##   ..$ main       : chr [1:2] "Mist" "Fog"
-    ##   ..$ description: chr [1:2] "mist" "fog"
-    ##   ..$ icon       : chr [1:2] "50n" "50n"
-    ##  $ base      : chr "stations"
-    ##  $ main      :List of 5
-    ##   ..$ temp    : num 1.36
-    ##   ..$ pressure: int 1026
-    ##   ..$ humidity: int 93
-    ##   ..$ temp_min: int -1
-    ##   ..$ temp_max: int 4
-    ##  $ visibility: int 2000
-    ##  $ wind      :List of 2
-    ##   ..$ speed: num 1.5
-    ##   ..$ deg  : int 350
-    ##  $ clouds    :List of 1
-    ##   ..$ all: int 36
-    ##  $ dt        : int 1480974600
-    ##  $ sys       :List of 6
-    ##   ..$ type   : int 1
-    ##   ..$ id     : int 5091
-    ##   ..$ message: num 0.596
-    ##   ..$ country: chr "GB"
-    ##   ..$ sunrise: int 1480924246
-    ##   ..$ sunset : int 1480953144
-    ##  $ id        : int 2643743
-    ##  $ name      : chr "London"
-    ##  $ cod       : int 200
+    ##            coord.lon            coord.lat          weather.id1 
+    ##              "-0.13"              "51.51"                "721" 
+    ##          weather.id2        weather.main1        weather.main2 
+    ##                "701"               "Haze"               "Mist" 
+    ## weather.description1 weather.description2        weather.icon1 
+    ##               "haze"               "mist"                "50n" 
+    ##        weather.icon2                 base            main.temp 
+    ##                "50n"           "stations"              "10.64" 
+    ##        main.pressure        main.humidity        main.temp_min 
+    ##               "1024"                 "87"                 "10" 
+    ##        main.temp_max           visibility           wind.speed 
+    ##                 "11"               "7000"                "3.1" 
+    ##            wind.gust           clouds.all                   dt 
+    ##                "9.8"                 "75"         "1481314800" 
+    ##             sys.type               sys.id          sys.message 
+    ##                  "1"               "5091"             "0.0058" 
+    ##          sys.country          sys.sunrise           sys.sunset 
+    ##                 "GB"         "1481270115"         "1481298689" 
+    ##                   id                 name                  cod 
+    ##            "2643743"             "London"                "200"
 
 ``` r
 # ... by city id
@@ -90,31 +84,22 @@ get_current(rio$id, units = "metric") %>%
 ```
 
     ##             name        main.temp 
-    ## "Rio de Janeiro"          "22.26"
+    ## "Rio de Janeiro"          "27.76"
 
 ``` r
-# ... by coordinates
-get_current(lon = rio$lon, lat = rio$lat) %>%
-  unlist() %>% .[c("sys.sunrise", "sys.sunset")] %>%
-  as.numeric() %>% as.POSIXct(origin = "1970-01-01")
-```
-
-    ## [1] "2016-12-05 08:59:35 CET" "2016-12-05 22:28:43 CET"
-
-``` r
-# get weather from stations
+# get weather data from stations
 find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>% 
   .[c("distance", "station.id", "station.name", "last.main.temp")]
 ```
 
     ##   distance station.id station.name last.main.temp
-    ## 1   13.276       4926         EDVK         269.15
-    ## 2   26.926       4954         ETHF         269.15
-    ## 3   69.579       4910         EDLP         270.15
-    ## 4   89.149      73733    Uwe Kruse         267.85
-    ## 5   93.344 1460732694        hlw31         273.15
+    ## 1   13.276       4926         EDVK         277.15
+    ## 2   26.926       4954         ETHF         278.15
+    ## 3   69.579       4910         EDLP         282.15
+    ## 4   89.149      73733    Uwe Kruse         282.75
+    ## 5   93.344 1460732694        hlw31         282.40
     ## 6   97.934 1442728908         AmiH         273.15
-    ## 7   98.978       4951         ETHB         270.15
+    ## 7   98.978       4951         ETHB         283.15
 
 ``` r
 # get forecast
@@ -126,22 +111,13 @@ forecast %>% names()
     ## [1] "city"    "cod"     "message" "cnt"     "list"
 
 ``` r
-sprintf("%s, %s", forecast$city$name, forecast$city$id)
+sprintf("name: %s, id: %i, (forecast) rows: %i",
+        forecast$city$name,
+        forecast$city$id,
+        forecast$cnt) %>% cat()
 ```
 
-    ## [1] "London, 2643743"
-
-``` r
-forecast$cnt
-```
-
-    ## [1] 40
-
-``` r
-forecast$list %>% nrow()
-```
-
-    ## [1] 40
+    ## name: London, id: 2643743, (forecast) rows: 40
 
 ``` r
 forecast$list %>% names()
@@ -151,17 +127,41 @@ forecast$list %>% names()
     ##  [4] "main.temp"       "main.temp_min"   "main.temp_max"  
     ##  [7] "main.pressure"   "main.sea_level"  "main.grnd_level"
     ## [10] "main.humidity"   "main.temp_kf"    "clouds.all"     
-    ## [13] "wind.speed"      "wind.deg"        "sys.pod"        
-    ## [16] "rain.3h"
+    ## [13] "wind.speed"      "wind.deg"        "rain.3h"        
+    ## [16] "sys.pod"
 
 ``` r
 forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>% head()
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2016-12-06 00:00:00      0.93          0.93       1.18
-    ## 2 2016-12-06 03:00:00      0.20          0.20       1.16
-    ## 3 2016-12-06 06:00:00     -0.23         -0.23       1.87
-    ## 4 2016-12-06 09:00:00      2.16          2.16       2.60
-    ## 5 2016-12-06 12:00:00      8.30          8.30       1.72
-    ## 6 2016-12-06 15:00:00      8.88          8.88       1.71
+    ## 1 2016-12-10 00:00:00      9.72         10.21       4.71
+    ## 2 2016-12-10 03:00:00     10.34         10.66       4.52
+    ## 3 2016-12-10 06:00:00     11.20         11.37       3.95
+    ## 4 2016-12-10 09:00:00     11.72         11.72       3.40
+    ## 5 2016-12-10 12:00:00     12.04         12.04       2.96
+    ## 6 2016-12-10 15:00:00     11.07         11.07       2.41
+
+Documentation
+-------------
+
+-   <https://crazycapivara.github.io/owmr/>
+
+or type
+
+``` r
+?owmr
+```
+
+Run tests
+---------
+
+``` r
+testthat::test_dir("tests/testthat/")
+```
+
+    ## current weather data for multiple cities: ...
+    ## current weather data: .....
+    ## current weather data from multiple stations: ..
+    ## 
+    ## DONE ======================================================================

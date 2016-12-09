@@ -8,7 +8,15 @@ knitr::opts_chunk$set(echo = TRUE)
 source("tmp/settings.R")
 ```
 
+## Builds
+
+__master__
+
 [![Travis-CI Build Status](https://travis-ci.org/crazycapivara/owmr.svg?branch=master)](https://travis-ci.org/crazycapivara/owmr)
+
+__develop__
+
+[![Travis-CI Build Status](https://travis-ci.org/crazycapivara/owmr.svg?branch=develop)](https://travis-ci.org/crazycapivara/owmr)
 
 ## Installation
 
@@ -22,33 +30,28 @@ install_github("crazycapivara/owmr")
 install_github("crazycapivara/owmr", ref = "develop")
 ```
 
-## Status
+## Current version
 
-Beta
-
-## Usage
-
-```{r usage, echo=TRUE, eval=TRUE}
+```{r version, echo=TRUE, eval=TRUE}
 library(owmr)
+```
 
+## Introduction
+
+```{r introduction, echo=TRUE, eval=TRUE}
 # pass api key
 api_key_ = "your-api-key"
 owmr_settings(api_key = api_key)
 
-# get current weather by city name
-get_current("London", units = "metric") %>% str()
+# get current weather data by city name
+get_current("London", units = "metric") %>% unlist()
 
 # ... by city id
 (rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ]))
 get_current(rio$id, units = "metric") %>%
   unlist %>% .[c("name", "main.temp")]
 
-# ... by coordinates
-get_current(lon = rio$lon, lat = rio$lat) %>%
-  unlist() %>% .[c("sys.sunrise", "sys.sunset")] %>%
-  as.numeric() %>% as.POSIXct(origin = "1970-01-01")
-
-# get weather from stations
+# get weather data from stations
 find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>% 
   .[c("distance", "station.id", "station.name", "last.main.temp")]
   
@@ -57,14 +60,27 @@ forecast <- get_forecast("London", units = "metric")
 
 forecast %>% names()
 
-sprintf("%s, %s", forecast$city$name, forecast$city$id)
-
-forecast$cnt
-
-forecast$list %>% nrow()
+sprintf("name: %s, id: %i, (forecast) rows: %i",
+        forecast$city$name,
+        forecast$city$id,
+        forecast$cnt) %>% cat()
 
 forecast$list %>% names()
 
 forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>% head()
+```
 
+## Documentation
+
+* https://crazycapivara.github.io/owmr/
+
+or type
+
+```{r documentation, echo=TRUE, eval=FALSE}
+?owmr
+```
+
+## Run tests
+```{r tests, echo=TRUE, eval=TRUE}
+testthat::test_dir("tests/testthat/")
 ```
