@@ -12,7 +12,7 @@ was fetched succesfully}
 }
 \description{
 helper function to update test data
-before running tests, don't forget to set api key
+before running tests, do not forget to set api key
 via \code{owmr_setup} before trying to fetch data
 }
 
