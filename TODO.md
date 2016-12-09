@@ -12,6 +12,7 @@
 * write tests for forcast responses
 * run win builder check to put package to CRAN
 * add license file
+* split R-files containing more than one function (e. g. `lowlevel.R`) 
 
 # Build notes
 
