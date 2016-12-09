@@ -9,3 +9,8 @@ forecast %>% names
 forecast$cnt
 nrow(forecast$list)
 forecast$message
+
+# ... by coordinates
+get_current(lon = rio$lon, lat = rio$lat) %>%
+  unlist() %>% .[c("sys.sunrise", "sys.sunset")] %>%
+  as.numeric() %>% as.POSIXct(origin = "1970-01-01")
