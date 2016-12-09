@@ -4,9 +4,8 @@ NULL
 
 #' pipe operator
 #'
-#' taken from \pkg{magrittr}
+#' exported from \pkg{magrittr}
 #'
-#' @seealso \pkg{magrittr}
-#'
-#' @name %>%
+#' @aliases %>%
+#' @name pipe
 NULL
