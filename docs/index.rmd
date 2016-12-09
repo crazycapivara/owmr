@@ -16,6 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(owmr)
 
 owm_cities %>% head()
+
+ls("package:owmr") %>% data.frame(obj = .)
 ```
 
 ## Installation
