@@ -1,14 +1,22 @@
-api <- "http://api.openweathermap.org/data/2.5/"
+api_url <- "http://api.openweathermap.org/data/2.5/"
 
 assign_loc <- function(query, loc){
   # skip in case (lat, lon) or zip code is passed instead of city name or id
-  if(is.na(loc)) {return(query)}
+  if(is.na(loc)){
+    return(query)
+  }
   if(is.numeric(loc)) {
     query$id <- loc
   } else{
     query$q <- loc
   }
   query
+}
+
+check_api_key <- function(){
+  if(is.null(.pkg_env$api_key)){
+    stop("Set api key before trying to fetch data!", call. = F)
+  }
 }
 
 # TODO: document in order to export
@@ -20,13 +28,12 @@ owmr_parse <- function(response){
 
 # TODO: document in order to export
 # @export
-owmr_wrap_get <- function(appendix = "weather"){
-  query = list(appid = get_api_key())
-  api <- paste0(api, appendix)
+owmr_wrap_get <- function(path = "weather"){
+  api_url <- paste0(api_url, path)
   function(loc = NA, ...){
-    #query$q <- city
-    query %<>% assign_loc(loc)
-    query %<>% c(list(...))
-    httr::GET(api, query = query)
+    check_api_key()
+    query <- list(appid = get_api_key()) %>%
+      assign_loc(loc) %>% c(list(...))
+    httr::GET(api_url, query = query)
   }
 }
