@@ -17,3 +17,24 @@ get_current_for_group <- function(city_ids, ...){
   get(id = paste(city_ids, collapse = ",")) %>%
     owmr_parse()
 }
+
+#' find cities by geo point
+#'
+#' get weather data from a given number of cities around geo point
+#'
+#' @param lat latitude of geo point
+#' @param lon longitude of geo point
+#' @param cnt number of cities
+#'
+#' @return list containing data frame with weather data
+#'
+#' @export
+#'
+#' @seealso \code{\link{find_city}}
+#'
+#' @examples \dontrun{
+#'   find_cities_by_geo_point(lat = 51.50853, lon = -0.12574, cnt = 5)
+#' }
+find_cities_by_geo_point <- function(lat, lon, cnt = 3, ...){
+  find_city(lat = lat, lon = lon, cnt = cnt, ...)
+}
