@@ -11,3 +11,9 @@
 # owmr 0.4.1
 
 * Added function to fetch current weather data for multiple cities at once
+
+# owmr 0.5.0
+
+* Refactored code
+* Added function to fetch current weather data for cities around geo point (more or less an alias to `find_city`)
+* Marked UTF-8 string in data fixed
