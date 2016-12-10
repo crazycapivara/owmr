@@ -1,5 +1,5 @@
 mock_httr_GET <- function(...) {
-  readRDS("data/response_current.rds")
+  readRDS("data/response-current.rds")
 }
 
 context("mock httr::GET")
@@ -16,6 +16,7 @@ test_that("current weather data", {
       len <- 12 # length
       # -----
       result <- get_current(city)
+      owmr_settings(NULL)
       expect_equal(result$name, name)
       expect_equal(result$sys$country, country)
       expect_equal(length(result), 12)

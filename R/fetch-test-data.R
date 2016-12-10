@@ -21,6 +21,16 @@ save_stations_multiple <- function(){
   find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 15) %>%
     save_test_data("stations_multiple.rds")
 }
+
+# save (raw) response to use in mockups
+save_response <- function(){
+  path = "weather"
+  mock_url <- "Hi folks!"
+  response <- owmr_wrap_get(path)("Kassel")
+  response$url <- mock_url -> response$request$url
+  save_test_data(response, "response-current.rds")
+}
+
 #' helper function to fetch test data
 #'
 #' helper function to update test data
