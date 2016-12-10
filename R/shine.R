@@ -5,8 +5,10 @@ keys_default <- c(
   "main.temp"
 )
 
-helper_popups <- function(x, keys){
-  x %<>% unlist() %>% .[keys] %>% unname()
+helper_popups <- function(x){
+  #x %<>% unlist() %>% .[keys] %>% unname()
+  keys <- x %>% unlist() %>% names()
+  x %<>% unlist() %>% unname()
   sapply(1:length(x), function(i){
     sprintf("<b>%s</b>: %s", keys[i], x[i])
   }) %>% paste0(collapse = "</br>")
@@ -21,14 +23,14 @@ helper_popups <- function(x, keys){
 #'
 #' @export
 #'
-owmr_shine <- function(title = "owmr -shine", keys = keys_default){
+owmr_shine <- function(title = "owmr -shine"){
   loc <- search_city_list("Kassel")[1, ]
   # x == DATA
   DATA <- get_current("Kassel", units = "metric")
 
   view <- shiny::fluidPage(
     shiny::h1(title),
-    leaflet::leafletOutput("map"),
+    leaflet::leafletOutput("map", height = 600),
     style = "font-family: Ubuntu;"
   )
 
@@ -36,7 +38,7 @@ owmr_shine <- function(title = "owmr -shine", keys = keys_default){
     output$map <- leaflet::renderLeaflet({
       leaflet::leaflet() %>% leaflet::addTiles() %>%
         leaflet::setView(loc$lon, loc$lat, zoom = 12) %>%
-        leaflet::addMarkers(loc$lon, loc$lat, popup = helper_popups(DATA, keys))
+        leaflet::addMarkers(loc$lon, loc$lat, popup = helper_popups(DATA))
     })
   }
   shiny::shinyApp(view, controller, options = list(port = 12345))
