@@ -42,9 +42,6 @@ save_response <- function(){
 #' @export
 #'
 fetch_test_data <- function(run_tests = TRUE){
-  #if(is.null(.pkg_env$api_key)){
-  #  stop("Set api key before trying to fetch data!", call. = F)
-  #}
   save_current()
   save_current_multiple()
   save_stations_multiple()
