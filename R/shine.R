@@ -17,7 +17,7 @@ helper_popups <- function(x){
 #' shiny app to display weather data from owm
 #'
 #' @param title header of app
-#' @param keys values, which should appear in popup
+# @param keys values, which should appear in popup
 #'
 #' @return shiny app
 #'

@@ -4,12 +4,10 @@
 \alias{owmr_shine}
 \title{shiny app to display weather data from owm}
 \usage{
-owmr_shine(title = "owmr -shine", keys = keys_default)
+owmr_shine(title = "owmr -shine")
 }
 \arguments{
 \item{title}{header of app}
-
-\item{keys}{values, which should appear in popup}
 }
 \value{
 shiny app
