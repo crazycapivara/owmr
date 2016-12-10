@@ -23,6 +23,7 @@ save_stations_multiple <- function(){
 }
 
 # save (raw) response to use in mockups
+# should be done for other responses as well
 save_response <- function(){
   path = "weather"
   mock_url <- "Hi folks!"
@@ -33,9 +34,7 @@ save_response <- function(){
 
 #' helper function to fetch test data
 #'
-#' helper function to update test data
-#' before running tests, do not forget to set api key
-#' via \code{owmr_setup} before trying to fetch data
+#' updates test data before running tests
 #'
 #' @param run_tests set to true in order to run tests after data
 #'    was fetched succesfully
@@ -43,12 +42,13 @@ save_response <- function(){
 #' @export
 #'
 fetch_test_data <- function(run_tests = TRUE){
-  if(is.null(.pkg_env$api_key)){
-    stop("Set api key before trying to fetch data!", call. = F)
-  }
+  #if(is.null(.pkg_env$api_key)){
+  #  stop("Set api key before trying to fetch data!", call. = F)
+  #}
   save_current()
   save_current_multiple()
   save_stations_multiple()
+  save_response()
   # run tests
   if(run_tests){
     testthat::test_dir("tests/testthat", reporter = "tap")
