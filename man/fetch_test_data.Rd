@@ -11,8 +11,6 @@ fetch_test_data(run_tests = TRUE)
 was fetched succesfully}
 }
 \description{
-helper function to update test data
-before running tests, do not forget to set api key
-via \code{owmr_setup} before trying to fetch data
+updates test data before running tests
 }
 
