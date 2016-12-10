@@ -19,3 +19,9 @@ NULL
 #' @aliases %>%
 #' @name pipe
 NULL
+
+exclusions <- c("R/fetch-test-data.R")
+
+owmr_coverage <- function(){ # nocov start
+  covr::package_coverage(line_exclusions = exclusions)
+} # nocov end
