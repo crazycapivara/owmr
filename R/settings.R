@@ -2,7 +2,7 @@
 
 #' owmr settings
 #'
-#' Set api key
+#' Set api key.
 #'
 #' @param api_key owm api key
 #'
