@@ -1,16 +1,17 @@
-#' get daily forcast up to 16 days
+#' Get daily forcast up to 16 days.
 #'
-#' @param loc city name
-#' @param ... see owm api parameters
+#' @param city city name or id
+#' @param ... see owm api documentation
 #'
 #' @return list
 #' @export
 #'
 #' @examples \dontrun{
-#'    # 9 days forecast
-#'    get_forecast_daily("London", cnt = 9)
+#'    # 9 day forecast
+#'    result <- get_forecast_daily("London", cnt = 9)
+#'    forecast_frame <- result$list
 #' }
-get_forecast_daily <- function(loc = NA, ...){
+get_forecast_daily <- function(city = NA, ...){
   get <- owmr_wrap_get("forecast/daily")
-  get(loc, ...) %>% owmr_parse()
+  get(city, ...) %>% owmr_parse()
 }

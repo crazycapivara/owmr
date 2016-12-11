@@ -32,12 +32,12 @@ save_response <- function(){
   save_test_data(response, "response-current.rds")
 }
 
-#' helper function to fetch test data
+#' Helper function to fetch test data.
 #'
-#' updates test data before running tests
+#' Updates test data before running tests.
 #'
-#' @param run_tests set to true in order to run tests after data
-#'    was fetched succesfully
+#' @param run_tests set \code{run_tests = TRUE} in order
+#'    to run tests after data was fetched succesfully
 #'
 #' @export
 #'

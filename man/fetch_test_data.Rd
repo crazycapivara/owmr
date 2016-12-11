@@ -2,15 +2,15 @@
 % Please edit documentation in R/fetch-test-data.R
 \name{fetch_test_data}
 \alias{fetch_test_data}
-\title{helper function to fetch test data}
+\title{Helper function to fetch test data.}
 \usage{
 fetch_test_data(run_tests = TRUE)
 }
 \arguments{
-\item{run_tests}{set to true in order to run tests after data
-was fetched succesfully}
+\item{run_tests}{set \code{run_tests = TRUE} in order
+to run tests after data was fetched succesfully}
 }
 \description{
-updates test data before running tests
+Updates test data before running tests.
 }
 

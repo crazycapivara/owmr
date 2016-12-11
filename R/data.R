@@ -1,8 +1,8 @@
 #' owm city list containing ids and coords of cities.
 #'
-#' a dataset containing city ids which can be used in queries
+#' A dataset containing city ids and coordinates to be used in queries.
 #'
-#' @format a data frame with 74071 rows and 4 variables:
+#' @format data frame with 74071 rows and 4 variables:
 #' \describe{
 #'   \item{id}{city id}
 #'   \item{nm}{city name}
@@ -12,6 +12,7 @@
 #' }
 #' @source \url{http://openweathermap.org/help/city_list.txt}
 #'
-# TODO: Fix build note: UTF-8 string found in `owm_cities$nm[7053]`
-# Metabetchouan-Lac-a-la-Croix
+# NOTE: UTF-8 string found in `owm_cities$nm[7053]`
+# Metabetchouan-Lac-a-la-Croix, needs to be fixed in case dataset
+# is updated
 "owm_cities"

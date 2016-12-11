@@ -2,24 +2,25 @@
 % Please edit documentation in R/forecast.R
 \name{get_forecast}
 \alias{get_forecast}
-\title{get forecast}
+\title{Get 3h forecast.}
 \usage{
-get_forecast(city, ...)
+get_forecast(city = NA, ...)
 }
 \arguments{
-\item{city}{city name}
+\item{city}{city name or id}
 
-\item{...}{see owm api for optional parameters}
+\item{...}{see owm api documentation}
 }
 \value{
 list
 }
 \description{
-get forecast
+Get 3h forecast.
 }
 \examples{
 \dontrun{
-   get_forecast("Kassel", units = "metric")
+   result <- get_forecast("Kassel", units = "metric")
+   names(result)
 }
 }
 

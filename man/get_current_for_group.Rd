@@ -2,27 +2,30 @@
 % Please edit documentation in R/current-multiple.R
 \name{get_current_for_group}
 \alias{get_current_for_group}
-\title{Title}
+\title{Get current weather data for multiple cities.}
 \usage{
 get_current_for_group(city_ids, ...)
 }
 \arguments{
-\item{city_ids}{vector containing city ids,
-see \code{\link{owm_cities}} dataset for ids}
+\item{city_ids}{numeric vector containing city ids}
 
-\item{...}{see owm api (units, ...)}
+\item{...}{see owm api documentation}
 }
 \value{
-list containing data frame with weather data of cities
+list containing data frame with current weather data of cities
 }
 \description{
-Title
+Get current weather data for multiple cities.
 }
 \examples{
 \dontrun{
    city_ids = c(2831088, 2847639, 2873291)
-   result <-get_current_for_group(city_ids)
+   result <- get_current_for_group(city_ids)
+   result$cnt == nrow(result$list)
    weather_frame <- result$list
 }
+}
+\seealso{
+\code{\link{owm_cities}} dataset for city ids
 }
 

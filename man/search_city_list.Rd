@@ -2,22 +2,29 @@
 % Please edit documentation in R/city-list.R
 \name{search_city_list}
 \alias{search_city_list}
-\title{search for given city in owm's city list}
+\title{Look up coordinates and city id in owm's city list.}
 \usage{
 search_city_list(city, country_code = "")
 }
 \arguments{
-\item{city}{city name}
+\item{city}{city name (regex)}
 
-\item{country_code}{two letter country code (AU, DE, ...)}
+\item{country_code}{two letter country code (AU, DE, ...),
+use \code{country_code = ""} as wildcard}
 }
 \value{
 data frame with matches
 }
 \description{
-see also \code{owm_cities} dataset
+search \code{\link{owm_cities}} dataset by city name
+and country code
 }
 \examples{
-# TODO
+search_city_list("London", "GB")
+search_city_list("London")
+search_city_list("Lond")
+}
+\seealso{
+\code{\link{owm_cities}} dataset
 }
 

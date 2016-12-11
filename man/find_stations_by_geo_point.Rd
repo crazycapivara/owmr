@@ -2,9 +2,9 @@
 % Please edit documentation in R/stations.R
 \name{find_stations_by_geo_point}
 \alias{find_stations_by_geo_point}
-\title{find stations by geo point}
+\title{Find stations by geo point.}
 \usage{
-find_stations_by_geo_point(lat, lon, cnt = 10)
+find_stations_by_geo_point(lat, lon, cnt = 10, ...)
 }
 \arguments{
 \item{lat}{latitude of geo point}
@@ -12,12 +12,15 @@ find_stations_by_geo_point(lat, lon, cnt = 10)
 \item{lon}{longitude of geo point}
 
 \item{cnt}{number of stations}
+
+\item{...}{see owm api documentation}
 }
 \value{
 data frame
 }
 \description{
-get weather list from a given number of stations around geo point
+Get weather data from a given number of stations
+around a geo point.
 }
 \examples{
 \dontrun{

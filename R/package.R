@@ -3,8 +3,15 @@
 #' @name owmr
 #'
 #' @examples \dontrun{
+#'    # first of all you have to set up your api key
+#'    owmr_settings("your_api_key")
+#'
+#'    # get current weather for "Kassel" with temperatures in °C
 #'    get_current("Kassel", units = "metric")
+#'
+#'    # get 7 day forcast
 #'    get_forecast("London", cnt = 7)
+#'
 #'    # ...
 #' }
 #'
@@ -12,7 +19,7 @@
 #' @export %>%
 NULL
 
-#' pipe operator
+#' Pipe operator.
 #'
 #' exported from \pkg{magrittr}
 #'
@@ -25,6 +32,7 @@ exclusions <- list(
   "R/fetch-test-data.R"
 )
 
+# export it or just run it in development mode?
 owmr_coverage <- function(){ # nocov start
   covr::package_coverage(line_exclusions = exclusions)
 } # nocov end

@@ -1,6 +1,6 @@
 .pkg_env <- new.env()
 
-#' owmr settings
+#' owmr settings.
 #'
 #' Set api key.
 #'

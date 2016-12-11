@@ -2,7 +2,7 @@
 % Please edit documentation in R/settings.R
 \name{owmr_settings}
 \alias{owmr_settings}
-\title{owmr settings}
+\title{owmr settings.}
 \usage{
 owmr_settings(api_key)
 }
@@ -10,7 +10,7 @@ owmr_settings(api_key)
 \item{api_key}{owm api key}
 }
 \description{
-Set api key
+Set api key.
 }
 \examples{
 \dontrun{

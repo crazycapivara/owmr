@@ -1,13 +1,16 @@
-#' get current weather data for given city
+#' Get current weather data for given city.
 #'
 #' @param city city name or id
-#' @param ... see owm api
+#' @param ... see owm api documentation (you can also skip parameter
+#'   `city` and pass latitude, longitude or zip code instead)
 #'
 #' @return list
 #' @export
 #'
 #' @examples \dontrun{
 #'    get_current("London", units = "metric")
+#'    get_current(2643741, lang = "DE")
+#'    get_current(lon = -0.09184, lat = 51.51279)
 #' }
 get_current <- function(city = NA, ...){
   get <- owmr_wrap_get("weather")

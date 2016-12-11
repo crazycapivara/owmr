@@ -1,10 +1,12 @@
-#' find stations by geo point
+#' Find stations by geo point.
 #'
-#' get weather list from a given number of stations around geo point
+#' Get weather data from a given number of stations
+#' around a geo point.
 #'
 #' @param lat latitude of geo point
 #' @param lon longitude of geo point
 #' @param cnt number of stations
+#' @param ... see owm api documentation
 #'
 #' @return data frame
 #' @export
@@ -13,15 +15,15 @@
 #'    # get weather data from 7 stations
 #'    find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7)
 #' }
-find_stations_by_geo_point <- function(lat, lon, cnt = 10){
+find_stations_by_geo_point <- function(lat, lon, cnt = 10, ...){
   get <- owmr_wrap_get("station/find")
-  get(lat = lat, lon = lon, cnt = cnt) %>% owmr_parse()
+  get(lat = lat, lon = lon, cnt = cnt, ...) %>% owmr_parse()
 }
 
-#' get current weather data from given station
+#' Get current weather data from given station.
 #'
 #' @param station_id station id
-#' @param ... see owm api
+#' @param ... see owm api documentation
 #'
 #' @return list
 #' @export
