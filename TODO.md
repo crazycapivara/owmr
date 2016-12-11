@@ -35,6 +35,7 @@
   - check documentation
 * add coverage via `covr` package
 * add api support for uv-index
+* roxygen `inherits` for repeating parameters in funcs
 
 # Build notes
 
