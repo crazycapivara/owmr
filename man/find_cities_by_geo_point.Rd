@@ -2,7 +2,7 @@
 % Please edit documentation in R/current-multiple.R
 \name{find_cities_by_geo_point}
 \alias{find_cities_by_geo_point}
-\title{find cities by geo point}
+\title{Find cities by geo point.}
 \usage{
 find_cities_by_geo_point(lat, lon, cnt = 3, ...)
 }
@@ -19,7 +19,8 @@ find_cities_by_geo_point(lat, lon, cnt = 3, ...)
 list containing data frame with weather data
 }
 \description{
-get weather data from a given number of cities around geo point
+Get current weather data for a number of cities
+around given geo point.
 }
 \examples{
 \dontrun{

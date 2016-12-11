@@ -2,26 +2,30 @@
 % Please edit documentation in R/current.R
 \name{find_city}
 \alias{find_city}
-\title{find city by name or coords (lat, lon)}
+\title{Find city by name or coordinates.}
 \usage{
 find_city(city = NA, ...)
 }
 \arguments{
 \item{city}{city name (and country code)}
 
-\item{...}{see owm api}
+\item{...}{see owm api documentation, pass \code{lat} and \code{lon}
+to search by coordinates}
 }
 \value{
 list of weather data for matches
 }
 \description{
-either search for city by name or fetch weather
-data for a number of cities around geo point
+Either search for city by name or fetch weather
+data for a number of cities around geo point.
 }
 \examples{
 \dontrun{
    find_city("London,UK")
    find_city(lat = 51.50853, lon = -0.12574, cnt = 5)
 }
+}
+\seealso{
+\link{find_cities_by_geo_point}
 }
 

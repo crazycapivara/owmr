@@ -1,6 +1,7 @@
 #' Get current weather data for multiple cities.
 #'
-#' @seealso \code{\link{owm_cities}} dataset for city ids
+#' @seealso \code{\link{owm_cities}} dataset in order to
+#'    lookup city ids
 #'
 #' @param city_ids numeric vector containing city ids
 #' @param ... see owm api documentation
@@ -20,9 +21,10 @@ get_current_for_group <- function(city_ids, ...){
     owmr_parse()
 }
 
-#' find cities by geo point
+#' Find cities by geo point.
 #'
-#' get weather data from a given number of cities around geo point
+#' Get current weather data for a number of cities
+#' around given geo point.
 #'
 #' @param lat latitude of geo point
 #' @param lon longitude of geo point

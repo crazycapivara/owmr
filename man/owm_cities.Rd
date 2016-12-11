@@ -3,7 +3,7 @@
 \docType{data}
 \name{owm_cities}
 \alias{owm_cities}
-\title{owm city list containing ids and coords of cities.}
+\title{owm city list containing ids and coordinates of cities.}
 \format{data frame with 74071 rows and 4 variables:
 \describe{
   \item{id}{city id}

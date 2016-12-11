@@ -2,20 +2,22 @@
 % Please edit documentation in R/forecast-daily.R
 \name{get_forecast_daily}
 \alias{get_forecast_daily}
-\title{Get daily forcast up to 16 days.}
+\title{Get daily forcast data up to 16 days.}
 \usage{
 get_forecast_daily(city = NA, ...)
 }
 \arguments{
 \item{city}{city name or id}
 
-\item{...}{see owm api documentation}
+\item{...}{see owm api documentation, you can also skip parameter
+\code{city} and pass \code{lat} (latitude) and \code{lon} (longitude)
+or \code{zip} (zip code) instead}
 }
 \value{
 list
 }
 \description{
-Get daily forcast up to 16 days.
+Get daily forcast data up to 16 days.
 }
 \examples{
 \dontrun{

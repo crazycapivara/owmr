@@ -19,8 +19,8 @@ find_stations_by_geo_point(lat, lon, cnt = 10, ...)
 data frame
 }
 \description{
-Get weather data from a given number of stations
-around a geo point.
+Get weather data from a number of stations
+around given geo point.
 }
 \examples{
 \dontrun{

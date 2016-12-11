@@ -9,8 +9,9 @@ get_current(city = NA, ...)
 \arguments{
 \item{city}{city name or id}
 
-\item{...}{see owm api documentation (you can also skip parameter
-`city` and pass latitude, longitude or zip code instead)}
+\item{...}{see owm api documentation, you can also skip parameter
+\code{city} and pass \code{lat} (latitude) and \code{lon} (longitude)
+or \code{zip} (zip code) instead}
 }
 \value{
 list
@@ -23,6 +24,7 @@ Get current weather data for given city.
    get_current("London", units = "metric")
    get_current(2643741, lang = "DE")
    get_current(lon = -0.09184, lat = 51.51279)
+   get_current(zip = "94040,US")
 }
 }
 

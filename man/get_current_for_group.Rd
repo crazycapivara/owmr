@@ -26,6 +26,7 @@ Get current weather data for multiple cities.
 }
 }
 \seealso{
-\code{\link{owm_cities}} dataset for city ids
+\code{\link{owm_cities}} dataset in order to
+   lookup city ids
 }
 

@@ -11,10 +11,10 @@ owmr - An R interface to OpenWeatherMap
    # first of all you have to set up your api key
    owmr_settings("your_api_key")
 
-   # get current weather for "Kassel" with temperatures in °C
+   # get current weather data for "Kassel" with temperatures in °C
    get_current("Kassel", units = "metric")
 
-   # get 7 day forcast
+   # get 3h forcast data (7 rows)
    get_forecast("London", cnt = 7)
 
    # ...

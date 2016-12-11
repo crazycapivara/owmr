@@ -1,4 +1,4 @@
-#' owm city list containing ids and coords of cities.
+#' owm city list containing ids and coordinates of cities.
 #'
 #' A dataset containing city ids and coordinates to be used in queries.
 #'

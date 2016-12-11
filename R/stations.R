@@ -1,12 +1,13 @@
 #' Find stations by geo point.
 #'
-#' Get weather data from a given number of stations
-#' around a geo point.
+#' Get weather data from a number of stations
+#' around given geo point.
 #'
-#' @param lat latitude of geo point
-#' @param lon longitude of geo point
+#' @inheritParams find_cities_by_geo_point
+# @param lat latitude of geo point
+# @param lon longitude of geo point
 #' @param cnt number of stations
-#' @param ... see owm api documentation
+# @param ... see owm api documentation
 #'
 #' @return data frame
 #' @export
