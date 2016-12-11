@@ -8,6 +8,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+source("../tmp/settings.R")
 ```
 
 ## Introduction
@@ -30,6 +31,41 @@ devtools::install_github("crazycapivara/owmr")
 
 ## Usage
 
-```
-## TODO ##
+```{r usage}
+owmr_settings(api_key)
+rio <- search_city_list("Rio de Janeiro")
+rio
+
+df <- find_cities_by_geo_point(
+  rio$lat,
+  rio$lon,
+  cnt = 9,
+  units = "metric"
+)$list
+
+df %>% names()
+
+require("leaflet")
+
+icon_url <- "http://openweathermap.org/img/w/%s.png"
+
+weather <- df$weather %>% do.call(rbind, .)
+weather$icon <- sprintf(icon_url, weather$icon)
+weather
+#weather_icons <- sapply(df$weather, function(x) sprintf(icon_url, x$icon))
+#weather_description <- sapply(df$weather, function(x) x$description)
+datetimes <- df$dt %>% as.POSIXct(origin = "1970-01-01")
+
+leaflet(data = df) %>% addProviderTiles("CartoDB.DarkMatter") %>%
+  addMarkers(~coord.lon, ~coord.lat, popup = paste0(
+    "<b>DT_</b>", datetimes, "<br>",
+    "<b>NAME_</b>", df$name, "</br>",
+    "<b>TEMP_</b>", df$main.temp, " °C</br>",
+    "<b>HUMIDITY_</b>", df$main.humidity, " % </br>",
+    "<i>", weather$description, "</i>"), icon = icons(weather$icon)
+  )
+
+## click on icons to get further information ##
+
+## ... ##
 ```
