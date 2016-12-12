@@ -188,31 +188,21 @@ df %&gt;% names()</code></pre>
 
 weather &lt;- df$weather %&gt;% do.call(rbind, .)
 weather$icon &lt;- sprintf(icon_url, weather$icon)
-weather</code></pre>
-<pre><code>##    id main description                                    icon
-## 1 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 2 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 3 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 4 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 5 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 6 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 7 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 8 500 Rain  light rain http://openweathermap.org/img/w/10n.png
-## 9 500 Rain  light rain http://openweathermap.org/img/w/10n.png</code></pre>
-<pre class="r"><code>#weather_icons &lt;- sapply(df$weather, function(x) sprintf(icon_url, x$icon))
-#weather_description &lt;- sapply(df$weather, function(x) x$description)
-datetimes &lt;- df$dt %&gt;% as.POSIXct(origin = &quot;1970-01-01&quot;)
+weather$icon %&gt;% head(2)</code></pre>
+<pre><code>## [1] &quot;http://openweathermap.org/img/w/11d.png&quot;
+## [2] &quot;http://openweathermap.org/img/w/50d.png&quot;</code></pre>
+<pre class="r"><code>datetimes &lt;- df$dt %&gt;% as.POSIXct(origin = &quot;1970-01-01&quot;)
 
-leaflet(data = df) %&gt;% addProviderTiles(&quot;CartoDB.DarkMatter&quot;) %&gt;%
+leaflet(data = df, width = &quot;100%&quot;) %&gt;%
+  addProviderTiles(&quot;CartoDB.DarkMatter&quot;) %&gt;%
   addMarkers(~coord.lon, ~coord.lat, popup = paste0(
-    &quot;&lt;b&gt;DT_&lt;/b&gt;&quot;, datetimes, &quot;&lt;br&gt;&quot;,
-    &quot;&lt;b&gt;NAME_&lt;/b&gt;&quot;, df$name, &quot;&lt;/br&gt;&quot;,
-    &quot;&lt;b&gt;TEMP_&lt;/b&gt;&quot;, df$main.temp, &quot; °C&lt;/br&gt;&quot;,
-    &quot;&lt;b&gt;HUMIDITY_&lt;/b&gt;&quot;, df$main.humidity, &quot; % &lt;/br&gt;&quot;,
+    datetimes, &quot;&lt;br&gt;&quot;,
+    df$main.temp, &quot; °C &lt;b&gt;AT&lt;/b&gt; &quot;, df$name, &quot;&lt;/br&gt;&quot;,
+    &quot;&lt;b&gt;HUMIDITY&lt;/b&gt; &quot;, df$main.humidity, &quot; % &lt;/br&gt;&quot;,
     &quot;&lt;i&gt;&quot;, weather$description, &quot;&lt;/i&gt;&quot;), icon = icons(weather$icon)
   )</code></pre>
-<div id="htmlwidget-7075" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7075">{"x":{"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.902781,-22.9,-22.968981,-22.980141,-22.81415,-22.883329,-22.9,-22.785561,-22.826941],[-43.2075,-43.23333,-43.185631,-43.196621,-43.230709,-43.103611,-43.09972,-43.311668,-43.05389],{"iconUrl":{"data":"http://openweathermap.org/img/w/10n.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Rio de Janeiro\u003c/br><b>TEMP_\u003c/b>28.62 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>São Cristóvão\u003c/br><b>TEMP_\u003c/b>28.63 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Botafogo\u003c/br><b>TEMP_\u003c/b>28.64 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Pavão-Pavaozinho\u003c/br><b>TEMP_\u003c/b>28.64 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Vila Joaniza\u003c/br><b>TEMP_\u003c/b>28.6 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Niteroi\u003c/br><b>TEMP_\u003c/b>28.58 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Icaraí\u003c/br><b>TEMP_\u003c/b>28.59 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Duque de Caxias\u003c/br><b>TEMP_\u003c/b>28.62 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>","<b>DT_\u003c/b>2016-12-11 23:00:00<br><b>NAME_\u003c/b>Sao Goncalo\u003c/br><b>TEMP_\u003c/b>28.57 °C\u003c/br><b>HUMIDITY_\u003c/b>66 % \u003c/br><i>light rain\u003c/i>"],null,null]}],"limits":{"lat":[-22.980141,-22.785561],"lng":[-43.311668,-43.05389]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3455" style="width:100%;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3455">{"x":{"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.902781,-22.9,-22.968981,-22.980141,-22.81415,-22.883329,-22.9,-22.785561,-22.826941],[-43.2075,-43.23333,-43.185631,-43.196621,-43.230709,-43.103611,-43.09972,-43.311668,-43.05389],{"iconUrl":{"data":["http://openweathermap.org/img/w/11d.png","http://openweathermap.org/img/w/50d.png","http://openweathermap.org/img/w/11n.png","http://openweathermap.org/img/w/50n.png"],"index":[0,1,0,1,0,1,2,3,2,3,2,3,0,1,0,1,0,1]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Rio de Janeiro\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> São Cristóvão\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Botafogo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Pavão-Pavaozinho\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 23:12:00<br>25.49 °C <b>AT\u003c/b> Vila Joaniza\u003c/br><b>HUMIDITY\u003c/b> 100 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Niteroi\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Icaraí\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with heavy rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Duque de Caxias\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Sao Goncalo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with heavy rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Rio de Janeiro\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> São Cristóvão\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with heavy rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Botafogo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Pavão-Pavaozinho\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 23:12:00<br>25.49 °C <b>AT\u003c/b> Vila Joaniza\u003c/br><b>HUMIDITY\u003c/b> 100 % \u003c/br><i>mist\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Niteroi\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Icaraí\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Duque de Caxias\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Sao Goncalo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>"],null,null]}],"limits":{"lat":[-22.980141,-22.785561],"lng":[-43.311668,-43.05389]}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>## click on icons to get further information ##
 
 ## ... ##</code></pre>
