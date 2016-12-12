@@ -51,17 +51,16 @@ icon_url <- "http://openweathermap.org/img/w/%s.png"
 
 weather <- df$weather %>% do.call(rbind, .)
 weather$icon <- sprintf(icon_url, weather$icon)
-weather
-#weather_icons <- sapply(df$weather, function(x) sprintf(icon_url, x$icon))
-#weather_description <- sapply(df$weather, function(x) x$description)
+weather$icon %>% head(2)
+
 datetimes <- df$dt %>% as.POSIXct(origin = "1970-01-01")
 
-leaflet(data = df) %>% addProviderTiles("CartoDB.DarkMatter") %>%
+leaflet(data = df, width = "100%") %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%
   addMarkers(~coord.lon, ~coord.lat, popup = paste0(
-    "<b>DT_</b>", datetimes, "<br>",
-    "<b>NAME_</b>", df$name, "</br>",
-    "<b>TEMP_</b>", df$main.temp, " °C</br>",
-    "<b>HUMIDITY_</b>", df$main.humidity, " % </br>",
+    datetimes, "<br>",
+    df$main.temp, " °C <b>AT</b> ", df$name, "</br>",
+    "<b>HUMIDITY</b> ", df$main.humidity, " % </br>",
     "<i>", weather$description, "</i>"), icon = icons(weather$icon)
   )
 
