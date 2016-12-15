@@ -2,24 +2,18 @@
 % Please edit documentation in R/utils.R
 \name{flatten_weather}
 \alias{flatten_weather}
-\title{Flatten weather column.}
+\title{Parse weather column to (single) data frame.}
 \usage{
-flatten_weather(x, row = 1)
+flatten_weather(x)
 }
 \arguments{
 \item{x}{weather column (NOT name)}
-
-\item{row}{row to extract from weather list (data frame)}
 }
 \value{
 data frame
 }
 \description{
-For muliple cities or stations a nested weather column containing
-a list with more or less weather description and icon for each city/station is returned by owm.
-\code{flatten_weather} just extracts a given row from the list.
-Usually there is only one entry in the list. Therfore, by default
-the first row is returned.
+Parse weather column to (single) data frame.
 }
 \examples{
 \dontrun{
