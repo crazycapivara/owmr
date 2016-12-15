@@ -1,3 +1,20 @@
+#' Popup creator.
+#'
+#' Calls \code{paste0} in an environment constructed from passed
+#' data.
+#'
+#' @param x data, usually a result data frame as returned by
+#'    \link{\code{get_forecast}} or
+#'    \link{\code{get_current_for_group}}
+#' @param ... see \link{\code{paste0}}
+#'
+#' @return pasted objects
+#' @export
+#'
+#' @examples \dontrun{
+#'    df <- get_forcast("London", units = "metric", cnt = 7)$list
+#'    popup(df, dt_txt, "</br>", main.temp)
+#' }
 popup <- function(x, ...){
   cmd <- substitute(paste0(...))
   with(x, eval(cmd))
