@@ -8,16 +8,16 @@ popup(x, ...)
 }
 \arguments{
 \item{x}{data, usually a result data frame as returned by
-\link{\code{get_forecast}} or
-\link{\code{get_current_for_group}}}
+\code{\link{get_forecast}} or
+\code{\link{get_current_for_group}}}
 
-\item{...}{see \link{\code{paste0}}}
+\item{...}{see \code{\link{paste0}}}
 }
 \value{
 pasted objects
 }
 \description{
-Calls \code{paste0} in an environment constructed from passed
+Calls \code{\link{paste0}} in an environment constructed from passed
 data.
 }
 \examples{

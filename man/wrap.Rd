@@ -18,9 +18,10 @@ wrapped value
 Wrap html tag around value.
 }
 \examples{
-x <- get_current("London", units = "metric")
-# create a simple popup to show up on a (leaflet) map
-popup <- wrap("strong", x$main$temp)
-
+\dontrun{
+   x <- get_current("London", units = "metric")
+   # create a simple popup to show up on a (leaflet) map
+   popup <- wrap("strong", x$main$temp)
+}
 }
 

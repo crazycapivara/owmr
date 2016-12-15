@@ -14,7 +14,6 @@ flatten_weather <- function(x){
   lapply(x, function(df){df[1, ]}) %>% do.call(rbind, .)
 }
 
-# TODO: document in order to export
 #' Apply functions to columns of result.
 #'
 #' @param x result data frame

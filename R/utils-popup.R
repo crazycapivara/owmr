@@ -1,12 +1,12 @@
 #' Popup creator.
 #'
-#' Calls \code{paste0} in an environment constructed from passed
+#' Calls \code{\link{paste0}} in an environment constructed from passed
 #' data.
 #'
 #' @param x data, usually a result data frame as returned by
-#'    \link{\code{get_forecast}} or
-#'    \link{\code{get_current_for_group}}
-#' @param ... see \link{\code{paste0}}
+#'    \code{\link{get_forecast}} or
+#'    \code{\link{get_current_for_group}}
+#' @param ... see \code{\link{paste0}}
 #'
 #' @return pasted objects
 #' @export
@@ -28,11 +28,11 @@ popup <- function(x, ...){
 #' @return wrapped value
 #' @export
 #'
-#' @examples
-#' x <- get_current("London", units = "metric")
-#' # create a simple popup to show up on a (leaflet) map
-#' popup <- wrap("strong", x$main$temp)
-#'
+#' @examples \dontrun{
+#'    x <- get_current("London", units = "metric")
+#'    # create a simple popup to show up on a (leaflet) map
+#'    popup <- wrap("strong", x$main$temp)
+#' }
 wrap <- function(tag, value){
   sprintf("<%s>%s</%s>", tag, value, tag)
 }
