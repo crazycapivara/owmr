@@ -36,6 +36,7 @@
 * prepare package for __CRAN__
   - check documentation
 * add coverage via `covr` package
+  - see func `owmr_coverage` __DONE__
 * add api support for uv-index
 * roxygen `inherits` for repeating parameters in funcs
   - __DONE__
