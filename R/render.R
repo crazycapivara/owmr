@@ -1,4 +1,4 @@
-#' Render template (text).
+#' Render operator.
 #'
 #' Vectorizes function \code{\link[whisker]{whisker.render}}. \cr
 #' \cr
@@ -12,7 +12,6 @@
 #'    variables names in template
 #'
 #' @return rendered template
-##' @aliases "%$%"
 #' @rdname render
 #' @export
 #'
@@ -20,8 +19,8 @@
 #'
 #' @examples
 #' vars <- data.frame(a = 1:3, b = 23:21)
-#' "a = {{a}} and b = {{b}}" %$% vars
-`%$%` <- function(template, data){
+#' "a = {{a}} and b = {{b}}" %$$% vars
+`%$$%` <- render <- function(template, data){
   # add empty column for correct subsetting of data frames with only one column
   if(ncol(data) == 1) {
     random_name <- tempfile(pattern = "", tmpdir = "") %>%
@@ -35,4 +34,4 @@
 }
 
 ##' @export
-#`%$%` <- render
+#`%?%` <- render

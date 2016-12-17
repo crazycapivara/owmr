@@ -13,7 +13,7 @@ add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template
       leaflet::icons()
   }
   if(!is.null(template)){
-    popup <- template %$% data
+    popup <- template %$$% data
   }
   leaflet::addMarkers(map, lng, lat, data = data, icon = icon, popup = popup, ...)
 }
