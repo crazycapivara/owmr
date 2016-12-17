@@ -1,6 +1,6 @@
 #' Render template (text).
 #'
-#' Vectorizes \code{\link[whisker]{whisker.render}} function. \cr
+#' Vectorizes function \code{\link[whisker]{whisker.render}}. \cr
 #' \cr
 #' NOTE: Because \pkg{whisker} does not support variable names
 #' inlcuding dots, a \emph{dot} in column names is replaced by an \emph{underscore}.
@@ -12,7 +12,8 @@
 #'    variables names in template
 #'
 #' @return rendered template
-#' @aliases "%$%"
+##' @aliases "%$%"
+#' @rdname render
 #' @export
 #'
 #' @seealso \code{\link[whisker]{whisker.render}}
@@ -20,7 +21,7 @@
 #' @examples
 #' vars <- data.frame(a = 1:3, b = 23:21)
 #' "a = {{a}} and b = {{b}}" %$% vars
-render <- function(template, data){
+`%$%` <- function(template, data){
   # add empty column for correct subsetting of data frames with only one column
   if(ncol(data) == 1) {
     random_name <- tempfile(pattern = "", tmpdir = "") %>%
@@ -33,4 +34,5 @@ render <- function(template, data){
   })
 }
 
-`%$%` <- render
+##' @export
+#`%$%` <- render
