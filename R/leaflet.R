@@ -12,7 +12,7 @@
 #
 #`%$%` <- render
 
-add_weather <- function(map, data = NULL, lng = NULL, lat = NULL, ...){
+add_weather <- function(map, data = NULL, lng = NULL, lat = NULL, icon = NULL, ...){
   if(is.null(lng) | is.null(lat)){
     if(!is.data.frame(data)){
       lng <- data$coord$lon
@@ -22,5 +22,9 @@ add_weather <- function(map, data = NULL, lng = NULL, lat = NULL, ...){
       lat = ~coord.lat
     }
   }
-  leaflet::addMarkers(map, lng, lat, data = data, ...)
+  if(!is.null(icon)){
+    icon %<>% get_icon_url() %>%
+      leaflet::icons()
+    }
+  leaflet::addMarkers(map, lng, lat, data = data, icon = icon, ...)
 }
