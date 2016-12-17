@@ -33,5 +33,6 @@
   })
 }
 
-##' @export
-#`%?%` <- render
+#' @name render
+#' @export
+NULL

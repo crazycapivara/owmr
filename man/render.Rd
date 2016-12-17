@@ -2,6 +2,7 @@
 % Please edit documentation in R/render.R
 \name{\%$$\%}
 \alias{\%$$\%}
+\alias{render}
 \title{Render operator.}
 \usage{
 template \%$$\% data
