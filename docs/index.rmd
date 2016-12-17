@@ -36,33 +36,33 @@ owmr_settings(api_key)
 rio <- search_city_list("Rio de Janeiro")
 rio
 
-df <- find_cities_by_geo_point(
-  rio$lat,
-  rio$lon,
+owm_data <- find_cities_by_geo_point(
+  lat = rio$lat,
+  lon = rio$lon,
   cnt = 9,
-  units = "metric"
-)$list
+  units = "metric")$list
 
-df %>% names()
+owm_data %>% names()
+
+# flatten weather column ...
+(weather <- flatten_weather(owm_data$weather)) %>% head(2)
+
+# ... and add weather description to main data frame
+library(magrittr)
+(owm_data %<>% cbind(weather_desc = weather$description)) %>% names()
+
+# create popup template to show up on map
+# (NOTE: dots in colum names must be subsituted with an underscore in tpl)
+popup_tpl <- "<b>{{name}}</b></br>{{main_temp}} °C, {{weather_desc}}"
+
+# test it ...
+popup_tpl %$$% owm_data %>% head(2)
 
 require("leaflet")
 
-icon_url <- "http://openweathermap.org/img/w/%s.png"
-
-weather <- df$weather %>% do.call(rbind, .)
-weather$icon <- sprintf(icon_url, weather$icon)
-weather$icon %>% head(2)
-
-datetimes <- df$dt %>% as.POSIXct(origin = "1970-01-01")
-
-leaflet(data = df, width = "100%") %>%
+leaflet(width = "100%") %>%
   addProviderTiles("CartoDB.DarkMatter") %>%
-  addMarkers(~coord.lon, ~coord.lat, popup = paste0(
-    datetimes, "<br>",
-    df$main.temp, " °C <b>AT</b> ", df$name, "</br>",
-    "<b>HUMIDITY</b> ", df$main.humidity, " % </br>",
-    "<i>", weather$description, "</i>"), icon = icons(weather$icon)
-  )
+  add_weather(owm_data, icon = weather$icon, template = popup_tpl)
 
 ## click on icons to get further information ##
 
