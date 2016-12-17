@@ -3,7 +3,7 @@
 \name{render}
 \alias{"\%$\%"}
 \alias{render}
-\title{Render template.}
+\title{Render template (text).}
 \usage{
 render(template, data)
 }
@@ -17,13 +17,18 @@ variables names in template}
 rendered template
 }
 \description{
-Vectorizes \code{\link[whiskers]{whisker.render}}.
+Vectorizes \code{\link[whisker]{whisker.render}} function. \cr
+\cr
+NOTE: Because \pkg{whisker} does not support variable names
+inlcuding dots, a \emph{dot} in column names is replaced by an \emph{underscore}.
+Therefore, you must use an underscore in the template text for
+varibales including dots.
 }
 \examples{
 vars <- data.frame(a = 1:3, b = 23:21)
 "a = {{a}} and b = {{b}}" \%$\% vars
 }
 \seealso{
-\code{\link[whiskers]{whisker.render}}
+\code{\link[whisker]{whisker.render}}
 }
 
