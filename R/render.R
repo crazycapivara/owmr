@@ -28,8 +28,6 @@ render <- function(template, data){
     data[random_name] <- 0L
   }
   names(data) %<>% gsub("\\.", "_", .)
-  #print(names(data))
-  #print(template)
   sapply(1:nrow(data), function(i){
     whisker::whisker.render(template, data[i, ])
   })
