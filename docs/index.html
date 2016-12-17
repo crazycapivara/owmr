@@ -129,7 +129,7 @@ $(document).ready(function () {
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <pre class="r"><code>library(owmr)</code></pre>
-<pre><code>## owmr 0.5.0
+<pre><code>## owmr 0.6.1
 ##    another crazy way to talk to OpenWeatherMap's api
 ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
 ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/</code></pre>
@@ -144,18 +144,24 @@ $(document).ready(function () {
 <pre class="r"><code>ls(&quot;package:owmr&quot;) %&gt;% data.frame(obj = .)</code></pre>
 <pre><code>##                           obj
 ## 1                         %&gt;%
-## 2             fetch_test_data
-## 3    find_cities_by_geo_point
-## 4                   find_city
-## 5  find_stations_by_geo_point
-## 6                 get_current
-## 7       get_current_for_group
-## 8    get_current_from_station
-## 9                get_forecast
-## 10         get_forecast_daily
-## 11                 owm_cities
-## 12              owmr_settings
-## 13           search_city_list</code></pre>
+## 2                        %$$%
+## 3                 add_weather
+## 4             fetch_test_data
+## 5    find_cities_by_geo_point
+## 6                   find_city
+## 7  find_stations_by_geo_point
+## 8             flatten_weather
+## 9                 get_current
+## 10      get_current_for_group
+## 11   get_current_from_station
+## 12               get_forecast
+## 13         get_forecast_daily
+## 14               get_icon_url
+## 15                 owm_cities
+## 16              owmr_settings
+## 17               parse_result
+## 18                     render
+## 19           search_city_list</code></pre>
 </div>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
@@ -170,39 +176,44 @@ rio &lt;- search_city_list(&quot;Rio de Janeiro&quot;)
 rio</code></pre>
 <pre><code>##            id             nm       lat      lon countryCode
 ## 13374 3451190 Rio de Janeiro -22.90278 -43.2075          BR</code></pre>
-<pre class="r"><code>df &lt;- find_cities_by_geo_point(
-  rio$lat,
-  rio$lon,
+<pre class="r"><code>owm_data &lt;- find_cities_by_geo_point(
+  lat = rio$lat,
+  lon = rio$lon,
   cnt = 9,
-  units = &quot;metric&quot;
-)$list
+  units = &quot;metric&quot;)$list
 
-df %&gt;% names()</code></pre>
+owm_data %&gt;% names()</code></pre>
 <pre><code>##  [1] &quot;id&quot;            &quot;name&quot;          &quot;dt&quot;            &quot;weather&quot;      
 ##  [5] &quot;coord.lon&quot;     &quot;coord.lat&quot;     &quot;main.temp&quot;     &quot;main.pressure&quot;
 ##  [9] &quot;main.humidity&quot; &quot;main.temp_min&quot; &quot;main.temp_max&quot; &quot;wind.speed&quot;   
 ## [13] &quot;wind.deg&quot;      &quot;sys.country&quot;   &quot;clouds.all&quot;</code></pre>
+<pre class="r"><code># flatten weather column ...
+(weather &lt;- flatten_weather(owm_data$weather)) %&gt;% head(2)</code></pre>
+<pre><code>##    id   main   description icon
+## 1 803 Clouds broken clouds  04n
+## 2 803 Clouds broken clouds  04n</code></pre>
+<pre class="r"><code># ... and add weather description to main data frame
+library(magrittr)
+(owm_data %&lt;&gt;% cbind(weather_desc = weather$description)) %&gt;% names()</code></pre>
+<pre><code>##  [1] &quot;id&quot;            &quot;name&quot;          &quot;dt&quot;            &quot;weather&quot;      
+##  [5] &quot;coord.lon&quot;     &quot;coord.lat&quot;     &quot;main.temp&quot;     &quot;main.pressure&quot;
+##  [9] &quot;main.humidity&quot; &quot;main.temp_min&quot; &quot;main.temp_max&quot; &quot;wind.speed&quot;   
+## [13] &quot;wind.deg&quot;      &quot;sys.country&quot;   &quot;clouds.all&quot;    &quot;weather_desc&quot;</code></pre>
+<pre class="r"><code># create popup template to show up on map
+# (NOTE: dots in colum names must be subsituted with an underscore in tpl)
+popup_tpl &lt;- &quot;&lt;b&gt;{{name}}&lt;/b&gt;&lt;/br&gt;{{main_temp}} °C, {{weather_desc}}&quot;
+
+# test it ...
+popup_tpl %$$% owm_data %&gt;% head(2)</code></pre>
+<pre><code>## [1] &quot;&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;24 °C, broken clouds&quot;
+## [2] &quot;&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;24 °C, broken clouds&quot;</code></pre>
 <pre class="r"><code>require(&quot;leaflet&quot;)</code></pre>
 <pre><code>## Loading required package: leaflet</code></pre>
-<pre class="r"><code>icon_url &lt;- &quot;http://openweathermap.org/img/w/%s.png&quot;
-
-weather &lt;- df$weather %&gt;% do.call(rbind, .)
-weather$icon &lt;- sprintf(icon_url, weather$icon)
-weather$icon %&gt;% head(2)</code></pre>
-<pre><code>## [1] &quot;http://openweathermap.org/img/w/11d.png&quot;
-## [2] &quot;http://openweathermap.org/img/w/50d.png&quot;</code></pre>
-<pre class="r"><code>datetimes &lt;- df$dt %&gt;% as.POSIXct(origin = &quot;1970-01-01&quot;)
-
-leaflet(data = df, width = &quot;100%&quot;) %&gt;%
+<pre class="r"><code>leaflet(width = &quot;100%&quot;) %&gt;%
   addProviderTiles(&quot;CartoDB.DarkMatter&quot;) %&gt;%
-  addMarkers(~coord.lon, ~coord.lat, popup = paste0(
-    datetimes, &quot;&lt;br&gt;&quot;,
-    df$main.temp, &quot; °C &lt;b&gt;AT&lt;/b&gt; &quot;, df$name, &quot;&lt;/br&gt;&quot;,
-    &quot;&lt;b&gt;HUMIDITY&lt;/b&gt; &quot;, df$main.humidity, &quot; % &lt;/br&gt;&quot;,
-    &quot;&lt;i&gt;&quot;, weather$description, &quot;&lt;/i&gt;&quot;), icon = icons(weather$icon)
-  )</code></pre>
-<div id="htmlwidget-3455" style="width:100%;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3455">{"x":{"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.902781,-22.9,-22.968981,-22.980141,-22.81415,-22.883329,-22.9,-22.785561,-22.826941],[-43.2075,-43.23333,-43.185631,-43.196621,-43.230709,-43.103611,-43.09972,-43.311668,-43.05389],{"iconUrl":{"data":["http://openweathermap.org/img/w/11d.png","http://openweathermap.org/img/w/50d.png","http://openweathermap.org/img/w/11n.png","http://openweathermap.org/img/w/50n.png"],"index":[0,1,0,1,0,1,2,3,2,3,2,3,0,1,0,1,0,1]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Rio de Janeiro\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> São Cristóvão\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Botafogo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Pavão-Pavaozinho\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 23:12:00<br>25.49 °C <b>AT\u003c/b> Vila Joaniza\u003c/br><b>HUMIDITY\u003c/b> 100 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Niteroi\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Icaraí\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with heavy rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Duque de Caxias\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Sao Goncalo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with heavy rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Rio de Janeiro\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> São Cristóvão\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with heavy rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Botafogo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Pavão-Pavaozinho\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 23:12:00<br>25.49 °C <b>AT\u003c/b> Vila Joaniza\u003c/br><b>HUMIDITY\u003c/b> 100 % \u003c/br><i>mist\u003c/i>","2016-12-12 23:12:00<br>25.48 °C <b>AT\u003c/b> Niteroi\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Icaraí\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Duque de Caxias\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>thunderstorm with rain\u003c/i>","2016-12-12 22:00:00<br>26 °C <b>AT\u003c/b> Sao Goncalo\u003c/br><b>HUMIDITY\u003c/b> 94 % \u003c/br><i>mist\u003c/i>"],null,null]}],"limits":{"lat":[-22.980141,-22.785561],"lng":[-43.311668,-43.05389]}},"evals":[],"jsHooks":[]}</script>
+  add_weather(owm_data, icon = weather$icon, template = popup_tpl)</code></pre>
+<div id="htmlwidget-7535" style="width:100%;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7535">{"x":{"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.902781,-22.9,-22.968981,-22.980141,-22.81415,-22.883329,-22.9,-22.785561,-22.826941],[-43.2075,-43.23333,-43.185631,-43.196621,-43.230709,-43.103611,-43.09972,-43.311668,-43.05389],{"iconUrl":{"data":"http://openweathermap.org/img/w/04n.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro\u003c/b>\u003c/br>24 °C, broken clouds","<b>São Cristóvão\u003c/b>\u003c/br>24 °C, broken clouds","<b>Botafogo\u003c/b>\u003c/br>24 °C, broken clouds","<b>Pavão-Pavaozinho\u003c/b>\u003c/br>24 °C, broken clouds","<b>Vila Joaniza\u003c/b>\u003c/br>24 °C, broken clouds","<b>Niteroi\u003c/b>\u003c/br>24 °C, broken clouds","<b>Icaraí\u003c/b>\u003c/br>24 °C, broken clouds","<b>Duque de Caxias\u003c/b>\u003c/br>24 °C, broken clouds","<b>Sao Goncalo\u003c/b>\u003c/br>24 °C, broken clouds"],null,null]}],"limits":{"lat":[-22.980141,-22.785561],"lng":[-43.311668,-43.05389]}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>## click on icons to get further information ##
 
 ## ... ##</code></pre>
