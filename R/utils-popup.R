@@ -9,7 +9,7 @@
 #' @param ... see \code{\link{paste0}}
 #'
 #' @return pasted objects
-#' @export
+## @export
 #'
 #' @examples \dontrun{
 #'    df <- get_forcast("London", units = "metric", cnt = 7)$list
@@ -26,7 +26,7 @@ popup <- function(x, ...){
 #' @param value value to be wrapped around
 #'
 #' @return wrapped value
-#' @export
+## @export
 #'
 #' @examples \dontrun{
 #'    x <- get_current("London", units = "metric")

@@ -1,17 +1,29 @@
-#render <- function(template, data){
-#  # add empty column for correct subsetting of data frames with only one column
-#  if(ncol(data) == 1) {
-#    random_name <- tempfile(pattern = "", tmpdir = "") %>%
-#      sub("/", "", .)
-#    data[random_name] <- 0L
-#  }
-#  sapply(1:nrow(data), function(i){
-#    whisker::whisker.render(template, data[i, ])
-#  })
-#}
-#
-#`%$%` <- render
-
+#' Add weather data to leaflet map.
+#'
+#' @param map \code{\link[leaflet]{leaflet}} map object
+#' @param data owm data
+#' @param lng numeric vector of longitudes
+#'    (if \code{NULL} it will be taken from \code{data})
+#' @param lat numeric vector of latitudes
+#'    (if \code{NULL} it will be taken from \code{data})
+#' @param icon vector of owm icon names
+#'    (usually included in weather column of owm data)
+#' @param template template in the form of \cr
+#'    \code{"<b>{{name}}</b>"} \cr
+#'    where variable names in brackets correspond to
+#'    column names of \code{data} (see also \code{\link{render}})
+#' @param popup vector containing (HTML) content for popups,
+#'    skipped in case parameter \code{template} is given
+#' @param ... see \code{\link[leaflet]{addMarkers}}
+#'
+#' @return updated map object
+#' @export
+#'
+#' @examples \dontrun{
+#'    owm_data <- find_city("Malaga")$list
+#'    map <- leaflet() %>% addTiles() %>%
+#'       add_weather(owm_data, template = "<b>{{name}}</b>, {{main_temp}}")
+#' }
 add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template = NULL, popup = NULL, ...){
   if(is.null(lng) | is.null(lat)){
     if(!is.data.frame(data)){
@@ -27,7 +39,7 @@ add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template
       leaflet::icons()
   }
   if(!is.null(template)){
-    popup <- template %$% data
+    popup <- template %$$% data
   }
   leaflet::addMarkers(map, lng, lat, data = data, icon = icon, popup = popup, ...)
 }

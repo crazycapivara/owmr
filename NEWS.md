@@ -6,7 +6,7 @@
 
 * Added function to search owm's city list by city name.
 * Added tests for current data.
-   - Added Helper function to fetch 'fresh' data used in tests.
+   - Added helper function to fetch 'fresh' data used in tests.
 
 # owmr 0.4.1
 
@@ -17,3 +17,8 @@
 * Refactored code
 * Added function to fetch current weather data for cities around geo point (more or less an alias to `find_city`)
 * Marked UTF-8 string in data fixed
+
+# owmr 0.6.1
+
+* Add function to add weather data to leaflet map
+  - Added operator `%$$%` to render template text for popups 

@@ -1,6 +1,6 @@
 Package: owmr
 Title: OpenWeatherMap api wrapper
-Version: 0.5.6
+Version: 0.6.1
 Authors@R: person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre"))
 Description: Wraps OpenWeatherMap's api.
 URL: https://github.com/crazycapivara/owmr/
@@ -16,4 +16,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 5.0.1
-Suggests: testthat, covr
+Suggests:
+    leaflet,
+    whisker,
+    testthat,
+    covr
