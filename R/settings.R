@@ -1,4 +1,5 @@
 .pkg_env <- new.env()
+.pkg_env$icon_url = "http://openweathermap.org/img/w/%s.png"
 
 #' owmr settings.
 #'
@@ -17,4 +18,20 @@ owmr_settings <- function(api_key){
 
 get_api_key <- function(){
   .pkg_env$api_key
+}
+
+#' Get icon url.
+#'
+#' @param icon icon name as returned by owm
+#'
+#' @return icon url
+#' @export
+#'
+#' @examples \dontrun{
+#'    forecast <- get_forecast("London")$list
+#'    weather <- flatten_weather(forecast$weather)
+#'    icons <- get_icon_url(weather$icon)
+#' }
+get_icon_url <- function(icon){
+  sprintf(.pkg_env$icon_url, icon)
 }

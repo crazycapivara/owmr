@@ -1,4 +1,4 @@
-OpenWeatherMap api wrapper for R
+OpenWeatherMap Api Wrapper for R
 ================
 
 Builds
@@ -32,7 +32,7 @@ Current version
 library(owmr)
 ```
 
-    ## owmr 0.5.0
+    ## owmr 0.6.2
     ##    another crazy way to talk to OpenWeatherMap's api
     ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
     ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/
@@ -50,23 +50,23 @@ get_current("London", units = "metric") %>% unlist()
 ```
 
     ##            coord.lon            coord.lat          weather.id1 
-    ##              "-0.13"              "51.51"                "721" 
+    ##              "-0.13"              "51.51"                "741" 
     ##          weather.id2        weather.main1        weather.main2 
-    ##                "701"               "Haze"               "Mist" 
+    ##                "701"                "Fog"               "Mist" 
     ## weather.description1 weather.description2        weather.icon1 
-    ##               "haze"               "mist"                "50n" 
+    ##                "fog"               "mist"                "50n" 
     ##        weather.icon2                 base            main.temp 
-    ##                "50n"           "stations"              "10.64" 
+    ##                "50n"           "stations"               "6.39" 
     ##        main.pressure        main.humidity        main.temp_min 
-    ##               "1024"                 "87"                 "10" 
+    ##               "1024"                "100"                  "5" 
     ##        main.temp_max           visibility           wind.speed 
-    ##                 "11"               "7000"                "3.1" 
-    ##            wind.gust           clouds.all                   dt 
-    ##                "9.8"                 "75"         "1481314800" 
+    ##                  "8"               "2000"                "2.6" 
+    ##             wind.deg           clouds.all                   dt 
+    ##                 "70"                 "75"         "1482180600" 
     ##             sys.type               sys.id          sys.message 
-    ##                  "1"               "5091"             "0.0058" 
+    ##                  "1"               "5142"             "0.3138" 
     ##          sys.country          sys.sunrise           sys.sunset 
-    ##                 "GB"         "1481270115"         "1481298689" 
+    ##                 "GB"         "1482134604"         "1482162788" 
     ##                   id                 name                  cod 
     ##            "2643743"             "London"                "200"
 
@@ -80,11 +80,11 @@ get_current("London", units = "metric") %>% unlist()
 
 ``` r
 get_current(rio$id, units = "metric") %>%
-  unlist %>% .[c("name", "main.temp")]
+  as.data.frame %>% .[1, c("name", "main.temp", "main.humidity", "wind.speed")]
 ```
 
-    ##             name        main.temp 
-    ## "Rio de Janeiro"          "27.76"
+    ##             name main.temp main.humidity wind.speed
+    ## 1 Rio de Janeiro     32.42            62        5.1
 
 ``` r
 # get weather data from stations
@@ -93,13 +93,13 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
 ```
 
     ##   distance station.id station.name last.main.temp
-    ## 1   13.276       4926         EDVK         277.15
-    ## 2   26.926       4954         ETHF         278.15
-    ## 3   69.579       4910         EDLP         282.15
-    ## 4   89.149      73733    Uwe Kruse         282.75
-    ## 5   93.344 1460732694        hlw31         282.40
+    ## 1   13.276       4926         EDVK         274.15
+    ## 2   26.926       4954         ETHF         272.15
+    ## 3   69.579       4910         EDLP         274.15
+    ## 4   89.149      73733    Uwe Kruse         274.05
+    ## 5   93.344 1460732694        hlw31         273.15
     ## 6   97.934 1442728908         AmiH         273.15
-    ## 7   98.978       4951         ETHB         283.15
+    ## 7   98.978       4951         ETHB         276.15
 
 ``` r
 # get forecast
@@ -131,16 +131,46 @@ forecast$list %>% names()
     ## [16] "sys.pod"
 
 ``` r
-forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>% head()
+forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
+  head()
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2016-12-10 00:00:00      9.72         10.21       4.71
-    ## 2 2016-12-10 03:00:00     10.34         10.66       4.52
-    ## 3 2016-12-10 06:00:00     11.20         11.37       3.95
-    ## 4 2016-12-10 09:00:00     11.72         11.72       3.40
-    ## 5 2016-12-10 12:00:00     12.04         12.04       2.96
-    ## 6 2016-12-10 15:00:00     11.07         11.07       2.41
+    ## 1 2016-12-20 00:00:00      5.38          5.38       1.76
+    ## 2 2016-12-20 03:00:00      0.51          0.51       1.16
+    ## 3 2016-12-20 06:00:00      2.16          2.16       1.46
+    ## 4 2016-12-20 09:00:00      1.86          1.86       2.86
+    ## 5 2016-12-20 12:00:00      4.02          4.02       2.36
+    ## 6 2016-12-20 15:00:00      4.59          4.59       2.43
+
+``` r
+# flatten weather and tidy up column names
+forecast %<>% tidy_up()
+forecast$list %>% names()
+```
+
+    ##  [1] "dt"                  "dt_txt"              "temp"               
+    ##  [4] "temp_min"            "temp_max"            "pressure"           
+    ##  [7] "sea_level"           "grnd_level"          "humidity"           
+    ## [10] "temp_kf"             "clouds_all"          "wind_speed"         
+    ## [13] "wind_deg"            "rain_3h"             "pod"                
+    ## [16] "weather_id"          "weather_main"        "weather_description"
+    ## [19] "weather_icon"
+
+``` r
+# apply funcs to some columns  
+forecast$list %<>% parse_result(list(temp = round, wind_speed = round))
+
+# do some magic ...
+("{{dt_txt}}h {{temp}} °C, {{wind_speed}} m/s" %$$%
+  forecast$list) %>% head(10)
+```
+
+    ##  [1] "2016-12-20 00:00:00h 5 °C, 2 m/s" "2016-12-20 03:00:00h 1 °C, 1 m/s"
+    ##  [3] "2016-12-20 06:00:00h 2 °C, 1 m/s" "2016-12-20 09:00:00h 2 °C, 3 m/s"
+    ##  [5] "2016-12-20 12:00:00h 4 °C, 2 m/s" "2016-12-20 15:00:00h 5 °C, 2 m/s"
+    ##  [7] "2016-12-20 18:00:00h 1 °C, 3 m/s" "2016-12-20 21:00:00h 1 °C, 4 m/s"
+    ##  [9] "2016-12-21 00:00:00h 2 °C, 4 m/s" "2016-12-21 03:00:00h 4 °C, 5 m/s"
 
 Documentation
 -------------
@@ -157,11 +187,12 @@ Run tests
 ---------
 
 ``` r
-testthat::test_dir("tests/testthat/")
+test_dir("tests/testthat/")
 ```
 
     ## current weather data for multiple cities: ...
     ## current weather data: .....
+    ## mock httr::GET: ...
     ## current weather data from multiple stations: ..
     ## 
     ## DONE ======================================================================

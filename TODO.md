@@ -20,8 +20,10 @@
 * write tests for forcast responses
 * run win builder check to put package to CRAN
 * add license file (MIT + LICENSE file)
+  - __DONE__
 * split R-files containing more than one function (e. g. `lowlevel.R`) 
 * add URL to description
+  - __DONE__
 * suggest leaflet and shiny
   - __added in corresponding branches__
 * add `owmr_shine` function where user can click coords ...
@@ -34,8 +36,12 @@
 * prepare package for __CRAN__
   - check documentation
 * add coverage via `covr` package
+  - see func `owmr_coverage` __DONE__
 * add api support for uv-index
 * roxygen `inherits` for repeating parameters in funcs
+  - __DONE__
+* add icon url to settings
+* add owm tile map servers to settings
 
 # Build notes
 
