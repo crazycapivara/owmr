@@ -30,8 +30,11 @@ add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template
       lng <- data$coord$lon
       lat <- data$coord$lat
     } else{
-      lng = ~coord.lon
-      lat = ~coord.lat
+      names_ = names(data)
+      lng <- names_[grep("lon", names_)] %>% data[[.]]
+      lat <- names_[grep("lat", names_)] %>% data[[.]]
+      #lng = ~coord.lon
+      #lat = ~coord.lat
     }
   }
   if(!is.null(icon)){
