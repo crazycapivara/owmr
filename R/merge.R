@@ -6,9 +6,9 @@
 #' @param prefix prefix added to names of flattened weather data frame
 #'
 #' @return main data frame with weather data frame appended
-#' @export
+## @export
 #'
-#' @examples
+## @examples
 merge_weather <- function(x, prefix = "weather."){
   weather <- flatten_weather(x$weather)
   names(weather) %<>% paste0(prefix, .)
