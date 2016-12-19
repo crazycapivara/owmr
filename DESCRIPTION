@@ -1,6 +1,6 @@
 Package: owmr
-Title: OpenWeatherMap api wrapper
-Version: 0.6.1
+Title: OpenWeatherMap Api Wrapper
+Version: 0.6.2
 Authors@R: person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre"))
 Description: Wraps OpenWeatherMap's api.
 URL: https://github.com/crazycapivara/owmr/
