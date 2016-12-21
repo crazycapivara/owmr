@@ -16,7 +16,7 @@ test_that("data frame input", {
 test_that("list input", {
   # when
   l <- list(name = "stef" ,country = "DE")
-  result = "{{name}} lives in {{country}}" %$$% l
+  result <- "{{name}} lives in {{country}}" %$$% l
   # then
   expected <- "stef lives in DE"
   # -----
