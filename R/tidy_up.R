@@ -63,8 +63,9 @@ use_underscore <-function(data){
 tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main", "sys")){
   # flatten weather
   if(flatten_weather_ & "weather" %in% colnames(data)){
-    data %<>% cbind(weather = flatten_weather(data$weather))
-    data$weather = NULL
+    #data %<>% cbind(weather = flatten_weather(data$weather))
+    #data$weather = NULL
+    data %<>% cbind_weather()
   }
   # remove prefices
   if(!is.null(remove_prefix_)){
