@@ -61,7 +61,7 @@ tidy_up <- function(data, ...){
 #' @param data data frame
 #' @param use_underscore substitute dots in column names with underscores
 #' @param remove_prefix prefices to be removed for shorter column names
-#'    (\code{remove_prefix = NULL}) will keep all prefices
+#'    (\code{remove_prefix = NULL} will keep all prefices)
 #'
 #' @return updated data frame
 #' @export
@@ -80,7 +80,7 @@ tidy_up <- function(data, ...){
 #'    # keep all prefices
 #'    result$list %>% tidy_up_(remove_prefix = NULL)
 #' }
-tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main")){
+tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main", "sys")){
   # flatten weather
   if(flatten_weather_ & "weather" %in% colnames(data)){
     data %<>% cbind(weather = flatten_weather(data$weather))

@@ -5,7 +5,7 @@
 \title{Tidy up owm data.}
 \usage{
 tidy_up_(data, flatten_weather_ = TRUE, use_underscore_ = TRUE,
-  remove_prefix_ = c("main"))
+  remove_prefix_ = c("main", "sys"))
 }
 \arguments{
 \item{data}{data frame}
@@ -13,7 +13,7 @@ tidy_up_(data, flatten_weather_ = TRUE, use_underscore_ = TRUE,
 \item{use_underscore}{substitute dots in column names with underscores}
 
 \item{remove_prefix}{prefices to be removed for shorter column names
-(\code{remove_prefix = NULL}) will keep all prefices}
+(\code{remove_prefix = NULL} will keep all prefices)}
 }
 \value{
 updated data frame
