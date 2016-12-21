@@ -21,13 +21,16 @@
 #' vars <- data.frame(a = 1:3, b = 23:21)
 #' "a = {{a}} and b = {{b}}" %$$% vars
 `%$$%` <- render <- function(template, data){
+  names(data) %<>% gsub("\\.", "_", .)
+  if(!is.data.frame(data)){
+    return(whisker::whisker.render(template, data))
+  }
   # add empty column for correct subsetting of data frames with only one column
   if(ncol(data) == 1) {
     random_name <- tempfile(pattern = "", tmpdir = "") %>%
       sub("/", "", .)
     data[random_name] <- 0L
   }
-  names(data) %<>% gsub("\\.", "_", .)
   sapply(1:nrow(data), function(i){
     whisker::whisker.render(template, data[i, ])
   })
