@@ -1,17 +1,15 @@
-#' Merge weather.
+#' Flatten weather column in data frame.
 #'
-#' Flatten weather column (list of data frames) and append it to main (top level) data frame.
+#' @param data data frame containing weather column
 #'
-#' @param x main data frame returned from owm
-#' @param prefix prefix added to names of flattened weather data frame
+#' @return data frame with flattened weather (data)
+#' @export
 #'
-#' @return main data frame with weather data frame appended
-## @export
-#'
-## @examples
-merge_weather <- function(x, prefix = "weather."){
-  weather <- flatten_weather(x$weather)
-  names(weather) %<>% paste0(prefix, .)
-  x$weather = NULL
-  cbind(x, weather)
+#' @examples\dontrun{
+#'    get_forecast("Kassel") %>% cbind_weather()
+#' }
+cbind_weather <- function(data){
+  data %<>% cbind(weather = flatten_weather(data$weather))
+  data$weather = NULL
+  data
 }

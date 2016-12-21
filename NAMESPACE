@@ -3,6 +3,7 @@
 export("%$$%")
 export("%>%")
 export(add_weather)
+export(cbind_weather)
 export(fetch_test_data)
 export(find_cities_by_geo_point)
 export(find_city)
