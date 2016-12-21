@@ -4,8 +4,8 @@
 #' around given geo point.
 #'
 #' @inheritParams find_cities_by_geo_point
-# @param lat latitude of geo point
-# @param lon longitude of geo point
+## @param lat latitude of geo point
+## @param lon longitude of geo point
 #' @param cnt number of stations
 # @param ... see owm api documentation
 #'
