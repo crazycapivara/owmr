@@ -10,10 +10,12 @@ tidy_up_(data, flatten_weather_ = TRUE, use_underscore_ = TRUE,
 \arguments{
 \item{data}{data frame}
 
-\item{use_underscore}{substitute dots in column names with underscores}
+\item{flatten_weather_}{see \code{\link{flatten_weather}}}
 
-\item{remove_prefix}{prefices to be removed for shorter column names
-(\code{remove_prefix = NULL} will keep all prefices)}
+\item{use_underscore_}{substitute dots in column names with underscores}
+
+\item{remove_prefix_}{prefices to be removed for shorter column names
+(\code{remove_prefix_ = NULL} will keep all prefices)}
 }
 \value{
 updated data frame
@@ -27,15 +29,15 @@ Tidy up owm data.
    result$list \%>\% tidy_up_()
 
    # keep dots in column names
-   result$list \%>\% tidy_up_(use_underscore = FALSE)
+   result$list \%>\% tidy_up_(use_underscore_ = FALSE)
 
    # keep all prefices
-   result$list \%>\% tidy_up_(remove_prefix = NULL)
+   result$list \%>\% tidy_up_(remove_prefix_ = NULL)
 }
 }
 \seealso{
-\link{\code{tidy_up}}, \cr
-   \link{\code{remove_prefix}}, \cr
-   \link{\code{use_underscore}}
+\code{\link{tidy_up}},\cr
+   \code{\link{remove_prefix}},\cr
+   \code{\link{use_underscore}}
 }
 

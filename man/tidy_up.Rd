@@ -10,7 +10,7 @@ tidy_up(data, ...)
 \item{data}{result returned from owm
 containing data frame in \code{data$list}}
 
-\item{...}{see \link{\code{tidy_up_}}}
+\item{...}{see \code{\link{tidy_up_}}}
 }
 \value{
 updated data frame in \code{data$list}

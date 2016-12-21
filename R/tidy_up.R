@@ -36,49 +36,29 @@ use_underscore <-function(data){
 
 #' Tidy up owm data.
 #'
-#' Calls \code{\link{tidy_up_}} passing \code{data$list}
-#'    as \code{data} argument.
-#'
-#' @param data result returned from owm
-#'    containing data frame in \code{data$list}
-#' @param ... see \link{\code{tidy_up_}}
-#'
-#' @return updated data frame in \code{data$list}
-#' @export
-#'
-#' @seealso \code{\link{tidy_up_}}
-#'
-#' @examples \dontrun{
-#'    get_forecast("London") %>% tidy_up()
-#' }
-tidy_up <- function(data, ...){
-  data$list %<>% tidy_up_(...)
-  data
-}
-
-#' Tidy up owm data.
-#'
 #' @param data data frame
-#' @param use_underscore substitute dots in column names with underscores
-#' @param remove_prefix prefices to be removed for shorter column names
-#'    (\code{remove_prefix = NULL} will keep all prefices)
+#' @param flatten_weather_ see \code{\link{flatten_weather}}
+#' @param use_underscore_ substitute dots in column names with underscores
+#' @param remove_prefix_ prefices to be removed for shorter column names
+#'    (\code{remove_prefix_ = NULL} will keep all prefices)
 #'
 #' @return updated data frame
 #' @export
 #'
-#' @seealso \link{\code{tidy_up}}, \cr
-#'    \link{\code{remove_prefix}}, \cr
-#'    \link{\code{use_underscore}}
+#' @seealso
+#'    \code{\link{tidy_up}},\cr
+#'    \code{\link{remove_prefix}},\cr
+#'    \code{\link{use_underscore}}
 #'
 #' @examples \dontrun{
 #'    result <- find_city("Malaga")
 #'    result$list %>% tidy_up_()
 #'
 #'    # keep dots in column names
-#'    result$list %>% tidy_up_(use_underscore = FALSE)
+#'    result$list %>% tidy_up_(use_underscore_ = FALSE)
 #'
 #'    # keep all prefices
-#'    result$list %>% tidy_up_(remove_prefix = NULL)
+#'    result$list %>% tidy_up_(remove_prefix_ = NULL)
 #' }
 tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main", "sys")){
   # flatten weather
@@ -97,21 +77,24 @@ tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remo
   data
 }
 
-## ----- OBS ------
-##tidy_up <- function(data, use_underscore = TRUE, remove_prefix = c("main", "sys")){
-##  # flatten weather
-##  data$list %<>% cbind(weather = flatten_weather(.[, "weather"]))
-##  data$list$weather = NULL
-##  # remove prefices
-##  if(!is.null(remove_prefix)){
-##    for(prefix in remove_prefix){
-##      prefix %<>% sprintf("%s.", .)
-##      names(data$list) %<>% gsub(prefix, "", .)
-##    }
-##  }
-##  # substitute dots with underscore
-##  if(use_underscore){
-##    names(data$list) %<>% gsub("\\.", "_", .)
-##  }
-##  data
-##}
+#' Tidy up owm data.
+#'
+#' Calls \code{\link{tidy_up_}} passing \code{data$list}
+#'    as \code{data} argument.
+#'
+#' @param data result returned from owm
+#'    containing data frame in \code{data$list}
+#' @param ... see \code{\link{tidy_up_}}
+#'
+#' @return updated data frame in \code{data$list}
+#' @export
+#'
+#' @seealso \code{\link{tidy_up_}}
+#'
+#' @examples \dontrun{
+#'    get_forecast("London") %>% tidy_up()
+#' }
+tidy_up <- function(data, ...){
+  data$list %<>% tidy_up_(...)
+  data
+}
