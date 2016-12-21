@@ -4,29 +4,27 @@
 \alias{tidy_up}
 \title{Tidy up owm data.}
 \usage{
-tidy_up(data, use_underscore = TRUE, remove_prefix = c("main", "sys"))
+tidy_up(data, ...)
 }
 \arguments{
-\item{data}{response (list) returned from owm}
+\item{data}{result returned from owm
+containing data frame in \code{data$list}}
 
-\item{use_underscore}{substitute dots in column names with an underscore}
-
-\item{remove_prefix}{prefices to be removed for shorter column names
-(\code{remove_prefix = NULL}) will keep all prefices}
+\item{...}{see \link{\code{tidy_up_}}}
 }
 \value{
-response with 'clean' data frame
+updated data frame in \code{data$list}
 }
 \description{
-Tidy up owm data.
+Calls \code{\link{tidy_up_}} passing \code{data$list}
+   as \code{data} argument.
 }
 \examples{
 \dontrun{
-   result <- find_city("Malaga") \%>\% tidy_up()
-   # keep dots in column names
-   result <- find_city("Malaga") \%>\% tidy_up(use_underscore = FALSE)
-   # keep all prefices
-   result <- find_city("Malaga") \%>\% tidy_up(remove_prefix = NULL)
+   get_forecast("London") \%>\% tidy_up()
 }
+}
+\seealso{
+\code{\link{tidy_up_}}
 }
 
