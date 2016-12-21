@@ -1,39 +1,3 @@
-#' Remove prefices from column names.
-#'
-#' @param data data frame
-#' @param prefices vector of prefices to be removed from column names
-#' @param sep prefix separator
-#'
-#' @return data frame with updated column names
-#' @export
-#'
-#' @examples
-#' x <- data.frame(main.temp = 1:10, sys.msg = "OK", cnt = 10:1)
-#' names(x)
-#' remove_prefix(x, c("main", "sys")) %>% names
-remove_prefix <- function(data, prefices, sep = "."){
-  for(prefix in prefices){
-    prefix <- paste0(prefix, sep)
-    names(data) %<>% gsub(prefix, "", .)
-  }
-  data
-}
-
-#' Substitute dots in column names with underscores.
-#'
-#' @param data data frame
-#'
-#' @return data frame with updated column names
-#' @export
-#'
-#' @examples
-#' names(airquality)
-#' use_underscore(airquality) %>% names
-use_underscore <-function(data){
-  names(data) %<>% gsub("\\.", "_", .)
-  data
-}
-
 #' Tidy up owm data.
 #'
 #' @param data data frame
@@ -87,7 +51,7 @@ tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remo
 #'    containing data frame in \code{data$list}
 #' @param ... see \code{\link{tidy_up_}}
 #'
-#' @return updated data frame in \code{data$list}
+#' @return data with updated data frame (\code{data$list})
 #' @export
 #'
 #' @seealso \code{\link{tidy_up_}}

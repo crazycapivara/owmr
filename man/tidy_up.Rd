@@ -13,7 +13,7 @@ containing data frame in \code{data$list}}
 \item{...}{see \code{\link{tidy_up_}}}
 }
 \value{
-updated data frame in \code{data$list}
+data with updated data frame (\code{data$list})
 }
 \description{
 Calls \code{\link{tidy_up_}} passing \code{data$list}
