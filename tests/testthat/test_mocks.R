@@ -2,7 +2,7 @@ mock_httr_GET <- function(...) {
   readRDS("data/response-current.rds")
 }
 
-context("mock httr::GET")
+context("mock httr::GET current")
 
 test_that("current weather data", {
   with_mock(
