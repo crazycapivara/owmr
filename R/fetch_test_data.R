@@ -22,14 +22,13 @@ save_stations_multiple <- function(){
     save_test_data("stations_multiple.rds")
 }
 
-# save (raw) response to use in mockups
+# get (raw) response to be used in mockups
 # should be done for other responses as well
-save_response <- function(){
-  path = "weather"
+get_response <- function(path = "weather", city = NA, ...){
   mock_url <- "Hi folks!"
-  response <- owmr_wrap_get(path)("Kassel")
+  response <- owmr_wrap_get(path)(city, ...)
   response$url <- mock_url -> response$request$url
-  save_test_data(response, "response-current.rds")
+  response
 }
 
 #' Helper function to fetch test data.
@@ -42,10 +41,13 @@ save_response <- function(){
 #' @export
 #'
 fetch_test_data <- function(run_tests = TRUE){
-  save_current()
-  save_current_multiple()
-  save_stations_multiple()
-  save_response()
+  #save_current()
+  #save_current_multiple()
+  #save_stations_multiple()
+  get_response("weather", "Kassel") %>%
+    save_test_data("response-current.rds")
+  get_response("forecast", "London") %>%
+    save_test_data("response-forecast.rds")
   # run tests
   if(run_tests){
     testthat::test_dir("tests/testthat", reporter = "tap")
