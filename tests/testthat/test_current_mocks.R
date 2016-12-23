@@ -11,15 +11,15 @@ test_that("current weather data", {
       owmr_settings("my_api_key")
       city <- "Kassel"
       # then
-      name <- "Kassel"
-      country <- "DE"
-      len <- 12 # length
+      expected_name <- "Kassel"
+      expected_country <- "DE"
+      expected_nitems <- 12 # number of items
       # -----
       result <- get_current(city)
       owmr_settings(NULL)
-      expect_equal(result$name, name)
-      expect_equal(result$sys$country, country)
-      expect_equal(length(result), 12)
+      expect_equal(result$name, expected_name)
+      expect_equal(result$sys$country, expected_country)
+      expect_equal(length(result), expected_nitems)
     }
   )
 })
