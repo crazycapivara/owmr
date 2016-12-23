@@ -15,7 +15,7 @@ parse_columns <- function(data, functions_){
   for(name in names(functions_)){
     data[[name]] %<>% functions_[[name]]()
   }
-  x
+  data
 }
 
 # TODO: document in order to export
