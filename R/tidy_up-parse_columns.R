@@ -19,6 +19,6 @@ parse_columns <- function(data, functions_){
 }
 
 # TODO: document in order to export
-parse_dt <- function(dt){
+parse_dt <- function(dt){ # nocov start
   as.POSIXct(dt, origin = "1970-01-01")
-}
+} # nocov end
