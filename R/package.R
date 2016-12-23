@@ -29,7 +29,8 @@ NULL
 
 exclusions <- list(
   "R/zzz.R",
-  "R/fetch-test-data.R"
+  "R/fetch_test_data.R",
+  "R/leaflet.R"
 )
 
 # export it or just run it in development mode?
