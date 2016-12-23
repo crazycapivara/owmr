@@ -46,12 +46,14 @@ api_key_ = "your-api-key"
 owmr_settings(api_key = api_key)
 
 # get current weather data by city name
-get_current("London", units = "metric") %>% unlist()
+(res <- get_current("London", units = "metric") %>%
+  flatten()) %>% names()
+res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
 
 # ... by city id
 (rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ]))
 get_current(rio$id, units = "metric") %>%
-  as.data.frame %>% .[1, c("name", "main.temp", "main.humidity", "wind.speed")]
+  flatten() %>% .[c("name", "main.temp", "main.humidity", "wind.speed")]
 
 # get weather data from stations
 find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>% 
@@ -62,10 +64,11 @@ forecast <- get_forecast("London", units = "metric")
 
 forecast %>% names()
 
-sprintf("name: %s, id: %i, (forecast) rows: %i",
-        forecast$city$name,
-        forecast$city$id,
-        forecast$cnt) %>% cat()
+"name: {{name}}, id: {{id}}, (forcast) rows: {{cnt}}" %$$%
+  list(
+    name = forecast$city$name,
+    id = forecast$city$id,
+    cnt = forecast$cnt) %>% cat()
 
 forecast$list %>% names()
 
@@ -77,7 +80,7 @@ forecast %<>% tidy_up()
 forecast$list %>% names()
 
 # apply funcs to some columns  
-forecast$list %<>% parse_result(list(temp = round, wind_speed = round))
+forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
 
 # do some magic ...
 ("{{dt_txt}}h {{temp}} °C, {{wind_speed}} m/s" %$$%
