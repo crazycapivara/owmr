@@ -48,6 +48,8 @@ fetch_test_data <- function(run_tests = TRUE){
     save_test_data("response-current.rds")
   get_response("forecast", "London") %>%
     save_test_data("response-forecast.rds")
+  get_response("station/find", lat = 51.31667, lon = 9.5, cnt = 7) %>%
+    save_test_data("response-stations_multiple.rds")
   # run tests
   if(run_tests){
     testthat::test_dir("tests/testthat", reporter = "tap")

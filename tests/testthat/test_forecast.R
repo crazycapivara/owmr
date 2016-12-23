@@ -11,12 +11,12 @@ test_that("forecast data", {
       owmr_settings("my_api_key")
       city <- "London"
       # then
+      result <- get_forecast(city)
       expected_country <- "GB"
       expected_ncols <- 16
       # ---
-      result <- get_forecast(city)
+      owmr_settings(NULL) # reset api key
       expect_equal(result$city$country, expected_country)
       expect_equal(ncol(result$list), expected_ncols)
-    })
   })
-
+})
