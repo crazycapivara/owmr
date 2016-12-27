@@ -8,6 +8,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+source("../tmp/settings.R")
 ```
 
 ## Introduction
@@ -30,6 +31,40 @@ devtools::install_github("crazycapivara/owmr")
 
 ## Usage
 
-```
-## TODO ##
+```{r usage}
+owmr_settings(api_key)
+rio <- search_city_list("Rio de Janeiro")
+rio
+
+owm_data <- find_cities_by_geo_point(
+  lat = rio$lat,
+  lon = rio$lon,
+  cnt = 9,
+  units = "metric")$list
+
+owm_data %>% names()
+
+# flatten weather column ...
+(weather <- flatten_weather(owm_data$weather)) %>% head(2)
+
+# ... and add weather description to main data frame
+library(magrittr)
+(owm_data %<>% cbind(weather_desc = weather$description)) %>% names()
+
+# create popup template to show up on map
+# (NOTE: dots in colum names must be subsituted with an underscore in tpl)
+popup_tpl <- "<b>{{name}}</b></br>{{main_temp}} °C, {{weather_desc}}"
+
+# test it ...
+popup_tpl %$$% owm_data %>% head(2)
+
+require("leaflet")
+
+leaflet(width = "100%") %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%
+  add_weather(owm_data, icon = weather$icon, template = popup_tpl)
+
+## click on icons to get further information ##
+
+## ... ##
 ```
