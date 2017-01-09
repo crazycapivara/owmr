@@ -2,6 +2,7 @@
 
 export("%$$%")
 export("%>%")
+export(add_owm_tiles)
 export(add_weather)
 export(cbind_weather)
 export(fetch_test_data)
