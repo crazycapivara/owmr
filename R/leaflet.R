@@ -26,9 +26,8 @@
 #' }
 add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template = NULL, popup = NULL, ...){
   if(is.null(lng) | is.null(lat)){
-    names_ = names(data)
-    lng <- names_[grep("lon", names_)] %>% data[[.]]
-    lat <- names_[grep("lat", names_)] %>% data[[.]]
+    lng <- data[[grep("lon", names(data))]]
+    lat <- data[[grep("lat", names(data))]]
   }
   if(!is.null(icon)){
     icon %<>% get_icon_url() %>%
