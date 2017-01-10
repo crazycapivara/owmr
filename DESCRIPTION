@@ -1,6 +1,6 @@
 Package: owmr
 Title: OpenWeatherMap API Wrapper
-Version: 0.6.6
+Version: 0.7.0
 Authors@R: person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre"))
 Description: An R Interface to OpenWeatherMap.
    Beside funcs for fetching weather data from owm, owmr supplies

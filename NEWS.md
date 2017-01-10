@@ -10,15 +10,20 @@
 
 # owmr 0.4.1
 
-* Added function to fetch current weather data for multiple cities at once
+* Added function to fetch current weather data for multiple cities at once.
 
 # owmr 0.5.0
 
 * Refactored code
-* Added function to fetch current weather data for cities around geo point (more or less an alias to `find_city`)
-* Marked UTF-8 string in data fixed
+* Added function to fetch current weather data for cities around geo point (more or less an alias to `find_city`).
+* Marked UTF-8 string in data fixed.
 
 # owmr 0.6.1
 
-* Add function to add weather data to leaflet map
-  - Added operator `%$$%` to render template text for popups 
+* Added function to show weather data on leaflet map.
+  - Added operator `%$$%` to render template text for popups. 
+
+# owmr 0.7.0
+
+* Added functions to add owm tiles to leaflet map.
+  - Note: Performance of owm tile server seems to be low.
