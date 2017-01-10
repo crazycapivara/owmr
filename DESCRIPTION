@@ -3,7 +3,7 @@ Title: OpenWeatherMap API Wrapper
 Version: 0.7.0
 Authors@R: person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre"))
 Description: An R Interface to OpenWeatherMap.
-   Beside funcs for fetching weather data from owm, owmr supplies
+   Beside functions for fetching weather data from owm, owmr supplies
    tools to tidy up fetched data (for fast and simple access) and to show it on leaflet maps.
 URL:
   https://github.com/crazycapivara/owmr/,
