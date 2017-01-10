@@ -21,3 +21,12 @@ test_that("tidy up all", {
   contains_weather_icon <- "weather_icon" %in% names_
   expect_true(contains_weather_icon)
 })
+
+test_that("use underscore", {
+  # when
+  tidy_iris <- use_underscore(iris[, 1:2])
+  # then
+  expected_names <- c("Sepal_Length", "Sepal_Width")
+  # ---
+  expect_equal(names(tidy_iris), expected_names)
+})
