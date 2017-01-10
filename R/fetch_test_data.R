@@ -38,7 +38,7 @@ get_response <- function(path = "weather", city = NA, ...){
 #' @param run_tests set \code{run_tests = TRUE} in order
 #'    to run tests after data was fetched succesfully
 #'
-#' @export
+### @export
 #'
 fetch_test_data <- function(run_tests = TRUE){
   #save_current()
