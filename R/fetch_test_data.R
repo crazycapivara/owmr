@@ -31,15 +31,15 @@ get_response <- function(path = "weather", city = NA, ...){
   response
 }
 
-#' Helper function to fetch test data.
-#'
-#' Updates test data before running tests.
-#'
-#' @param run_tests set \code{run_tests = TRUE} in order
-#'    to run tests after data was fetched succesfully
-#'
+# Helper function to fetch test data.
+#
+# Updates test data before running tests.
+#
+# @param run_tests set \code{run_tests = TRUE} in order
+#    to run tests after data was fetched succesfully
+#
 ### @export
-#'
+#
 fetch_test_data <- function(run_tests = TRUE){
   #save_current()
   #save_current_multiple()
