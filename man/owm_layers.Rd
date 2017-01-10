@@ -2,7 +2,7 @@
 % Please edit documentation in R/tiles.R
 \name{owm_layers}
 \alias{owm_layers}
-\title{Available owm layers.}
+\title{List available owm layers.}
 \usage{
 owm_layers()
 }
@@ -10,6 +10,6 @@ owm_layers()
 list of available owm layers
 }
 \description{
-Available owm layers.
+List available owm layers.
 }
 

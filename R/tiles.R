@@ -1,6 +1,6 @@
 owm_tile_server <- 'http://{s}.tile.openweathermap.org/map/%s/{z}/{x}/{y}.png'
 
-#' Available owm layers.
+#' List available owm layers.
 #'
 #' @return list of available owm layers
 #' @export
