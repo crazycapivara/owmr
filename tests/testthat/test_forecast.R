@@ -10,8 +10,9 @@ test_that("forecast data", {
       # when
       owmr_settings("my_api_key")
       city <- "London"
-      # then
       result <- get_forecast(city)
+      result$list$snow.3h <- NULL
+      # then
       expected_country <- "GB"
       expected_ncols <- 16
       # ---
