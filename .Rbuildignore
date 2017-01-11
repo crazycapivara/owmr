@@ -7,5 +7,5 @@ helpers/
 TODO.md
 ^\.travis\.yml$
 docs/
-NEWS.md
 README.rmd
+cran-comments.md

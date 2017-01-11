@@ -39,9 +39,11 @@ Add weather data to leaflet map.
 }
 \examples{
 \dontrun{
-   owm_data <- find_city("Malaga")$list
+   owm_data <- find_city("Malaga", units = "metric")$list \%>\% tidy_up_()
    map <- leaflet() \%>\% addTiles() \%>\%
-      add_weather(owm_data, template = "<b>{{name}}</b>, {{main_temp}}")
+      add_weather(owm_data,
+         template = "<b>{{name}}</b>, {{main_temp}}°C",
+         icon = owm_data$weather_icon)
 }
 }
 

@@ -51,7 +51,9 @@ owmr_settings(api_key = api_key)
 res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
 
 # ... by city id
-(rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ]))
+(rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ])) %>%
+  as.list()
+
 get_current(rio$id, units = "metric") %>%
   flatten() %>% .[c("name", "main.temp", "main.humidity", "wind.speed")]
 
@@ -61,28 +63,27 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
   
 # get forecast
 forecast <- get_forecast("London", units = "metric")
-
-forecast %>% names()
+names(forecast)
 
 "name: {{name}}, id: {{id}}, (forcast) rows: {{cnt}}" %$$%
   list(
     name = forecast$city$name,
-    id = forecast$city$id,
-    cnt = forecast$cnt) %>% cat()
+    id   = forecast$city$id,
+    cnt  = forecast$cnt) %>% cat()
 
-forecast$list %>% names()
+names(forecast$list)
 
 forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
   head()
 
-# flatten weather and tidy up column names
+# flatten weather column and tidy up column names
 forecast %<>% tidy_up()
-forecast$list %>% names()
+names(forecast$list)
 
 # apply funcs to some columns  
 forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
 
-# do some magic ...
+# do some templating ...
 ("{{dt_txt}}h {{temp}} °C, {{wind_speed}} m/s" %$$%
   forecast$list) %>% head(10)
 ```

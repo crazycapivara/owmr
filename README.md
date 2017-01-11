@@ -32,7 +32,7 @@ Current version
 library(owmr)
 ```
 
-    ## owmr 0.6.5
+    ## owmr 0.7.0
     ##    another crazy way to talk to OpenWeatherMap's api
     ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
     ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/
@@ -71,18 +71,31 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 8.15
+    ## [1] 6.92
     ## 
     ## $weather.description
-    ## [1] "mist"
+    ## [1] "broken clouds"
 
 ``` r
 # ... by city id
-(rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ]))
+(rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ])) %>%
+  as.list()
 ```
 
-    ##            id             nm       lat      lon countryCode
-    ## 13374 3451190 Rio de Janeiro -22.90278 -43.2075          BR
+    ## $id
+    ## [1] 3451190
+    ## 
+    ## $nm
+    ## [1] "Rio de Janeiro"
+    ## 
+    ## $lat
+    ## [1] -22.90278
+    ## 
+    ## $lon
+    ## [1] -43.2075
+    ## 
+    ## $countryCode
+    ## [1] "BR"
 
 ``` r
 get_current(rio$id, units = "metric") %>%
@@ -93,13 +106,13 @@ get_current(rio$id, units = "metric") %>%
     ## [1] "Rio de Janeiro"
     ## 
     ## $main.temp
-    ## [1] 24.24
+    ## [1] 33.98
     ## 
     ## $main.humidity
-    ## [1] 83
+    ## [1] 56
     ## 
     ## $wind.speed
-    ## [1] 2.6
+    ## [1] 6.7
 
 ``` r
 # get weather data from stations
@@ -108,19 +121,18 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
 ```
 
     ##   distance station.id station.name last.main.temp
-    ## 1   13.276       4926         EDVK         274.15
-    ## 2   26.926       4954         ETHF         275.15
-    ## 3   69.579       4910         EDLP         278.15
-    ## 4   89.149      73733    Uwe Kruse         278.55
-    ## 5   93.344 1460732694        hlw31         278.09
+    ## 1   13.276       4926         EDVK         273.15
+    ## 2   26.926       4954         ETHF         273.15
+    ## 3   69.579       4910         EDLP         275.15
+    ## 4   89.149      73733    Uwe Kruse         274.85
+    ## 5   93.344 1460732694        hlw31         273.15
     ## 6   97.934 1442728908         AmiH         273.15
-    ## 7   98.978       4951         ETHB         278.15
+    ## 7   98.978       4951         ETHB         275.15
 
 ``` r
 # get forecast
 forecast <- get_forecast("London", units = "metric")
-
-forecast %>% names()
+names(forecast)
 ```
 
     ## [1] "city"    "cod"     "message" "cnt"     "list"
@@ -129,14 +141,14 @@ forecast %>% names()
 "name: {{name}}, id: {{id}}, (forcast) rows: {{cnt}}" %$$%
   list(
     name = forecast$city$name,
-    id = forecast$city$id,
-    cnt = forecast$cnt) %>% cat()
+    id   = forecast$city$id,
+    cnt  = forecast$cnt) %>% cat()
 ```
 
-    ## name: London, id: 2643743, (forcast) rows: 36
+    ## name: London, id: 2643743, (forcast) rows: 40
 
 ``` r
-forecast$list %>% names()
+names(forecast$list)
 ```
 
     ##  [1] "dt"              "weather"         "dt_txt"         
@@ -152,17 +164,17 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2016-12-23 12:00:00     11.02         11.02       7.52
-    ## 2 2016-12-23 15:00:00     11.00         11.00       8.85
-    ## 3 2016-12-23 18:00:00     11.37         11.37      10.11
-    ## 4 2016-12-23 21:00:00      8.53          8.53       6.91
-    ## 5 2016-12-24 00:00:00      6.24          6.24       5.55
-    ## 6 2016-12-24 03:00:00      5.37          5.37       5.10
+    ## 1 2017-01-10 21:00:00      6.17          6.17       3.33
+    ## 2 2017-01-11 00:00:00      6.38          6.38       3.31
+    ## 3 2017-01-11 03:00:00      6.05          6.05       4.08
+    ## 4 2017-01-11 06:00:00      7.51          7.51       5.57
+    ## 5 2017-01-11 09:00:00      9.12          9.12       6.25
+    ## 6 2017-01-11 12:00:00      8.60          8.60       7.17
 
 ``` r
-# flatten weather and tidy up column names
+# flatten weather column and tidy up column names
 forecast %<>% tidy_up()
-forecast$list %>% names()
+names(forecast$list)
 ```
 
     ##  [1] "dt"                  "dt_txt"              "temp"               
@@ -177,21 +189,16 @@ forecast$list %>% names()
 # apply funcs to some columns  
 forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
 
-# do some magic ...
+# do some templating ...
 ("{{dt_txt}}h {{temp}} °C, {{wind_speed}} m/s" %$$%
   forecast$list) %>% head(10)
 ```
 
-    ##  [1] "2016-12-23 12:00:00h 11 °C, 8 m/s" 
-    ##  [2] "2016-12-23 15:00:00h 11 °C, 9 m/s" 
-    ##  [3] "2016-12-23 18:00:00h 11 °C, 10 m/s"
-    ##  [4] "2016-12-23 21:00:00h 9 °C, 7 m/s"  
-    ##  [5] "2016-12-24 00:00:00h 6 °C, 6 m/s"  
-    ##  [6] "2016-12-24 03:00:00h 5 °C, 5 m/s"  
-    ##  [7] "2016-12-24 06:00:00h 6 °C, 5 m/s"  
-    ##  [8] "2016-12-24 09:00:00h 6 °C, 6 m/s"  
-    ##  [9] "2016-12-24 12:00:00h 9 °C, 7 m/s"  
-    ## [10] "2016-12-24 15:00:00h 9 °C, 7 m/s"
+    ##  [1] "2017-01-10 21:00:00h 6 °C, 3 m/s" "2017-01-11 00:00:00h 6 °C, 3 m/s"
+    ##  [3] "2017-01-11 03:00:00h 6 °C, 4 m/s" "2017-01-11 06:00:00h 8 °C, 6 m/s"
+    ##  [5] "2017-01-11 09:00:00h 9 °C, 6 m/s" "2017-01-11 12:00:00h 9 °C, 7 m/s"
+    ##  [7] "2017-01-11 15:00:00h 8 °C, 7 m/s" "2017-01-11 18:00:00h 7 °C, 6 m/s"
+    ##  [9] "2017-01-11 21:00:00h 6 °C, 6 m/s" "2017-01-12 00:00:00h 6 °C, 6 m/s"
 
 Documentation
 -------------
@@ -212,12 +219,13 @@ test_dir("tests/testthat/")
 ```
 
     ## city list: ..
+    ## mock httr::GET current: ...
     ## current weather data for multiple cities: ...
     ## current weather data: .....
-    ## mock httr::GET: ...
+    ## mock httr::GET forecast: ..
     ## parse columns: ..
     ## render operator: ...
-    ## current weather data from multiple stations: ..
+    ## current weather data from multiple stations: ...
     ## tidy up data: ...
     ## 
     ## DONE ======================================================================
