@@ -9,7 +9,7 @@
 #' @examples\dontrun{
 #'    parse_dt <- function(x){as.POSIXct(x, origin = "1970-01-01")}
 #'    forecast <- get_forecast("Kassel")$list
-#'    forecast %<>% parse_result(list(dt = parse_dt))
+#'    forecast %<>% parse_columns(list(dt = parse_dt))
 #' }
 parse_columns <- function(data, functions_){
   for(name in names(functions_)){

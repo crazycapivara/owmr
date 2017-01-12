@@ -10,7 +10,7 @@
 #' @examples
 #' x <- data.frame(main.temp = 1:10, sys.msg = "OK", cnt = 10:1)
 #' names(x)
-#' remove_prefix(x, c("main", "sys")) %>% names
+#' remove_prefix(x, c("main", "sys")) %>% names()
 remove_prefix <- function(data, prefices, sep = "."){
   for(prefix in prefices){
     prefix <- paste0(prefix, sep)

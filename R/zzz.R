@@ -6,3 +6,5 @@
     "   Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/\n"
   )
 }
+
+globalVariables(".")
