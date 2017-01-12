@@ -4,12 +4,8 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
-
-There was 1 NOTE:
-* checking R code for possible problems ... NOTE
-  no visible binding for global variable ‘.’
-
-  The variable ‘.’ is used in `magrittr` expressions.
+0 errors | 0 warnings | 0 notes 
 
 This is the first submission of owmr.
+
+Fixed false positives in NOTES of last submission.
