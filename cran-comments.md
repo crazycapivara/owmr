@@ -8,4 +8,7 @@
 
 This is the first submission of owmr.
 
-Fixed false positives in NOTES of last submission.
+## Updated DESCRIPTION
+
+* added link to OpenWeatherMap service
+* added some more information about the service itself
