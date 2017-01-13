@@ -1,4 +1,9 @@
-#' owmr - An R interface to OpenWeatherMap
+#' owmr - An R interface to access OpenWeatherMap's API
+#'
+#' In order to access the API, you need to sign up for an API key
+#' at \url{https://openweathermap.org/}. \cr
+#' For optional parameters (\code{...}) in functions see
+#' \url{https://openweathermap.org/api/}
 #'
 #' @name owmr
 #'

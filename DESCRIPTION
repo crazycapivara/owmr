@@ -1,9 +1,12 @@
 Package: owmr
 Title: OpenWeatherMap API Wrapper
-Version: 0.7.1
+Version: 0.7.2
 Authors@R: person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre"))
-Description: An R Interface to OpenWeatherMap.
-   Beside functions for fetching weather data from owm, owmr supplies
+Description: 'owmr' is an R Interface to access OpenWeatherMap's (owm) <https://openweathermap.org/> API.
+   'owm' itself is a service providing weather data in the past, in the future and now.
+   Furthermore 'owm' serves weather map layers usable in frameworks like 'leaflet'.
+   In order to access the API, you need to sign up for an API key. There are free and paid plans.
+   Beside functions for fetching weather data from 'owm', 'owmr' supplies
    tools to tidy up fetched data (for fast and simple access) and to show it on leaflet maps.
 URL:
   https://github.com/crazycapivara/owmr/,

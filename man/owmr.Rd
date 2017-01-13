@@ -2,9 +2,12 @@
 % Please edit documentation in R/package.R
 \name{owmr}
 \alias{owmr}
-\title{owmr - An R interface to OpenWeatherMap}
+\title{owmr - An R interface to access OpenWeatherMap's API}
 \description{
-owmr - An R interface to OpenWeatherMap
+In order to access the API, you need to sign up for an API key
+at \url{https://openweathermap.org/}. \cr
+For optional parameters (\code{...}) in functions see
+\url{https://openweathermap.org/api/}
 }
 \examples{
 \dontrun{
