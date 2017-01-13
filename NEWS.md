@@ -31,3 +31,7 @@
 # owmr 0.7.1
 
 * Fixed false poitives in check for undefined global variable `.` from `magrittr`
+
+# owmr 0.7.2
+
+* Updated package description
