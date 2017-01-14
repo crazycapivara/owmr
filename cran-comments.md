@@ -12,3 +12,4 @@ This is the first submission of owmr.
 
 * added link to OpenWeatherMap service
 * added some more information about the service itself
+* removed redundant "'owmr' is an R Interface to" 
