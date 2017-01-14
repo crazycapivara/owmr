@@ -20,4 +20,4 @@ This is the first submission of owmr.
 
 ## Updated README
 
-* Fixed non-https url
+* Fixed non-https cran url
