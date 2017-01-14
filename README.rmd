@@ -29,10 +29,11 @@ __develop__
 ## Installation
 
 ```{r installation, eval=FALSE}
-require("devtools")
-
 # stable
 install.packages("owmr")
+
+# ~~~~~
+require("devtools")
 
 # unstable
 install_github("crazycapivara/owmr/")
@@ -60,7 +61,7 @@ owmr_settings(api_key = api_key)
 res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
 
 # ... by city id
-(rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ])) %>%
+(rio <- subset(owm_cities, nm == "Rio de Janeiro")) %>%
   as.list()
 
 get_current(rio$id, units = "metric") %>%
