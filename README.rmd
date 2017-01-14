@@ -1,5 +1,5 @@
 ---
-title: "OpenWeatherMap Api Wrapper for R"
+title: "An R Interface to OpenWeatherMap"
 output: github_document
 ---
 
@@ -9,6 +9,12 @@ library(testthat)
 library(magrittr)
 source("tmp/settings.R")
 ```
+
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/owmr)](https://cran.r-project.org/package=owmr)
+
+`owmr` accesses __OpenWeatherMap's__ API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
+
+* https://openweathermap.org
 
 ## Builds
 
@@ -26,21 +32,24 @@ __develop__
 require("devtools")
 
 # stable
-install_github("crazycapivara/owmr")
+install.packages("owmr")
+
+# unstable
+install_github("crazycapivara/owmr/")
 
 # bleeding edge
-install_github("crazycapivara/owmr", ref = "develop")
-```
-
-## Current version
-
-```{r version, echo=TRUE, eval=TRUE}
-library(owmr)
+install_github("crazycapivara/owmr/", ref = "develop")
 ```
 
 ## Introduction
 
+See __OpenWeatherMap's__ API documentation for optional parameters, which can be passed to all functions fetching weather data via the `...` parameter in R
+
+* https://openweathermap.org/api/
+
 ```{r introduction, echo=TRUE, eval=TRUE}
+library(owmr)
+
 # pass api key
 api_key_ = "your-api-key"
 owmr_settings(api_key = api_key)
@@ -84,7 +93,7 @@ names(forecast$list)
 forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
 
 # do some templating ...
-("{{dt_txt}}h {{temp}} °C, {{wind_speed}} m/s" %$$%
+("{{dt_txt}}h {{temp}}°C, {{wind_speed}} m/s" %$$%
   forecast$list) %>% head(10)
 ```
 

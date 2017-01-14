@@ -4,12 +4,20 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
-
-There was 1 NOTE:
-* checking R code for possible problems ... NOTE
-  no visible binding for global variable ‘.’
-
-  The variable ‘.’ is used in `magrittr` expressions.
+0 errors | 0 warnings | 0 notes 
 
 This is the first submission of owmr.
+
+## Updated DESCRIPTION
+
+* added link to OpenWeatherMap service
+* added some more information about the service itself
+* removed redundant "'owmr' is an R Interface to"
+
+## Updated LICENSE
+
+* Removed needless city information in LICENSE file
+
+## Updated README
+
+* Fixed non-https cran url

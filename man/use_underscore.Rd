@@ -17,6 +17,6 @@ Substitute dots in column names with underscores.
 }
 \examples{
 names(airquality)
-use_underscore(airquality) \%>\% names
+use_underscore(airquality) \%>\% names()
 }
 

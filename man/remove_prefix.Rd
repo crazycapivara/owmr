@@ -22,6 +22,6 @@ Remove prefices from column names.
 \examples{
 x <- data.frame(main.temp = 1:10, sys.msg = "OK", cnt = 10:1)
 names(x)
-remove_prefix(x, c("main", "sys")) \%>\% names
+remove_prefix(x, c("main", "sys")) \%>\% names()
 }
 
