@@ -3,9 +3,9 @@ An R Interface to OpenWeatherMap
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/owmr)](http://cran.r-project.org/package=owmr)
 
-`owmr` accesses *OpenWeatherMap's* API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
+`owmr` accesses **OpenWeatherMap's** API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
 
--   <https://openweathermap.org/>
+-   <https://openweathermap.org>
 
 Builds
 ------
@@ -34,7 +34,9 @@ install_github("crazycapivara/owmr", ref = "develop")
 Introduction
 ------------
 
-See <https://openweathermap.org/api/> for optional parameters, which can be passed to all functions fetching weather data via the `...` parameter in R.
+See **OpenWeatherMap's** API documentation for optional parameters, which can be passed to all functions fetching weather data via the `...` parameter in R
+
+-   <https://openweathermap.org/api/>
 
 ``` r
 library(owmr)
@@ -76,7 +78,7 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 0.4
+    ## [1] 0.43
     ## 
     ## $weather.description
     ## [1] "broken clouds"
@@ -130,7 +132,7 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
     ## 2   26.926       4954         ETHF         274.15
     ## 3   69.579       4910         EDLP         274.15
     ## 4   89.149      73733    Uwe Kruse         274.65
-    ## 5   93.344 1460732694        hlw31         274.88
+    ## 5   93.344 1460732694        hlw31         274.89
     ## 6   97.934 1442728908         AmiH         273.15
     ## 7   98.978       4951         ETHB         276.15
 

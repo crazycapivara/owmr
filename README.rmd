@@ -12,9 +12,9 @@ source("tmp/settings.R")
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/owmr)](http://cran.r-project.org/package=owmr)
 
-`owmr` accesses _OpenWeatherMap's_ API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
+`owmr` accesses __OpenWeatherMap's__ API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
 
-* https://openweathermap.org/
+* https://openweathermap.org
 
 ## Builds
 
@@ -40,7 +40,9 @@ install_github("crazycapivara/owmr", ref = "develop")
 
 ## Introduction
 
-See https://openweathermap.org/api/ for optional parameters, which can be passed to all functions fetching weather data via the `...` parameter in R. 
+See __OpenWeatherMap's__ API documentation for optional parameters, which can be passed to all functions fetching weather data via the `...` parameter in R
+
+* https://openweathermap.org/api/
 
 ```{r introduction, echo=TRUE, eval=TRUE}
 library(owmr)
