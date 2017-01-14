@@ -1,7 +1,7 @@
 An R Interface to OpenWeatherMap
 ================
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/owmr)](http://cran.r-project.org/package=owmr)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/owmr)](https://cran.r-project.org/package=owmr)
 
 `owmr` accesses **OpenWeatherMap's** API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
 
@@ -78,10 +78,10 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 0.43
+    ## [1] 4.01
     ## 
     ## $weather.description
-    ## [1] "broken clouds"
+    ## [1] "moderate rain"
 
 ``` r
 # ... by city id
@@ -113,13 +113,13 @@ get_current(rio$id, units = "metric") %>%
     ## [1] "Rio de Janeiro"
     ## 
     ## $main.temp
-    ## [1] 24.51
+    ## [1] 28.73
     ## 
     ## $main.humidity
-    ## [1] 94
+    ## [1] 70
     ## 
     ## $wind.speed
-    ## [1] 2.1
+    ## [1] 2.6
 
 ``` r
 # get weather data from stations
@@ -129,10 +129,10 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
 
     ##   distance station.id station.name last.main.temp
     ## 1   13.276       4926         EDVK         274.15
-    ## 2   26.926       4954         ETHF         274.15
-    ## 3   69.579       4910         EDLP         274.15
-    ## 4   89.149      73733    Uwe Kruse         274.65
-    ## 5   93.344 1460732694        hlw31         274.89
+    ## 2   26.926       4954         ETHF         276.15
+    ## 3   69.579       4910         EDLP         275.15
+    ## 4   89.149      73733    Uwe Kruse         275.55
+    ## 5   93.344 1460732694        hlw31         275.43
     ## 6   97.934 1442728908         AmiH         273.15
     ## 7   98.978       4951         ETHB         276.15
 
@@ -152,7 +152,7 @@ names(forecast)
     cnt  = forecast$cnt) %>% cat()
 ```
 
-    ## name: London, id: 2643743, (forcast) rows: 37
+    ## name: London, id: 2643743, (forcast) rows: 35
 
 ``` r
 names(forecast$list)
@@ -171,12 +171,12 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2017-01-14 09:00:00      0.71          1.99       4.81
-    ## 2 2017-01-14 12:00:00      3.33          4.30       4.82
-    ## 3 2017-01-14 15:00:00      4.40          5.04       4.81
-    ## 4 2017-01-14 18:00:00      3.28          3.60       3.65
-    ## 5 2017-01-14 21:00:00      3.52          3.52       3.97
-    ## 6 2017-01-15 00:00:00      0.78          0.78       4.67
+    ## 1 2017-01-14 15:00:00      4.74          5.04       4.81
+    ## 2 2017-01-14 18:00:00      3.38          3.60       3.65
+    ## 3 2017-01-14 21:00:00      3.38          3.52       3.97
+    ## 4 2017-01-15 00:00:00      0.71          0.78       4.67
+    ## 5 2017-01-15 03:00:00     -0.39         -0.39       3.95
+    ## 6 2017-01-15 06:00:00     -0.55         -0.55       2.97
 
 ``` r
 # flatten weather column and tidy up column names
@@ -201,11 +201,11 @@ forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
   forecast$list) %>% head(10)
 ```
 
-    ##  [1] "2017-01-14 09:00:00h 1°C, 5 m/s"  "2017-01-14 12:00:00h 3°C, 5 m/s" 
-    ##  [3] "2017-01-14 15:00:00h 4°C, 5 m/s"  "2017-01-14 18:00:00h 3°C, 4 m/s" 
-    ##  [5] "2017-01-14 21:00:00h 4°C, 4 m/s"  "2017-01-15 00:00:00h 1°C, 5 m/s" 
-    ##  [7] "2017-01-15 03:00:00h 0°C, 4 m/s"  "2017-01-15 06:00:00h -1°C, 3 m/s"
-    ##  [9] "2017-01-15 09:00:00h 1°C, 3 m/s"  "2017-01-15 12:00:00h 3°C, 3 m/s"
+    ##  [1] "2017-01-14 15:00:00h 5°C, 5 m/s"  "2017-01-14 18:00:00h 3°C, 4 m/s" 
+    ##  [3] "2017-01-14 21:00:00h 3°C, 4 m/s"  "2017-01-15 00:00:00h 1°C, 5 m/s" 
+    ##  [5] "2017-01-15 03:00:00h 0°C, 4 m/s"  "2017-01-15 06:00:00h -1°C, 3 m/s"
+    ##  [7] "2017-01-15 09:00:00h 1°C, 3 m/s"  "2017-01-15 12:00:00h 3°C, 3 m/s" 
+    ##  [9] "2017-01-15 15:00:00h 6°C, 5 m/s"  "2017-01-15 18:00:00h 7°C, 4 m/s"
 
 Documentation
 -------------
