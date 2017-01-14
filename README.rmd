@@ -10,7 +10,7 @@ library(magrittr)
 source("tmp/settings.R")
 ```
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/owmr)](http://cran.r-project.org/package=owmr)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/owmr)](https://cran.r-project.org/package=owmr)
 
 `owmr` accesses __OpenWeatherMap's__ API, a service providing weather data in the past, in the future and now and furthermore, serving weather map layers usable in frameworks like `leaflet`. In order to access its API you have to sign up for an API key at
 
