@@ -129,8 +129,8 @@ $(document).ready(function () {
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <pre class="r"><code>library(owmr)</code></pre>
-<pre><code>## owmr 0.6.1
-##    another crazy way to talk to OpenWeatherMap's api
+<pre><code>## owmr 0.7.2
+##    another crazy way to talk to OpenWeatherMap's API
 ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
 ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/</code></pre>
 <pre class="r"><code>owm_cities %&gt;% head()</code></pre>
@@ -145,76 +145,102 @@ $(document).ready(function () {
 <pre><code>##                           obj
 ## 1                         %&gt;%
 ## 2                        %$$%
-## 3                 add_weather
-## 4             fetch_test_data
-## 5    find_cities_by_geo_point
-## 6                   find_city
-## 7  find_stations_by_geo_point
-## 8             flatten_weather
-## 9                 get_current
-## 10      get_current_for_group
-## 11   get_current_from_station
-## 12               get_forecast
-## 13         get_forecast_daily
-## 14               get_icon_url
-## 15                 owm_cities
-## 16              owmr_settings
-## 17               parse_result
-## 18                     render
-## 19           search_city_list</code></pre>
+## 3               add_owm_tiles
+## 4                 add_weather
+## 5               cbind_weather
+## 6    find_cities_by_geo_point
+## 7                   find_city
+## 8  find_stations_by_geo_point
+## 9                     flatten
+## 10            flatten_weather
+## 11                get_current
+## 12      get_current_for_group
+## 13   get_current_from_station
+## 14               get_forecast
+## 15         get_forecast_daily
+## 16               get_icon_url
+## 17                 owm_cities
+## 18                 owm_layers
+## 19              owmr_settings
+## 20              parse_columns
+## 21              remove_prefix
+## 22                     render
+## 23           search_city_list
+## 24                    tidy_up
+## 25                   tidy_up_
+## 26             use_underscore</code></pre>
 </div>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<pre class="r"><code>require(&quot;devtools&quot;)
+<pre class="r"><code># stable
+install.packages(&quot;owmr&quot;)
 
-devtools::install_github(&quot;crazycapivara/owmr&quot;)</code></pre>
+# unstable
+require(&quot;devtools&quot;)
+
+devtools::install_github(&quot;crazycapivara/owmr/&quot;)</code></pre>
 </div>
-<div id="usage" class="section level2">
-<h2>Usage</h2>
-<pre class="r"><code>owmr_settings(api_key)
+<div id="quick-start" class="section level2">
+<h2>Quick start</h2>
+<pre class="r"><code># Set up API key
+owmr_settings(api_key)
+
+# Get latitude and longitude for Rio de Janeiro
 rio &lt;- search_city_list(&quot;Rio de Janeiro&quot;)
-rio</code></pre>
-<pre><code>##            id             nm       lat      lon countryCode
-## 13374 3451190 Rio de Janeiro -22.90278 -43.2075          BR</code></pre>
-<pre class="r"><code>owm_data &lt;- find_cities_by_geo_point(
+rio %&gt;% as.list()</code></pre>
+<pre><code>## $id
+## [1] 3451190
+## 
+## $nm
+## [1] &quot;Rio de Janeiro&quot;
+## 
+## $lat
+## [1] -22.90278
+## 
+## $lon
+## [1] -43.2075
+## 
+## $countryCode
+## [1] &quot;BR&quot;</code></pre>
+<pre class="r"><code># Fetch current weather data for some cities around Rio de Janeiro
+owm_data &lt;- find_cities_by_geo_point(
   lat = rio$lat,
   lon = rio$lon,
   cnt = 9,
-  units = &quot;metric&quot;)$list
+  units = &quot;metric&quot;)$list %&gt;% tidy_up_()
 
 owm_data %&gt;% names()</code></pre>
-<pre><code>##  [1] &quot;id&quot;            &quot;name&quot;          &quot;dt&quot;            &quot;weather&quot;      
-##  [5] &quot;coord.lon&quot;     &quot;coord.lat&quot;     &quot;main.temp&quot;     &quot;main.pressure&quot;
-##  [9] &quot;main.humidity&quot; &quot;main.temp_min&quot; &quot;main.temp_max&quot; &quot;wind.speed&quot;   
-## [13] &quot;wind.deg&quot;      &quot;sys.country&quot;   &quot;clouds.all&quot;</code></pre>
-<pre class="r"><code># flatten weather column ...
-(weather &lt;- flatten_weather(owm_data$weather)) %&gt;% head(2)</code></pre>
-<pre><code>##    id   main   description icon
-## 1 803 Clouds broken clouds  04n
-## 2 803 Clouds broken clouds  04n</code></pre>
-<pre class="r"><code># ... and add weather description to main data frame
-library(magrittr)
-(owm_data %&lt;&gt;% cbind(weather_desc = weather$description)) %&gt;% names()</code></pre>
-<pre><code>##  [1] &quot;id&quot;            &quot;name&quot;          &quot;dt&quot;            &quot;weather&quot;      
-##  [5] &quot;coord.lon&quot;     &quot;coord.lat&quot;     &quot;main.temp&quot;     &quot;main.pressure&quot;
-##  [9] &quot;main.humidity&quot; &quot;main.temp_min&quot; &quot;main.temp_max&quot; &quot;wind.speed&quot;   
-## [13] &quot;wind.deg&quot;      &quot;sys.country&quot;   &quot;clouds.all&quot;    &quot;weather_desc&quot;</code></pre>
-<pre class="r"><code># create popup template to show up on map
-# (NOTE: dots in colum names must be subsituted with an underscore in tpl)
-popup_tpl &lt;- &quot;&lt;b&gt;{{name}}&lt;/b&gt;&lt;/br&gt;{{main_temp}} °C, {{weather_desc}}&quot;
+<pre><code>##  [1] &quot;id&quot;                  &quot;name&quot;                &quot;dt&quot;                 
+##  [4] &quot;coord_lon&quot;           &quot;coord_lat&quot;           &quot;temp&quot;               
+##  [7] &quot;pressure&quot;            &quot;humidity&quot;            &quot;temp_min&quot;           
+## [10] &quot;temp_max&quot;            &quot;wind_speed&quot;          &quot;wind_deg&quot;           
+## [13] &quot;country&quot;             &quot;clouds_all&quot;          &quot;weather_id&quot;         
+## [16] &quot;weather_main&quot;        &quot;weather_description&quot; &quot;weather_icon&quot;</code></pre>
+<pre class="r"><code># Round temperature values
+owm_data &lt;- parse_columns(owm_data, list(temp = round))
 
-# test it ...
+# Create popup template to show up on leaflet map
+popup_tpl &lt;- paste0(
+  &quot;&lt;b&gt;{{name}}&lt;/b&gt;&lt;/br&gt;&quot;,
+  &quot;{{coord_lon}}, {{coord_lat}}&lt;/br&gt;&quot;,
+  &quot;{{temp}}°C, &quot;,
+  &quot;&lt;i&gt;{{weather_description}}&lt;/i&gt;&quot;
+)
+
+# Test it ...
 popup_tpl %$$% owm_data %&gt;% head(2)</code></pre>
-<pre><code>## [1] &quot;&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;24 °C, broken clouds&quot;
-## [2] &quot;&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;24 °C, broken clouds&quot;</code></pre>
-<pre class="r"><code>require(&quot;leaflet&quot;)</code></pre>
+<pre><code>## [1] &quot;&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;-43.2075, -22.902781&lt;/br&gt;30°C, &lt;i&gt;few clouds&lt;/i&gt;&quot;
+## [2] &quot;&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;-43.23333, -22.9&lt;/br&gt;30°C, &lt;i&gt;few clouds&lt;/i&gt;&quot;</code></pre>
+<pre class="r"><code># Load leaflet
+require(&quot;leaflet&quot;)</code></pre>
 <pre><code>## Loading required package: leaflet</code></pre>
-<pre class="r"><code>leaflet(width = &quot;100%&quot;) %&gt;%
+<pre class="r"><code># Create leaflet map and add weather data to it
+leaflet(width = &quot;100%&quot;) %&gt;%
   addProviderTiles(&quot;CartoDB.DarkMatter&quot;) %&gt;%
-  add_weather(owm_data, icon = weather$icon, template = popup_tpl)</code></pre>
-<div id="htmlwidget-7535" style="width:100%;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7535">{"x":{"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.902781,-22.9,-22.968981,-22.980141,-22.81415,-22.883329,-22.9,-22.785561,-22.826941],[-43.2075,-43.23333,-43.185631,-43.196621,-43.230709,-43.103611,-43.09972,-43.311668,-43.05389],{"iconUrl":{"data":"http://openweathermap.org/img/w/04n.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro\u003c/b>\u003c/br>24 °C, broken clouds","<b>São Cristóvão\u003c/b>\u003c/br>24 °C, broken clouds","<b>Botafogo\u003c/b>\u003c/br>24 °C, broken clouds","<b>Pavão-Pavaozinho\u003c/b>\u003c/br>24 °C, broken clouds","<b>Vila Joaniza\u003c/b>\u003c/br>24 °C, broken clouds","<b>Niteroi\u003c/b>\u003c/br>24 °C, broken clouds","<b>Icaraí\u003c/b>\u003c/br>24 °C, broken clouds","<b>Duque de Caxias\u003c/b>\u003c/br>24 °C, broken clouds","<b>Sao Goncalo\u003c/b>\u003c/br>24 °C, broken clouds"],null,null]}],"limits":{"lat":[-22.980141,-22.785561],"lng":[-43.311668,-43.05389]}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>## click on icons to get further information ##
+  add_weather(owm_data, icon = owm_data$weather_icon, template = popup_tpl)</code></pre>
+<div id="htmlwidget-503" style="width:100%;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-503">{"x":{"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.902781,-22.9,-22.968981,-22.980141,-22.81415,-22.883329,-22.9,-22.785561,-22.826941],[-43.2075,-43.23333,-43.185631,-43.196621,-43.230709,-43.103611,-43.09972,-43.311668,-43.05389],{"iconUrl":{"data":"http://openweathermap.org/img/w/02d.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro\u003c/b>\u003c/br>-43.2075, -22.902781\u003c/br>30°C, <i>few clouds\u003c/i>","<b>São Cristóvão\u003c/b>\u003c/br>-43.23333, -22.9\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Botafogo\u003c/b>\u003c/br>-43.185631, -22.968981\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Pavão-Pavaozinho\u003c/b>\u003c/br>-43.196621, -22.980141\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Vila Joaniza\u003c/b>\u003c/br>-43.230709, -22.81415\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Niteroi\u003c/b>\u003c/br>-43.103611, -22.883329\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Icaraí\u003c/b>\u003c/br>-43.09972, -22.9\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Duque de Caxias\u003c/b>\u003c/br>-43.311668, -22.785561\u003c/br>30°C, <i>few clouds\u003c/i>","<b>Sao Goncalo\u003c/b>\u003c/br>-43.05389, -22.826941\u003c/br>30°C, <i>few clouds\u003c/i>"],null,null]}],"limits":{"lat":[-22.980141,-22.785561],"lng":[-43.311668,-43.05389]}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>## Click on icons to get further information ##
 
 ## ... ##</code></pre>
 </div>

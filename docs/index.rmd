@@ -8,6 +8,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
 source("../tmp/settings.R")
 ```
 
@@ -24,47 +25,57 @@ ls("package:owmr") %>% data.frame(obj = .)
 ## Installation
 
 ```{r installation, eval=F}
+# stable
+install.packages("owmr")
+
+# unstable
 require("devtools")
 
-devtools::install_github("crazycapivara/owmr")
+devtools::install_github("crazycapivara/owmr/")
 ```
 
-## Usage
+## Quick start
 
-```{r usage}
+```{r quick-start}
+# Set up API key
 owmr_settings(api_key)
-rio <- search_city_list("Rio de Janeiro")
-rio
 
+# Get latitude and longitude for Rio de Janeiro
+rio <- search_city_list("Rio de Janeiro")
+rio %>% as.list()
+
+# Fetch current weather data for some cities around Rio de Janeiro
 owm_data <- find_cities_by_geo_point(
   lat = rio$lat,
   lon = rio$lon,
   cnt = 9,
-  units = "metric")$list
+  units = "metric")$list %>% tidy_up_()
 
 owm_data %>% names()
 
-# flatten weather column ...
-(weather <- flatten_weather(owm_data$weather)) %>% head(2)
+# Round temperature values
+owm_data <- parse_columns(owm_data, list(temp = round))
 
-# ... and add weather description to main data frame
-library(magrittr)
-(owm_data %<>% cbind(weather_desc = weather$description)) %>% names()
+# Create popup template to show up on leaflet map
+popup_tpl <- paste0(
+  "<b>{{name}}</b></br>",
+  "{{coord_lon}}, {{coord_lat}}</br>",
+  "{{temp}}°C, ",
+  "<i>{{weather_description}}</i>"
+)
 
-# create popup template to show up on map
-# (NOTE: dots in colum names must be subsituted with an underscore in tpl)
-popup_tpl <- "<b>{{name}}</b></br>{{main_temp}} °C, {{weather_desc}}"
-
-# test it ...
+# Test it ...
 popup_tpl %$$% owm_data %>% head(2)
 
+# Load leaflet
 require("leaflet")
 
+# Create leaflet map and add weather data to it
 leaflet(width = "100%") %>%
   addProviderTiles("CartoDB.DarkMatter") %>%
-  add_weather(owm_data, icon = weather$icon, template = popup_tpl)
+  add_weather(owm_data, icon = owm_data$weather_icon, template = popup_tpl)
 
-## click on icons to get further information ##
+## Click on icons to get further information ##
 
 ## ... ##
 ```
