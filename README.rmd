@@ -32,10 +32,13 @@ __develop__
 require("devtools")
 
 # stable
-install_github("crazycapivara/owmr")
+install.packages("owmr")
+
+# unstable
+install_github("crazycapivara/owmr/")
 
 # bleeding edge
-install_github("crazycapivara/owmr", ref = "develop")
+install_github("crazycapivara/owmr/", ref = "develop")
 ```
 
 ## Introduction
