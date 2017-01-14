@@ -22,13 +22,17 @@ Installation
 ------------
 
 ``` r
+# stable
+install.packages("owmr")
+
+# ~~~~~
 require("devtools")
 
-# stable
-install_github("crazycapivara/owmr")
+# unstable
+install_github("crazycapivara/owmr/")
 
 # bleeding edge
-install_github("crazycapivara/owmr", ref = "develop")
+install_github("crazycapivara/owmr/", ref = "develop")
 ```
 
 Introduction
@@ -78,14 +82,14 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 4.01
+    ## [1] 2.93
     ## 
     ## $weather.description
-    ## [1] "moderate rain"
+    ## [1] "clear sky"
 
 ``` r
 # ... by city id
-(rio <- with(owm_cities, owm_cities[nm == "Rio de Janeiro", ])) %>%
+(rio <- subset(owm_cities, nm == "Rio de Janeiro")) %>%
   as.list()
 ```
 
@@ -113,13 +117,13 @@ get_current(rio$id, units = "metric") %>%
     ## [1] "Rio de Janeiro"
     ## 
     ## $main.temp
-    ## [1] 28.73
+    ## [1] 30.99
     ## 
     ## $main.humidity
-    ## [1] 70
+    ## [1] 62
     ## 
     ## $wind.speed
-    ## [1] 2.6
+    ## [1] 4.6
 
 ``` r
 # get weather data from stations
@@ -128,13 +132,13 @@ find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>%
 ```
 
     ##   distance station.id station.name last.main.temp
-    ## 1   13.276       4926         EDVK         274.15
-    ## 2   26.926       4954         ETHF         276.15
-    ## 3   69.579       4910         EDLP         275.15
-    ## 4   89.149      73733    Uwe Kruse         275.55
-    ## 5   93.344 1460732694        hlw31         275.43
+    ## 1   13.276       4926         EDVK         273.15
+    ## 2   26.926       4954         ETHF         274.15
+    ## 3   69.579       4910         EDLP         273.15
+    ## 4   89.149      73733    Uwe Kruse         273.45
+    ## 5   93.344 1460732694        hlw31         273.49
     ## 6   97.934 1442728908         AmiH         273.15
-    ## 7   98.978       4951         ETHB         276.15
+    ## 7   98.978       4951         ETHB         274.15
 
 ``` r
 # get forecast
@@ -152,7 +156,7 @@ names(forecast)
     cnt  = forecast$cnt) %>% cat()
 ```
 
-    ## name: London, id: 2643743, (forcast) rows: 35
+    ## name: London, id: 2643743, (forcast) rows: 40
 
 ``` r
 names(forecast$list)
@@ -171,12 +175,12 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2017-01-14 15:00:00      4.74          5.04       4.81
-    ## 2 2017-01-14 18:00:00      3.38          3.60       3.65
-    ## 3 2017-01-14 21:00:00      3.38          3.52       3.97
-    ## 4 2017-01-15 00:00:00      0.71          0.78       4.67
-    ## 5 2017-01-15 03:00:00     -0.39         -0.39       3.95
-    ## 6 2017-01-15 06:00:00     -0.55         -0.55       2.97
+    ## 1 2017-01-14 18:00:00      0.45          0.72       4.01
+    ## 2 2017-01-14 21:00:00     -1.20         -1.01       3.20
+    ## 3 2017-01-15 00:00:00     -1.56         -1.43       2.76
+    ## 4 2017-01-15 03:00:00      0.27          0.33       2.71
+    ## 5 2017-01-15 06:00:00      1.58          1.58       2.52
+    ## 6 2017-01-15 09:00:00      2.15          2.15       1.22
 
 ``` r
 # flatten weather column and tidy up column names
@@ -201,11 +205,11 @@ forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
   forecast$list) %>% head(10)
 ```
 
-    ##  [1] "2017-01-14 15:00:00h 5°C, 5 m/s"  "2017-01-14 18:00:00h 3°C, 4 m/s" 
-    ##  [3] "2017-01-14 21:00:00h 3°C, 4 m/s"  "2017-01-15 00:00:00h 1°C, 5 m/s" 
-    ##  [5] "2017-01-15 03:00:00h 0°C, 4 m/s"  "2017-01-15 06:00:00h -1°C, 3 m/s"
-    ##  [7] "2017-01-15 09:00:00h 1°C, 3 m/s"  "2017-01-15 12:00:00h 3°C, 3 m/s" 
-    ##  [9] "2017-01-15 15:00:00h 6°C, 5 m/s"  "2017-01-15 18:00:00h 7°C, 4 m/s"
+    ##  [1] "2017-01-14 18:00:00h 0°C, 4 m/s"  "2017-01-14 21:00:00h -1°C, 3 m/s"
+    ##  [3] "2017-01-15 00:00:00h -2°C, 3 m/s" "2017-01-15 03:00:00h 0°C, 3 m/s" 
+    ##  [5] "2017-01-15 06:00:00h 2°C, 3 m/s"  "2017-01-15 09:00:00h 2°C, 1 m/s" 
+    ##  [7] "2017-01-15 12:00:00h 4°C, 3 m/s"  "2017-01-15 15:00:00h 6°C, 4 m/s" 
+    ##  [9] "2017-01-15 18:00:00h 7°C, 3 m/s"  "2017-01-15 21:00:00h 5°C, 2 m/s"
 
 Documentation
 -------------
