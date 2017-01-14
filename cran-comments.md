@@ -17,3 +17,7 @@ This is the first submission of owmr.
 ## Updated LICENSE
 
 * Removed needless city information in LICENSE file
+
+## Updated README
+
+* Fixed non-https url
