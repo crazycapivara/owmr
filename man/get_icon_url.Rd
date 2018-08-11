@@ -22,4 +22,3 @@ Get icon url.
    icons <- get_icon_url(weather$icon)
 }
 }
-

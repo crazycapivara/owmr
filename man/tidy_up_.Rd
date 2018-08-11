@@ -40,4 +40,3 @@ Tidy up owm data.
    \code{\link{remove_prefix}},\cr
    \code{\link{use_underscore}}
 }
-

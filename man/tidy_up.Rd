@@ -27,4 +27,3 @@ Calls \code{\link{tidy_up_}} passing \code{data$list}
 \seealso{
 \code{\link{tidy_up_}}
 }
-

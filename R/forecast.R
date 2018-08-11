@@ -13,7 +13,15 @@
 #'    get_forecast("London", cnt = 10)
 #'    get_forecast(lat = -22.90278, lon = -22.90278, cnt = 3, units = "metric")
 #' }
-get_forecast <- function(city = NA, ...){
+get_forecast <- function(city = NA, simplify = TRUE, ...){
   get <- owmr_wrap_get("forecast")
-  get(city, ...) %>% owmr_parse()
+  resp <- get(city, ...) %>% owmr_parse()
+  resp$list <- resp$list %>%
+    tibble::as_tibble() %>%
+    use_underscore()
+
+  if (simplify == TRUE) {
+    resp <- resp$list
+  }
+  resp
 }

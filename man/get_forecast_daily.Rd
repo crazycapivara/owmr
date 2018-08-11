@@ -26,4 +26,3 @@ Get daily forcast data up to 16 days.
    forecast_frame <- result$list
 }
 }
-

@@ -19,4 +19,3 @@ Substitute dots in column names with underscores.
 names(airquality)
 use_underscore(airquality) \%>\% names()
 }
-

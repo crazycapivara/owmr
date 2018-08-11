@@ -22,4 +22,3 @@ Parse weather column to (single) data frame.
    weather$description \%>\% print()
 }
 }
-

@@ -4,7 +4,7 @@
 \alias{get_forecast}
 \title{Get 3h forecast data.}
 \usage{
-get_forecast(city = NA, ...)
+get_forecast(city = NA, simplify = TRUE, ...)
 }
 \arguments{
 \item{city}{city name or id}
@@ -27,4 +27,3 @@ Get 3h forecast data.
    get_forecast(lat = -22.90278, lon = -22.90278, cnt = 3, units = "metric")
 }
 }
-
