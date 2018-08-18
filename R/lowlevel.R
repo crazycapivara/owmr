@@ -65,7 +65,8 @@ parse_current <- function(resp, simplify = FALSE) {
     tibble::as_tibble() %>%
     use_underscore()
 
-  resp$main <- resp$main %>% as_tibble()
+  resp$main <- resp$main %>%
+    tibble::as_tibble()
 
   resp
 }
