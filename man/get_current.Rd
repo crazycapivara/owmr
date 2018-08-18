@@ -4,7 +4,7 @@
 \alias{get_current}
 \title{Get current weather data for given city.}
 \usage{
-get_current(city = NA, ...)
+get_current(city = NA, simplify = TRUE, ...)
 }
 \arguments{
 \item{city}{city name or id}

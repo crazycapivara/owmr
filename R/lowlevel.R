@@ -1,3 +1,15 @@
+owmr_key <- function(quiet = TRUE) {
+  .pkg_env$api_key <<- Sys.getenv("OWMR_KEY")
+  if (identical(.pkg_env$api_key, "")) {
+    return(NULL)
+  }
+  if (!quiet) {
+    message("Using OWMR API key from envvar OWMR_KEY")
+  }
+  return(.pkg_env$api_key)
+}
+
+
 api_url <- "http://api.openweathermap.org/data/2.5/"
 
 assign_loc <- function(query, loc){
@@ -13,9 +25,15 @@ assign_loc <- function(query, loc){
   query
 }
 
-check_api_key <- function(){
-  if(is.null(.pkg_env$api_key)){
-    stop("Set api key before trying to fetch data!", call. = F)
+check_api_key <- function() {
+  if (is.null(owmr_key())) {
+    message("It is recommended that you store your OWMR API key in an\n
+            .Renviron variable called OWMR_KEY.")
+    if(is.null(.pkg_env$api_key)){
+      stop("Set api key before trying to fetch data!", call. = FALSE)
+    }
+  } else {
+    .pkg_env$api_key <<- Sys.getenv("OWMR_KEY")
   }
 }
 
