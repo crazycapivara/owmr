@@ -26,6 +26,32 @@ owmr_parse <- function(response){
     jsonlite::fromJSON(flatten = T)
 }
 
+parse_forecast <- function(resp, simplify = FALSE) {
+  if ("list" %in% names(resp) &&
+      inherits(resp$list, "data.frame")) {
+    names(resp)[which(names(resp) == "list")] <- "weather"
+  }
+
+  resp$weather <- resp$weather %>%
+    tibble::as_tibble() %>%
+    use_underscore()
+
+  if (simplify == TRUE) {
+    return(resp$weather)
+  }
+  resp
+}
+
+parse_current <- function(resp, simplify = FALSE) {
+  resp$weather <- resp$weather %>%
+    tibble::as_tibble() %>%
+    use_underscore()
+
+  resp$main <- resp$main %>% as_tibble()
+
+  resp
+}
+
 # TODO: document in order to export
 # @export
 owmr_wrap_get <- function(path = "weather"){
@@ -37,3 +63,4 @@ owmr_wrap_get <- function(path = "weather"){
     httr::GET(api_url, query = query)
   }
 }
+

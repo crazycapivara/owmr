@@ -9,9 +9,9 @@ get_forecast(city = NA, simplify = TRUE, ...)
 \arguments{
 \item{city}{city name or id}
 
-\item{...}{see owm api documentation, you can also skip parameter
-\code{city} and pass \code{lat} (latitude) and \code{lon} (longitude)
-or \code{zip} (zip code) instead}
+\item{simplify}{Only return the weather dataframe, without any metadata.}
+
+\item{...}{see \href{https://openweathermap.org/api}{owm api documentation}}
 }
 \value{
 list
