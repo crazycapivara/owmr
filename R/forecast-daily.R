@@ -13,7 +13,7 @@
 #'    forecast_frame <- result$list
 #' }
 
-get_forecast_daily <- function(city = NA, ...){
+get_forecast_daily <- function(city = NA, ...) {
   get <- owmr_wrap_get("forecast/daily")
   get(city, ...) %>% owmr_parse()
 }

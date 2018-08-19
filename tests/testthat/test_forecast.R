@@ -19,5 +19,6 @@ test_that("forecast data", {
       owmr_settings(NULL) # reset api key
       expect_equal(result$city$country, expected_country)
       expect_equal(ncol(result$list), expected_ncols)
-  })
+    }
+  )
 })

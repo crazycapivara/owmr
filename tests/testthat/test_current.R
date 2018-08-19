@@ -1,6 +1,6 @@
 context("current weather data")
 
-#load("data/current_weather.rda")
+# load("data/current_weather.rda")
 current <- readRDS("data/current.rds")
 
 test_that("check longitude and latidude", {

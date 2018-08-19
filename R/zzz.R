@@ -1,4 +1,4 @@
-.onAttach <- function(libname, pkgname){
+.onAttach <- function(libname, pkgname) {
   packageStartupMessage(
     pkgname, " ", getNamespaceVersion(pkgname), "\n",
     "   another crazy way to talk to OpenWeatherMap's API\n",
