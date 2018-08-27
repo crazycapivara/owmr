@@ -1,5 +1,6 @@
 .pkg_env <- new.env()
 .pkg_env$icon_url <- "http://openweathermap.org/img/w/%s.png"
+.pkg_env$api_key <- Sys.getenv("OWM_API_KEY")
 
 #' owmr settings.
 #'
@@ -13,6 +14,7 @@
 #'    owmr_settings(api_key = "your-api-key")
 #' }
 owmr_settings <- function(api_key) {
+  message("It still works, but it is recommended that you store your api key in an environment variable called OWM_API_KEY.")
   assign("api_key", api_key, .pkg_env)
 }
 

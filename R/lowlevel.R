@@ -14,7 +14,7 @@ assign_loc <- function(query, loc) {
 }
 
 check_api_key <- function() {
-  if (is.null(.pkg_env$api_key)) {
+  if (identical(.pkg_env$api_key, "") && identical((.pkg_env$api_key <- Sys.getenv("OWM_API_KEY")), "")) {
     stop("Set api key before trying to fetch data!", call. = FALSE)
   }
 }
