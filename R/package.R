@@ -19,18 +19,15 @@
 #'
 #'    # ...
 #' }
-#'
-#' @importFrom magrittr %>% %<>%
-#' @export %>%
 NULL
 
-#' Pipe operator.
-#'
-#' exported from \pkg{magrittr}
-#'
-#' @aliases %>%
-#' @name pipe
-NULL
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
+#' @importFrom magrittr %<>%
+#' @export
+magrittr::`%<>%`
 
 exclusions <- list(
   "R/zzz.R",
