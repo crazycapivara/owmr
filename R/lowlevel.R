@@ -15,7 +15,7 @@ assign_loc <- function(query, loc) {
 
 check_api_key <- function() {
   if (is.null(.pkg_env$api_key)) {
-    stop("Set api key before trying to fetch data!", call. = F)
+    stop("Set api key before trying to fetch data!", call. = FALSE)
   }
 }
 
@@ -23,7 +23,7 @@ check_api_key <- function() {
 # @export
 owmr_parse <- function(response) {
   httr::content(response, as = "text") %>%
-    jsonlite::fromJSON(flatten = T)
+    jsonlite::fromJSON(flatten = TRUE)
 }
 
 # TODO: document in order to export
