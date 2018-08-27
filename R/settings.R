@@ -1,5 +1,5 @@
 .pkg_env <- new.env()
-.pkg_env$icon_url = "http://openweathermap.org/img/w/%s.png"
+.pkg_env$icon_url <- "http://openweathermap.org/img/w/%s.png"
 
 #' owmr settings.
 #'
@@ -12,11 +12,11 @@
 #' @examples \dontrun{
 #'    owmr_settings(api_key = "your-api-key")
 #' }
-owmr_settings <- function(api_key){
+owmr_settings <- function(api_key) {
   assign("api_key", api_key, .pkg_env)
 }
 
-get_api_key <- function(){
+get_api_key <- function() {
   .pkg_env$api_key
 }
 
@@ -32,6 +32,6 @@ get_api_key <- function(){
 #'    weather <- flatten_weather(forecast$weather)
 #'    icons <- get_icon_url(weather$icon)
 #' }
-get_icon_url <- function(icon){
+get_icon_url <- function(icon) {
   sprintf(.pkg_env$icon_url, icon)
 }

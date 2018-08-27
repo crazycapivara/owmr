@@ -39,6 +39,6 @@ exclusions <- list(
 )
 
 # export it or just run it in development mode?
-owmr_coverage <- function(){ # nocov start
+owmr_coverage <- function() { # nocov start
   covr::package_coverage(line_exclusions = exclusions)
 } # nocov end
