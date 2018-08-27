@@ -20,4 +20,3 @@ Flatten weather column in data frame.
    get_forecast("Kassel") \%>\% cbind_weather()
 }
 }
-
