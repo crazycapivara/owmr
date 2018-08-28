@@ -19,6 +19,9 @@ owmr_settings <- function(api_key) {
 }
 
 get_api_key <- function() {
+  if (identical(.pkg_env$api_key, "") && identical((.pkg_env$api_key <- Sys.getenv("OWM_API_KEY")), "")) {
+    stop("Set api key before trying to fetch data!", call. = FALSE)
+  }
   .pkg_env$api_key
 }
 
