@@ -13,14 +13,6 @@ assign_loc <- function(query, loc) {
   query
 }
 
-# TODO: remove it
-# Moved to 'get_api_key'
-# check_api_key <- function() {
-#   if (identical(.pkg_env$api_key, "") && identical((.pkg_env$api_key <- Sys.getenv("OWM_API_KEY")), "")) {
-#     stop("Set api key before trying to fetch data!", call. = FALSE)
-#   }
-# }
-
 # TODO: document in order to export
 # @export
 owmr_parse <- function(response) {
@@ -33,7 +25,6 @@ owmr_parse <- function(response) {
 owmr_wrap_get <- function(path = "weather") {
   api_url <- paste0(api_url, path)
   function(loc = NA, ...) {
-    # check_api_key()
     query <- list(appid = get_api_key()) %>%
       assign_loc(loc) %>%
       c(list(...))
