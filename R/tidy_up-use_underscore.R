@@ -8,7 +8,7 @@
 #' @examples
 #' names(airquality)
 #' use_underscore(airquality) %>% names()
-use_underscore <-function(data){
+use_underscore <- function(data) {
   names(data) <- gsub("\\.", "_", names(data))
   data
 }

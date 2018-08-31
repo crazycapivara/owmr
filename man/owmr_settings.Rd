@@ -17,4 +17,3 @@ Set api key.
    owmr_settings(api_key = "your-api-key")
 }
 }
-

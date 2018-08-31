@@ -28,4 +28,3 @@ around given geo point.
    find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7)
 }
 }
-

@@ -27,4 +27,3 @@ search_city_list("Lond")
 \seealso{
 \code{\link{owm_cities}} dataset
 }
-

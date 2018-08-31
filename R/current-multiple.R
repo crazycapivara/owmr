@@ -15,7 +15,7 @@
 #'    result$cnt == nrow(result$list)
 #'    weather_frame <- result$list
 #' }
-get_current_for_group <- function(city_ids, ...){
+get_current_for_group <- function(city_ids, ...) {
   get <- owmr_wrap_get("group")
   get(id = paste(city_ids, collapse = ",")) %>%
     owmr_parse()
@@ -40,6 +40,6 @@ get_current_for_group <- function(city_ids, ...){
 #' @examples \dontrun{
 #'   find_cities_by_geo_point(lat = 51.50853, lon = -0.12574, cnt = 5)
 #' }
-find_cities_by_geo_point <- function(lat, lon, cnt = 3, ...){
+find_cities_by_geo_point <- function(lat, lon, cnt = 3, ...) {
   find_city(lat = lat, lon = lon, cnt = cnt, ...)
 }

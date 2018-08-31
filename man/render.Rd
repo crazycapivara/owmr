@@ -31,4 +31,3 @@ vars <- data.frame(a = 1:3, b = 23:21)
 \seealso{
 \code{\link[whisker]{whisker.render}}
 }
-

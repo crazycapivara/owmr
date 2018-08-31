@@ -28,4 +28,3 @@ Add owm tiles to leaflet map.
 }
 
 }
-

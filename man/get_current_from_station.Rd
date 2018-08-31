@@ -17,4 +17,3 @@ list
 \description{
 Get current weather data from given station.
 }
-

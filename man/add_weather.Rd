@@ -46,4 +46,3 @@ Add weather data to leaflet map.
          icon = owm_data$weather_icon)
 }
 }
-

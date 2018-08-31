@@ -28,4 +28,3 @@ data for a number of cities around geo point.
 \seealso{
 \link{find_cities_by_geo_point}
 }
-

@@ -22,4 +22,3 @@ owm_cities
 A dataset containing city ids and coordinates to be used in queries.
 }
 \keyword{datasets}
-

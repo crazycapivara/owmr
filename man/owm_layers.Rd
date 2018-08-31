@@ -12,4 +12,3 @@ list of available owm layers
 \description{
 List available owm layers.
 }
-
