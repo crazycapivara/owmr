@@ -14,7 +14,7 @@
 #'    get_current(lon = -0.09184, lat = 51.51279)
 #'    get_current(zip = "94040,US")
 #' }
-get_current <- function(city = NA, ...){
+get_current <- function(city = NA, ...) {
   get <- owmr_wrap_get("weather")
   get(city, ...) %>% owmr_parse()
 }
@@ -37,7 +37,7 @@ get_current <- function(city = NA, ...){
 #'    find_city("London,UK")
 #'    find_city(lat = 51.50853, lon = -0.12574, cnt = 5)
 #' }
-find_city <- function(city = NA, ...){
+find_city <- function(city = NA, ...) {
   get <- owmr_wrap_get("find")
   get(city, ...) %>% owmr_parse()
 }

@@ -30,4 +30,3 @@ around given geo point.
 \seealso{
 \code{\link{find_city}}
 }
-

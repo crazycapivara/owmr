@@ -10,6 +10,8 @@
 #'    weather <- flatten_weather(result$weather)
 #'    weather$description %>% print()
 #' }
-flatten_weather <- function(x){
-  lapply(x, function(df){df[1, ]}) %>% do.call(rbind, .)
+flatten_weather <- function(x) {
+  lapply(x, function(df) {
+    df[1, ]
+  }) %>% do.call(rbind, .)
 }

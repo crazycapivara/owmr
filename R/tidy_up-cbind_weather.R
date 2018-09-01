@@ -8,8 +8,8 @@
 #' @examples\dontrun{
 #'    get_forecast("Kassel") %>% cbind_weather()
 #' }
-cbind_weather <- function(data){
+cbind_weather <- function(data) {
   data %<>% cbind(weather = flatten_weather(data$weather))
-  data$weather = NULL
+  data$weather <- NULL
   data
 }

@@ -22,6 +22,4 @@ For optional parameters (\code{...}) in functions see
 
    # ...
 }
-
 }
-

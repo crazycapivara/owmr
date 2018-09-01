@@ -22,4 +22,3 @@ Flatten list.
       tidy_up_()
 }
 }
-

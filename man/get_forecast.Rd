@@ -27,4 +27,3 @@ Get 3h forecast data.
    get_forecast(lat = -22.90278, lon = -22.90278, cnt = 3, units = "metric")
 }
 }
-

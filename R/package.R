@@ -19,18 +19,15 @@
 #'
 #'    # ...
 #' }
-#'
-#' @importFrom magrittr %>% %<>%
-#' @export %>%
 NULL
 
-#' Pipe operator.
-#'
-#' exported from \pkg{magrittr}
-#'
-#' @aliases %>%
-#' @name pipe
-NULL
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
+#' @importFrom magrittr %<>%
+#' @export
+magrittr::`%<>%`
 
 exclusions <- list(
   "R/zzz.R",
@@ -39,6 +36,6 @@ exclusions <- list(
 )
 
 # export it or just run it in development mode?
-owmr_coverage <- function(){ # nocov start
+owmr_coverage <- function() { # nocov start
   covr::package_coverage(line_exclusions = exclusions)
 } # nocov end

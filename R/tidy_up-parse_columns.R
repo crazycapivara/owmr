@@ -11,14 +11,14 @@
 #'    forecast <- get_forecast("Kassel")$list
 #'    forecast %<>% parse_columns(list(dt = parse_dt))
 #' }
-parse_columns <- function(data, functions_){
-  for(name in names(functions_)){
+parse_columns <- function(data, functions_) {
+  for (name in names(functions_)) {
     data[[name]] %<>% functions_[[name]]()
   }
   data
 }
 
 # TODO: document in order to export
-parse_dt <- function(dt){ # nocov start
+parse_dt <- function(dt) { # nocov start
   as.POSIXct(dt, origin = "1970-01-01")
 } # nocov end
