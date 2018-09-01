@@ -7,8 +7,8 @@
   )
 
   if (is.null(owmr_key())) {
-    message("It is recommended that you store your OWMR API key in an\n
-            .Renviron variable called OWMR_KEY.")
+    message("It is recommended that you store your OWMR API key in an
+.Renviron variable called OWMR_KEY.")
   }
 }
 
