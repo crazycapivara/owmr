@@ -4,33 +4,19 @@
 #'   or \code{\link{get_forecast}}
 #'
 #' @name as_tibble
-NULL
-
-#' @rdname as_tibble
-#' @export
-current_as_tibble <- function(data) {
-  message("not implemented yet")
-  data
+as_tibble <- function(resp, simplify = TRUE, ...) {
+  if (resp$timeframe == "current") {
+    out <- resp %>% current_as_tibble()
+  } else if (resp$timeframe == "forecast") {
+    out <- resp %>% forecast_as_tibble()
+  } else {
+    stop("Only current and forecast responses can be parsed into tibbles.")
+  }
+  out
 }
 
-
 #' @rdname as_tibble
 #' @export
-forecast_as_tibble <- function(data) {
-  message("not implemented yet")
-  data
-}
-
-
-#' Parse owm data to tibble object
-#'
-#' @param resp result returned from \code{\link{get_current}}
-#'   or \code{\link{get_forecast}}
-#'
-#' @name as_tibble
-#' @rdname as_tibble
-#' @export
-#'
 current_as_tibble <- function(resp, simplify = TRUE, ...) {
   resp$weather <- resp$weather %>%
     tibble::as_tibble() %>%
@@ -55,15 +41,9 @@ current_as_tibble <- function(resp, simplify = TRUE, ...) {
 }
 
 
-#' Parse owm data to tibble object
-#'
-#' @param resp result returned from \code{\link{get_current}}
-#'   or \code{\link{get_forecast}}
-#'
-#' @name as_tibble
+
 #' @rdname as_tibble
 #' @export
-#'
 forecast_as_tibble <- function(resp, simplify = TRUE, ...) {
   if ("list" %in% names(resp) &&
       inherits(resp$list, "data.frame")) {
@@ -83,22 +63,3 @@ forecast_as_tibble <- function(resp, simplify = TRUE, ...) {
   resp
 }
 
-#' Parse owm data to tibble object
-#'
-#' @param resp result returned from \code{\link{get_current}}
-#'   or \code{\link{get_forecast}}
-#'
-#' @name as_tibble
-#' @rdname as_tibble
-#' @export
-#'
-as_tibble <- function(resp, simplify = TRUE, ...) {
-  if (resp$timeframe == "current") {
-    out <- resp %>% current_as_tibble()
-  } else if (resp$timeframe == "forecast") {
-    out <- resp %>% forecast_as_tibble()
-  } else {
-    stop("Only current and forecast responses can be parsed into tibbles.")
-  }
-  out
-}

@@ -14,7 +14,10 @@
 #'    get_forecast("London", cnt = 10)
 #'    get_forecast(lat = -22.90278, lon = -22.90278, cnt = 3, units = "metric")
 #' }
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature/tibble
 get_forecast <- function(city = NA, ...) {
   get <- owmr_wrap_get("forecast")
   out <- get(city, ...) %>% owmr_parse()
