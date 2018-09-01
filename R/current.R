@@ -16,8 +16,10 @@
 #' }
 get_current <- function(city = NA, ...) {
   get <- owmr_wrap_get("weather")
-  get(city, ...) %>%
-    owmr_parse()
+  out <- get(city, ...) %>% owmr_parse()
+
+  out$timeframe <- "current"
+  out
 }
 
 #' Find city by name or coordinates.

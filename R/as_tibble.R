@@ -69,9 +69,9 @@ forecast_as_tibble <- function(resp, simplify = TRUE, ...) {
 #' @export
 #'
 as_tibble <- function(resp, simplify = TRUE, ...) {
-  if (attr(resp, "timeframe") == "current") {
+  if (resp$timeframe == "current") {
     out <- resp %>% current_as_tibble()
-  } else if (attr(resp, "timeframe") == "forecast") {
+  } else if (resp$timeframe == "forecast") {
     out <- resp %>% forecast_as_tibble()
   } else {
     stop("Only current and forecast responses can be parsed into tibbles.")
