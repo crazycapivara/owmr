@@ -14,11 +14,10 @@
 #'    get_current(lon = -0.09184, lat = 51.51279)
 #'    get_current(zip = "94040,US")
 #' }
-get_current <- function(city = NA, simplify = TRUE, ...) {
+get_current <- function(city = NA, ...) {
   get <- owmr_wrap_get("weather")
   get(city, ...) %>%
-    owmr_parse() %>%
-    parse_current(simplify = simplify)
+    owmr_parse()
 }
 
 #' Find city by name or coordinates.
