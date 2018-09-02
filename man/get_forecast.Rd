@@ -10,8 +10,6 @@ get_forecast(city = NA, ...)
 \item{city}{city name or id}
 
 \item{...}{see \href{https://openweathermap.org/api}{owm api documentation}}
-
-\item{simplify}{Only return the weather dataframe, without any metadata.}
 }
 \value{
 list

@@ -13,8 +13,15 @@ current_as_tibble(resp, simplify = TRUE, ...)
 forecast_as_tibble(resp, simplify = TRUE, ...)
 }
 \arguments{
-\item{data}{result returned from \code{\link{get_current}}
+\item{resp}{(list) Result returned from \code{\link{get_current}}
 or \code{\link{get_forecast}}}
+
+\item{simplify}{(boolean) Should "extra" columns like ids and icons be comitted from the dataframe output?}
+
+\item{...}{Further arguments.}
+}
+\value{
+A dataframe containing weather-relevant information.
 }
 \description{
 Parse owm data to tibble object

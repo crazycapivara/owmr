@@ -3,6 +3,7 @@
 #' @param resp (list) Result returned from \code{\link{get_current}}
 #'   or \code{\link{get_forecast}}
 #' @param simplify (boolean) Should "extra" columns like ids and icons be comitted from the dataframe output?
+#' @param ... Further arguments.
 #'
 #' @return A dataframe containing weather-relevant information.
 #'
@@ -18,7 +19,7 @@ as_tibble <- function(resp, simplify = TRUE, ...) {
   out
 }
 
-#' @rdname current_as_tibble
+#' @rdname as_tibble
 #' @export
 current_as_tibble <- function(resp, simplify = TRUE, ...) {
   resp$weather <- resp$weather %>%
@@ -45,7 +46,7 @@ current_as_tibble <- function(resp, simplify = TRUE, ...) {
 
 
 
-#' @rdname forecast_as_tibble
+#' @rdname as_tibble
 #' @export
 forecast_as_tibble <- function(resp, simplify = TRUE, ...) {
   if ("list" %in% names(resp) &&
