@@ -37,6 +37,15 @@ current_as_tibble <- function(resp, simplify = TRUE, ...) {
     ) %>%
     tibble::as_tibble()
 
+  resp$data$dt_txt <-
+    Sys.time() %>% as.character() %>% gsub("A-Z", "", .)
+
+  resp$data <- resp$data[, c("dt_txt",
+                            "temp", "temp_min", "temp_max",
+                            "pressure", "humidity",
+                            "clouds_all", "wind_speed",
+                            "main", "description")]
+
   if (simplify == TRUE) {
     return(resp$data %>%
              unselect_cols())
