@@ -4,14 +4,14 @@
 \alias{get_forecast}
 \title{Get 3h forecast data.}
 \usage{
-get_forecast(city = NA, simplify = TRUE, ...)
+get_forecast(city = NA, ...)
 }
 \arguments{
 \item{city}{city name or id}
 
-\item{simplify}{Only return the weather dataframe, without any metadata.}
-
 \item{...}{see \href{https://openweathermap.org/api}{owm api documentation}}
+
+\item{simplify}{Only return the weather dataframe, without any metadata.}
 }
 \value{
 list

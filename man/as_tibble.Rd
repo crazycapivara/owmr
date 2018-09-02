@@ -6,9 +6,11 @@
 \alias{forecast_as_tibble}
 \title{Parse owm data to tibble object}
 \usage{
-current_as_tibble(data)
+as_tibble(resp, simplify = TRUE, ...)
 
-forecast_as_tibble(data)
+current_as_tibble(resp, simplify = TRUE, ...)
+
+forecast_as_tibble(resp, simplify = TRUE, ...)
 }
 \arguments{
 \item{data}{result returned from \code{\link{get_current}}

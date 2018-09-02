@@ -1,7 +1,10 @@
 #' Parse owm data to tibble object
 #'
-#' @param data result returned from \code{\link{get_current}}
+#' @param resp (list) Result returned from \code{\link{get_current}}
 #'   or \code{\link{get_forecast}}
+#' @param simplify (boolean) Should "extra" columns like ids and icons be comitted from the dataframe output?
+#'
+#' @return A dataframe containing weather-relevant information.
 #'
 #' @name as_tibble
 as_tibble <- function(resp, simplify = TRUE, ...) {
@@ -15,7 +18,7 @@ as_tibble <- function(resp, simplify = TRUE, ...) {
   out
 }
 
-#' @rdname as_tibble
+#' @rdname current_as_tibble
 #' @export
 current_as_tibble <- function(resp, simplify = TRUE, ...) {
   resp$weather <- resp$weather %>%
@@ -42,7 +45,7 @@ current_as_tibble <- function(resp, simplify = TRUE, ...) {
 
 
 
-#' @rdname as_tibble
+#' @rdname forecast_as_tibble
 #' @export
 forecast_as_tibble <- function(resp, simplify = TRUE, ...) {
   if ("list" %in% names(resp) &&

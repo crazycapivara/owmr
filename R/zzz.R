@@ -7,11 +7,6 @@
     "   it is recommended that you store your api key in an environment variable\n",
     "   called OWM_API_KEY"
   )
-
-  if (is.null(owmr_key())) {
-    message("It is recommended that you store your OWMR API key in an
-.Renviron variable called OWMR_KEY.")
-  }
 }
 
-globalVariables(".")
+globalVariables(c(".", "resp", "data"))
