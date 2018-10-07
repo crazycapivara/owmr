@@ -17,14 +17,17 @@ test_that("check data type", {
 test_that("mock stations", {
   with_mock(
     `httr::GET` = mock_httr_GET, {
-      # when
+      # prepare
+      api_key_org <- Sys.getenv("OWM_API_KEY")
       owmr_settings("my_api_key")
       lat <- 51.31667
       lon <- 9.5
-      # then
+
+      # act
       result <- find_stations_by_geo_point(lat, lon)
-      # ---
-      owmr_settings(NULL) # reset api key
+      owmr_settings(api_key_org) # reset api key
+
+      # assert
       expect_is(result, "data.frame")
     }
   )
