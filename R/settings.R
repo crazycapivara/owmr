@@ -1,10 +1,10 @@
 .pkg_env <- new.env()
 .pkg_env$icon_url <- "http://openweathermap.org/img/w/%s.png"
-# .pkg_env$api_key <- ""
 
 #' owmr settings.
 #'
-#' Set api key.
+#' Set api key. Internally it calls \code{\link{Sys.setenv}}
+#' to set the an environment variable called \code{OWM_API_KEY}.
 #'
 #' @param api_key owm api key
 #'
@@ -14,8 +14,7 @@
 #'    owmr_settings(api_key = "your-api-key")
 #' }
 owmr_settings <- function(api_key) {
-  message("It still works, but it is recommended that you store your api key in an environment variable called OWM_API_KEY.")
-  # assign("api_key", api_key, .pkg_env)
+  message("It is recommended that you store your api key in an environment variable called OWM_API_KEY.")
   Sys.setenv(OWM_API_KEY = api_key)
 }
 
