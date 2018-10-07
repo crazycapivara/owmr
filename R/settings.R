@@ -1,6 +1,6 @@
 .pkg_env <- new.env()
 .pkg_env$icon_url <- "http://openweathermap.org/img/w/%s.png"
-.pkg_env$api_key <- Sys.getenv("OWM_API_KEY")
+# .pkg_env$api_key <- ""
 
 #' owmr settings.
 #'
@@ -15,14 +15,17 @@
 #' }
 owmr_settings <- function(api_key) {
   message("It still works, but it is recommended that you store your api key in an environment variable called OWM_API_KEY.")
-  assign("api_key", api_key, .pkg_env)
+  # assign("api_key", api_key, .pkg_env)
+  Sys.setenv(OWM_API_KEY = api_key)
 }
 
 get_api_key <- function() {
-  if (identical(.pkg_env$api_key, "") && identical((.pkg_env$api_key <- Sys.getenv("OWM_API_KEY")), "")) {
+  api_key <- Sys.getenv("OWM_API_KEY")
+  if (identical(api_key, "")) {
     stop("Set api key before trying to fetch data!", call. = FALSE)
   }
-  .pkg_env$api_key
+
+  api_key
 }
 
 #' Get icon url.
