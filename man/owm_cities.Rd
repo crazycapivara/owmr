@@ -13,7 +13,7 @@
   \item{countryCode}{two letter country code}
 }}
 \source{
-\url{http://openweathermap.org/help/city_list.txt}
+\url{http://bulk.openweathermap.org/sample/city.list.json.gz}
 }
 \usage{
 owm_cities
