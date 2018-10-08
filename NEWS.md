@@ -40,4 +40,3 @@
 
 * Added feature to store the api key in an environment variable called `OWM_API_KEY`
   - even if it is still possible to set the key via `owmr_settings`, it is recommended that you use the environment variable instead
-  
