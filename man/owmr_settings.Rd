@@ -11,7 +11,7 @@ owmr_settings(api_key)
 }
 \description{
 Set api key. Internally it calls \code{\link{Sys.setenv}}
-to set the an environment variable called \code{OWM_API_KEY}.
+to store the api key in an environment variable called \code{OWM_API_KEY}.
 }
 \examples{
 \dontrun{

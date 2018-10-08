@@ -4,7 +4,7 @@
 #' owmr settings.
 #'
 #' Set api key. Internally it calls \code{\link{Sys.setenv}}
-#' to set the an environment variable called \code{OWM_API_KEY}.
+#' to store the api key in an environment variable called \code{OWM_API_KEY}.
 #'
 #' @param api_key owm api key
 #'
