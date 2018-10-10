@@ -25,14 +25,11 @@ Installation
 # stable
 install.packages("owmr")
 
-# ~~~~~
-require("devtools")
-
 # unstable
-install_github("crazycapivara/owmr/")
+devtools::install_github("crazycapivara/owmr")
 
 # bleeding edge
-install_github("crazycapivara/owmr/", ref = "develop")
+devtools::install_github("crazycapivara/owmr", ref = "develop")
 ```
 
 Introduction
@@ -42,20 +39,21 @@ See **OpenWeatherMap's** API documentation for optional parameters, which can be
 
 -   <https://openweathermap.org/api/>
 
+### Setup
+
 ``` r
 library(owmr)
+
+# first of all you have to set up your api key
+owmr_settings("your-api-key")
+
+# or store it in an environment variable called OWM_API_KEY (recommended)
+Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
 ```
 
-    ## owmr 0.7.2
-    ##    another crazy way to talk to OpenWeatherMap's API
-    ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
-    ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/
+### Usage
 
 ``` r
-# pass api key
-api_key_ = "your-api-key"
-owmr_settings(api_key = api_key)
-
 # get current weather data by city name
 (res <- get_current("London", units = "metric") %>%
   flatten()) %>% names()
@@ -82,14 +80,14 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 2.93
+    ## [1] 20.2
     ## 
     ## $weather.description
     ## [1] "clear sky"
 
 ``` r
 # ... by city id
-(rio <- subset(owm_cities, nm == "Rio de Janeiro")) %>%
+(rio <- search_city_list("Rio de Janeiro")) %>%
   as.list()
 ```
 
@@ -117,28 +115,13 @@ get_current(rio$id, units = "metric") %>%
     ## [1] "Rio de Janeiro"
     ## 
     ## $main.temp
-    ## [1] 30.99
+    ## [1] 33.28
     ## 
     ## $main.humidity
     ## [1] 62
     ## 
     ## $wind.speed
-    ## [1] 4.6
-
-``` r
-# get weather data from stations
-find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>% 
-  .[c("distance", "station.id", "station.name", "last.main.temp")]
-```
-
-    ##   distance station.id station.name last.main.temp
-    ## 1   13.276       4926         EDVK         273.15
-    ## 2   26.926       4954         ETHF         274.15
-    ## 3   69.579       4910         EDLP         273.15
-    ## 4   89.149      73733    Uwe Kruse         273.45
-    ## 5   93.344 1460732694        hlw31         273.49
-    ## 6   97.934 1442728908         AmiH         273.15
-    ## 7   98.978       4951         ETHB         274.15
+    ## [1] 5.7
 
 ``` r
 # get forecast
@@ -146,17 +129,17 @@ forecast <- get_forecast("London", units = "metric")
 names(forecast)
 ```
 
-    ## [1] "city"    "cod"     "message" "cnt"     "list"
+    ## [1] "cod"     "message" "cnt"     "list"    "city"
 
 ``` r
-"name: {{name}}, id: {{id}}, (forcast) rows: {{cnt}}" %$$%
+"name: {{name}}, id: {{id}}, (forecast) rows: {{cnt}}" %$$%
   list(
     name = forecast$city$name,
     id   = forecast$city$id,
     cnt  = forecast$cnt) %>% cat()
 ```
 
-    ## name: London, id: 2643743, (forcast) rows: 40
+    ## name: London, id: 2643743, (forecast) rows: 40
 
 ``` r
 names(forecast$list)
@@ -166,8 +149,8 @@ names(forecast$list)
     ##  [4] "main.temp"       "main.temp_min"   "main.temp_max"  
     ##  [7] "main.pressure"   "main.sea_level"  "main.grnd_level"
     ## [10] "main.humidity"   "main.temp_kf"    "clouds.all"     
-    ## [13] "wind.speed"      "wind.deg"        "rain.3h"        
-    ## [16] "sys.pod"
+    ## [13] "wind.speed"      "wind.deg"        "sys.pod"        
+    ## [16] "rain.3h"
 
 ``` r
 forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
@@ -175,12 +158,12 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2017-01-14 18:00:00      0.45          0.72       4.01
-    ## 2 2017-01-14 21:00:00     -1.20         -1.01       3.20
-    ## 3 2017-01-15 00:00:00     -1.56         -1.43       2.76
-    ## 4 2017-01-15 03:00:00      0.27          0.33       2.71
-    ## 5 2017-01-15 06:00:00      1.58          1.58       2.52
-    ## 6 2017-01-15 09:00:00      2.15          2.15       1.22
+    ## 1 2018-10-10 18:00:00     16.94         18.25       4.31
+    ## 2 2018-10-10 21:00:00     15.52         16.51       4.57
+    ## 3 2018-10-11 00:00:00     15.64         16.30       4.21
+    ## 4 2018-10-11 03:00:00     16.05         16.37       6.16
+    ## 5 2018-10-11 06:00:00     16.01         16.01       5.71
+    ## 6 2018-10-11 09:00:00     18.12         18.12       5.72
 
 ``` r
 # flatten weather column and tidy up column names
@@ -192,7 +175,7 @@ names(forecast$list)
     ##  [4] "temp_min"            "temp_max"            "pressure"           
     ##  [7] "sea_level"           "grnd_level"          "humidity"           
     ## [10] "temp_kf"             "clouds_all"          "wind_speed"         
-    ## [13] "wind_deg"            "rain_3h"             "pod"                
+    ## [13] "wind_deg"            "pod"                 "rain_3h"            
     ## [16] "weather_id"          "weather_main"        "weather_description"
     ## [19] "weather_icon"
 
@@ -205,11 +188,11 @@ forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
   forecast$list) %>% head(10)
 ```
 
-    ##  [1] "2017-01-14 18:00:00h 0°C, 4 m/s"  "2017-01-14 21:00:00h -1°C, 3 m/s"
-    ##  [3] "2017-01-15 00:00:00h -2°C, 3 m/s" "2017-01-15 03:00:00h 0°C, 3 m/s" 
-    ##  [5] "2017-01-15 06:00:00h 2°C, 3 m/s"  "2017-01-15 09:00:00h 2°C, 1 m/s" 
-    ##  [7] "2017-01-15 12:00:00h 4°C, 3 m/s"  "2017-01-15 15:00:00h 6°C, 4 m/s" 
-    ##  [9] "2017-01-15 18:00:00h 7°C, 3 m/s"  "2017-01-15 21:00:00h 5°C, 2 m/s"
+    ##  [1] "2018-10-10 18:00:00h 17°C, 4 m/s" "2018-10-10 21:00:00h 16°C, 5 m/s"
+    ##  [3] "2018-10-11 00:00:00h 16°C, 4 m/s" "2018-10-11 03:00:00h 16°C, 6 m/s"
+    ##  [5] "2018-10-11 06:00:00h 16°C, 6 m/s" "2018-10-11 09:00:00h 18°C, 6 m/s"
+    ##  [7] "2018-10-11 12:00:00h 21°C, 7 m/s" "2018-10-11 15:00:00h 21°C, 8 m/s"
+    ##  [9] "2018-10-11 18:00:00h 17°C, 7 m/s" "2018-10-11 21:00:00h 16°C, 5 m/s"
 
 Documentation
 -------------
