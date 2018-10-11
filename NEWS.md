@@ -40,3 +40,8 @@
 
 * Added feature to store the api key in an environment variable called `OWM_API_KEY`
   - even if it is still possible to set the key via `owmr_settings`, it is recommended that you use the environment variable instead
+
+# owmr 0.7.4
+
+* Fix bug in `add_owm_tiles`
+* `find_stations_by_geo_point` and `get_current_from_station` are not supported anymore because of breaking changes in the owm api for stations. Functions will be removed in a future version.
