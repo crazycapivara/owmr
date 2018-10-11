@@ -64,10 +64,10 @@ Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
     ##  [7] "base"                "main.temp"           "main.pressure"      
     ## [10] "main.humidity"       "main.temp_min"       "main.temp_max"      
     ## [13] "visibility"          "wind.speed"          "wind.deg"           
-    ## [16] "all"                 "dt"                  "sys.type"           
-    ## [19] "sys.id"              "sys.message"         "sys.country"        
-    ## [22] "sys.sunrise"         "sys.sunset"          "id"                 
-    ## [25] "name"                "cod"
+    ## [16] "wind.gust"           "all"                 "dt"                 
+    ## [19] "sys.type"            "sys.id"              "sys.message"        
+    ## [22] "sys.country"         "sys.sunrise"         "sys.sunset"         
+    ## [25] "id"                  "name"                "cod"
 
 ``` r
 res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
@@ -80,7 +80,7 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 18.36
+    ## [1] 18.18
     ## 
     ## $weather.description
     ## [1] "light intensity shower rain"
@@ -118,10 +118,10 @@ get_current(rio$id, units = "metric") %>%
     ## [1] 24.75
     ## 
     ## $main.humidity
-    ## [1] 94
+    ## [1] 88
     ## 
     ## $wind.speed
-    ## [1] 3.1
+    ## [1] 3.6
 
 ``` r
 # get forecast
@@ -158,10 +158,10 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2018-10-11 18:00:00     14.90         16.69       7.46
-    ## 2 2018-10-11 21:00:00     14.88         16.23       5.36
-    ## 3 2018-10-12 00:00:00     13.35         14.24       4.67
-    ## 4 2018-10-12 03:00:00     14.55         15.00       6.61
+    ## 1 2018-10-11 18:00:00     14.54         16.69       7.46
+    ## 2 2018-10-11 21:00:00     14.61         16.23       5.36
+    ## 3 2018-10-12 00:00:00     13.17         14.24       4.67
+    ## 4 2018-10-12 03:00:00     14.46         15.00       6.61
     ## 5 2018-10-12 06:00:00     15.18         15.18       7.36
     ## 6 2018-10-12 09:00:00     15.87         15.87       7.83
 
@@ -191,7 +191,7 @@ forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
     ##  [1] "2018-10-11 18:00:00h 15°C, 7 m/s" 
     ##  [2] "2018-10-11 21:00:00h 15°C, 5 m/s" 
     ##  [3] "2018-10-12 00:00:00h 13°C, 5 m/s" 
-    ##  [4] "2018-10-12 03:00:00h 15°C, 7 m/s" 
+    ##  [4] "2018-10-12 03:00:00h 14°C, 7 m/s" 
     ##  [5] "2018-10-12 06:00:00h 15°C, 7 m/s" 
     ##  [6] "2018-10-12 09:00:00h 16°C, 8 m/s" 
     ##  [7] "2018-10-12 12:00:00h 18°C, 9 m/s" 
@@ -224,7 +224,6 @@ test_dir("tests/testthat/")
     ## mock httr::GET forecast: ..
     ## parse columns: ..
     ## render operator: ...
-    ## current weather data from multiple stations: ...
     ## tidy up data: ....
     ## 
     ## DONE ======================================================================
