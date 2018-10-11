@@ -1,4 +1,4 @@
-owm_tile_server <- "http://{s}.tile.openweathermap.org/map/%s/{z}/{x}/{y}.png"
+owm_tile_server <- "http://{s}.tile.openweathermap.org/map/%s/{z}/{x}/{y}.png?appid=%s"
 
 #' List available owm layers.
 #'
@@ -22,7 +22,7 @@ owm_layers <- function() {
 }
 
 get_owm_tile_template <- function(layer_name = "temp") {
-  sprintf(owm_tile_server, layer_name)
+  sprintf(owm_tile_server, layer_name, get_api_key())
 }
 
 #' Add owm tiles to leaflet map.

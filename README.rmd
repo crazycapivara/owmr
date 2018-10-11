@@ -7,7 +7,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 library(testthat)
 library(magrittr)
-source("tmp/settings.R")
+library(owmr)
 ```
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/owmr)](https://cran.r-project.org/package=owmr)
@@ -32,14 +32,11 @@ __develop__
 # stable
 install.packages("owmr")
 
-# ~~~~~
-require("devtools")
-
 # unstable
-install_github("crazycapivara/owmr/")
+devtools::install_github("crazycapivara/owmr")
 
 # bleeding edge
-install_github("crazycapivara/owmr/", ref = "develop")
+devtools::install_github("crazycapivara/owmr", ref = "develop")
 ```
 
 ## Introduction
@@ -48,34 +45,38 @@ See __OpenWeatherMap's__ API documentation for optional parameters, which can be
 
 * https://openweathermap.org/api/
 
-```{r introduction, echo=TRUE, eval=TRUE}
+### Setup
+
+```{r settings, eval=FALSE}
 library(owmr)
 
-# pass api key
-api_key_ = "your-api-key"
-owmr_settings(api_key = api_key)
+# first of all you have to set up your api key
+owmr_settings("your_api_key")
 
+# or store it in an environment variable called OWM_API_KEY (recommended)
+Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
+```
+
+### Usage
+
+```{r examples, echo=TRUE, eval=TRUE}
 # get current weather data by city name
 (res <- get_current("London", units = "metric") %>%
   flatten()) %>% names()
 res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
 
 # ... by city id
-(rio <- subset(owm_cities, nm == "Rio de Janeiro")) %>%
+(rio <- search_city_list("Rio de Janeiro")) %>%
   as.list()
 
 get_current(rio$id, units = "metric") %>%
   flatten() %>% .[c("name", "main.temp", "main.humidity", "wind.speed")]
 
-# get weather data from stations
-find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 7) %>% 
-  .[c("distance", "station.id", "station.name", "last.main.temp")]
-  
 # get forecast
 forecast <- get_forecast("London", units = "metric")
 names(forecast)
 
-"name: {{name}}, id: {{id}}, (forcast) rows: {{cnt}}" %$$%
+"name: {{name}}, id: {{id}}, (forecast) rows: {{cnt}}" %$$%
   list(
     name = forecast$city$name,
     id   = forecast$city$id,

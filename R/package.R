@@ -11,6 +11,9 @@
 #'    # first of all you have to set up your api key
 #'    owmr_settings("your_api_key")
 #'
+#'    # or store it in an environment variable called OWM_API_KEY (recommended)
+#'    Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
+#'
 #'    # get current weather data for "Kassel" with temperatures in °C
 #'    get_current("Kassel", units = "metric")
 #'

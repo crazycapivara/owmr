@@ -1,13 +1,12 @@
 context("current weather data")
 
-# load("data/current_weather.rda")
 current <- readRDS("data/current.rds")
 
 test_that("check longitude and latidude", {
   coords <- current$coord %>% unlist()
-  expect_equal(coords, c(lon = 9.50, lat = 51.32))
-  expect_equal(current$coord$lon, 9.5)
-  expect_equal(current$coord$lat, 51.32)
+  expect_equal(coords, c(lon = 9.48, lat = 51.31))
+  expect_equal(current$coord$lon, 9.48)
+  expect_equal(current$coord$lat, 51.31)
 })
 
 test_that("check data type", {

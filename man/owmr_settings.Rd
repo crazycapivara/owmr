@@ -10,7 +10,8 @@ owmr_settings(api_key)
 \item{api_key}{owm api key}
 }
 \description{
-Set api key.
+Set api key. Internally it calls \code{\link{Sys.setenv}}
+to store the api key in an environment variable called \code{OWM_API_KEY}.
 }
 \examples{
 \dontrun{
