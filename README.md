@@ -45,7 +45,7 @@ See **OpenWeatherMap's** API documentation for optional parameters, which can be
 library(owmr)
 
 # first of all you have to set up your api key
-owmr_settings("your-api-key")
+owmr_settings("your_api_key")
 
 # or store it in an environment variable called OWM_API_KEY (recommended)
 Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
@@ -80,10 +80,10 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
     ## [1] 51.51
     ## 
     ## $main.temp
-    ## [1] 20.2
+    ## [1] 18.36
     ## 
     ## $weather.description
-    ## [1] "clear sky"
+    ## [1] "light intensity shower rain"
 
 ``` r
 # ... by city id
@@ -115,13 +115,13 @@ get_current(rio$id, units = "metric") %>%
     ## [1] "Rio de Janeiro"
     ## 
     ## $main.temp
-    ## [1] 33.28
+    ## [1] 24.75
     ## 
     ## $main.humidity
-    ## [1] 62
+    ## [1] 94
     ## 
     ## $wind.speed
-    ## [1] 5.7
+    ## [1] 3.1
 
 ``` r
 # get forecast
@@ -149,8 +149,8 @@ names(forecast$list)
     ##  [4] "main.temp"       "main.temp_min"   "main.temp_max"  
     ##  [7] "main.pressure"   "main.sea_level"  "main.grnd_level"
     ## [10] "main.humidity"   "main.temp_kf"    "clouds.all"     
-    ## [13] "wind.speed"      "wind.deg"        "sys.pod"        
-    ## [16] "rain.3h"
+    ## [13] "wind.speed"      "wind.deg"        "rain.3h"        
+    ## [16] "sys.pod"
 
 ``` r
 forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
@@ -158,12 +158,12 @@ forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
 ```
 
     ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2018-10-10 18:00:00     16.94         18.25       4.31
-    ## 2 2018-10-10 21:00:00     15.52         16.51       4.57
-    ## 3 2018-10-11 00:00:00     15.64         16.30       4.21
-    ## 4 2018-10-11 03:00:00     16.05         16.37       6.16
-    ## 5 2018-10-11 06:00:00     16.01         16.01       5.71
-    ## 6 2018-10-11 09:00:00     18.12         18.12       5.72
+    ## 1 2018-10-11 18:00:00     14.90         16.69       7.46
+    ## 2 2018-10-11 21:00:00     14.88         16.23       5.36
+    ## 3 2018-10-12 00:00:00     13.35         14.24       4.67
+    ## 4 2018-10-12 03:00:00     14.55         15.00       6.61
+    ## 5 2018-10-12 06:00:00     15.18         15.18       7.36
+    ## 6 2018-10-12 09:00:00     15.87         15.87       7.83
 
 ``` r
 # flatten weather column and tidy up column names
@@ -175,7 +175,7 @@ names(forecast$list)
     ##  [4] "temp_min"            "temp_max"            "pressure"           
     ##  [7] "sea_level"           "grnd_level"          "humidity"           
     ## [10] "temp_kf"             "clouds_all"          "wind_speed"         
-    ## [13] "wind_deg"            "pod"                 "rain_3h"            
+    ## [13] "wind_deg"            "rain_3h"             "pod"                
     ## [16] "weather_id"          "weather_main"        "weather_description"
     ## [19] "weather_icon"
 
@@ -188,11 +188,16 @@ forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
   forecast$list) %>% head(10)
 ```
 
-    ##  [1] "2018-10-10 18:00:00h 17°C, 4 m/s" "2018-10-10 21:00:00h 16°C, 5 m/s"
-    ##  [3] "2018-10-11 00:00:00h 16°C, 4 m/s" "2018-10-11 03:00:00h 16°C, 6 m/s"
-    ##  [5] "2018-10-11 06:00:00h 16°C, 6 m/s" "2018-10-11 09:00:00h 18°C, 6 m/s"
-    ##  [7] "2018-10-11 12:00:00h 21°C, 7 m/s" "2018-10-11 15:00:00h 21°C, 8 m/s"
-    ##  [9] "2018-10-11 18:00:00h 17°C, 7 m/s" "2018-10-11 21:00:00h 16°C, 5 m/s"
+    ##  [1] "2018-10-11 18:00:00h 15°C, 7 m/s" 
+    ##  [2] "2018-10-11 21:00:00h 15°C, 5 m/s" 
+    ##  [3] "2018-10-12 00:00:00h 13°C, 5 m/s" 
+    ##  [4] "2018-10-12 03:00:00h 15°C, 7 m/s" 
+    ##  [5] "2018-10-12 06:00:00h 15°C, 7 m/s" 
+    ##  [6] "2018-10-12 09:00:00h 16°C, 8 m/s" 
+    ##  [7] "2018-10-12 12:00:00h 18°C, 9 m/s" 
+    ##  [8] "2018-10-12 15:00:00h 18°C, 9 m/s" 
+    ##  [9] "2018-10-12 18:00:00h 19°C, 10 m/s"
+    ## [10] "2018-10-12 21:00:00h 20°C, 10 m/s"
 
 Documentation
 -------------
