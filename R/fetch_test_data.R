@@ -17,10 +17,11 @@ save_current_multiple <- function() {
     save_test_data("current_multiple.rds")
 }
 
-save_stations_multiple <- function() {
-  find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 15) %>%
-    save_test_data("stations_multiple.rds")
-}
+### Not supported by api anymore
+# save_stations_multiple <- function() {
+#   find_stations_by_geo_point(lat = 51.31667, lon = 9.5, cnt = 15) %>%
+#     save_test_data("stations_multiple.rds")
+# }
 
 # get (raw) response to be used in mockups
 # should be done for other responses as well
@@ -39,10 +40,9 @@ get_response <- function(path = "weather", city = NA, ...) {
 #    to run tests after data was fetched succesfully
 #
 ### @export
-#
 fetch_test_data <- function(run_tests = TRUE) {
-  # save_current()
-  # save_current_multiple()
+  save_current()
+  save_current_multiple()
   # save_stations_multiple()
   get_response("weather", "Kassel") %>%
     save_test_data("response-current.rds")
