@@ -38,13 +38,13 @@ parse_current <- function(resp, simplify = TRUE) {
   data <- add_prefix(resp[keys])
   data <- cbind(
     dt_txt = parse_unixtime(resp$dt),
-    sunrise = parse_unixtime(resp$sys$sunrise),
-    sunset = parse_unixtime(resp$sys$sunset),
+    dt_sunrise_txt = parse_unixtime(resp$sys$sunrise),
+    dt_sunset_txt = parse_unixtime(resp$sys$sunset),
     resp$main,
     data$weather,
     data$wind,
-    data$clouds #,
-    # stringsAsFactors = FALSE
+    data$clouds,
+    stringsAsFactors = FALSE
   ) %>%
     plyr::rbind.fill(response_structure, .) %>%
     tibble::as_tibble()
