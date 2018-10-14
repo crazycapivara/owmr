@@ -6,7 +6,7 @@
 #' @param city_ids numeric vector containing city ids
 #' @param ... see owm api documentation
 #'
-#' @return list containing data frame with current weather data of cities
+#' @return list
 #' @export
 #'
 #' @examples \dontrun{
@@ -24,15 +24,14 @@ get_current_for_group <- function(city_ids, ...) {
 #' Find cities by geo point.
 #'
 #' Get current weather data for a number of cities
-#' around given geo point.
+#' around a given geo point.
 #'
 #' @param lat latitude of geo point
 #' @param lon longitude of geo point
 #' @param cnt number of cities
 #' @param ... see owm api documentation
 #'
-#' @return list containing data frame with weather data
-#'
+#' @return list
 #' @export
 #'
 #' @seealso \code{\link{find_city}}

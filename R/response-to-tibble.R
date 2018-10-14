@@ -71,8 +71,8 @@ helper_parse_forecast_daily <- function(resp) {
 #' @param resp response returned from OpenWeatherMap
 #' @param simplify return tibble only?
 #'
+#' @return list containing tibble or tibble only (\code{simplify = TRUE})
 #' @name response_to_tibble
-#'
 #' @export
 parse_response <- function(resp, simplify = TRUE) {
   if (is.null(resp$list)) return(parse_current(resp))

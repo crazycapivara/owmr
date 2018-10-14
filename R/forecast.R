@@ -1,8 +1,6 @@
 #' Get 3h forecast data.
 #'
 #' @inheritParams get_current
-# @param city city name or id
-# @param ... see owm api documentation
 #'
 #' @return list
 #' @export

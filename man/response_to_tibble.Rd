@@ -12,6 +12,9 @@ parse_response(resp, simplify = TRUE)
 
 \item{simplify}{return tibble only?}
 }
+\value{
+list containing tibble or tibble only (\code{simplify = TRUE})
+}
 \description{
 Parse owm response to tibble object
 }

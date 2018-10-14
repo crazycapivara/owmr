@@ -1,7 +1,7 @@
 #' Look up coordinates and city id in owm's city list.
 #'
-#' search \code{\link{owm_cities}} dataset by city name
-#' and country code
+#' Search \code{\link{owm_cities}} dataset by city name
+#' and country code.
 #'
 #' @seealso \code{\link{owm_cities}} dataset
 #'
