@@ -5,7 +5,7 @@ test_that("remove prefix", {
   current_multiple <- readRDS("data/current_multiple.rds")
 
   # act
-  data <-  remove_prefix(current_multiple$list, c("main", "sys"))
+  data <- remove_prefix(current_multiple$list, c("main", "sys"))
   contains_temp_min <- "temp_min" %in% names(data)
   contains_sunrise <- "sunrise" %in% names(data)
 
