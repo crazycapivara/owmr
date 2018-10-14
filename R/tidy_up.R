@@ -25,6 +25,7 @@
 #'    result$list %>% tidy_up_(remove_prefix_ = NULL)
 #' }
 tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main", "sys")) {
+  .Deprecated("parse_response")
   # flatten weather
   if (flatten_weather_ & "weather" %in% colnames(data)) {
     # data %<>% cbind(weather = flatten_weather(data$weather))
