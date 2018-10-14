@@ -34,7 +34,7 @@ test_that("parse to tibble", {
 
   # assert
   first_columns_expected <- c(
-    "dt_txt", "temp", "pressure",  "humidity", "temp_min", "temp_max"
+    "dt_txt", "temp", "pressure", "humidity", "temp_min", "temp_max"
   )
 
   expect_is(data, "tbl")

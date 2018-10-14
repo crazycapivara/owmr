@@ -57,7 +57,7 @@ parse_current <- function(resp, simplify = TRUE) {
 
 helper_parse_forecast_daily <- function(resp) {
   # forecast-daily-response misses some prefices
-  if(c("speed", "deg", "clouds") %in% names(resp$list) %>% all()) {
+  if (c("speed", "deg", "clouds") %in% names(resp$list) %>% all()) {
     replace_ <- c(speed = "wind_speed", deg = "wind_deg", clouds = "clouds_all")
     resp$list %<>% plyr::rename(replace_, warn_missing = FALSE)
     resp$list$temp <- resp$list$temp.day
