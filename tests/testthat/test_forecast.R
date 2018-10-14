@@ -18,11 +18,30 @@ test_that("forecast data", {
       owmr_settings(api_key_org) # reset api key
 
       # assert
-      expected_country <- "GB"
-      expected_ncols <- 16
+      country_expected <- "GB"
+      length_expected <- 16
 
-      expect_equal(result$city$country, expected_country)
-      expect_equal(ncol(result$list), expected_ncols)
+      expect_equal(result$city$country, country_expected)
+      expect_length(result$list, length_expected)
     }
   )
+})
+
+test_that("parse forecast response", {
+  # prepare
+  resp <- mock_httr_GET() %>% owmr_parse()
+
+  # act
+  data <- parse_response(resp)
+  first_columns <- names(data)[1:6]
+  weather <- data[startsWith(names(data), "weather")]
+
+  # assert
+  first_columns_expected <- c(
+    "dt_txt", "temp", "pressure",  "humidity", "temp_min", "temp_max"
+  )
+
+  expect_is(data, "tbl")
+  expect_equal(first_columns, first_columns_expected)
+  expect_length(weather, 4)
 })
