@@ -12,6 +12,7 @@ test_that("check number of cities", {
 test_that("check city ids", {
   # assert
   city_ids_expected <- c(2831088, 2847639, 2873291)
+
   expect_equal(current_multiple$list$id, city_ids_expected)
 })
 

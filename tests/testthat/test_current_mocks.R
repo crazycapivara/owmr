@@ -17,13 +17,13 @@ test_that("current weather data", {
       Sys.setenv(OWM_API_KEY = api_key_org)
 
       # assert
-      expected_name <- "Kassel"
-      expected_country <- "DE"
-      expected_nitems <- 12 # number of items
+      name_expected <- "Kassel"
+      country_expected <- "DE"
+      length_expected <- 12
 
-      expect_equal(result$name, expected_name)
-      expect_equal(result$sys$country, expected_country)
-      expect_equal(length(result), expected_nitems)
+      expect_equal(result$name, name_expected)
+      expect_equal(result$sys$country, country_expected)
+      expect_length(result, length_expected)
     }
   )
 })

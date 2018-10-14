@@ -36,6 +36,7 @@ test_that("parse to tibble", {
   first_columns_expected <- c(
     "dt_txt", "temp", "pressure",  "humidity", "temp_min", "temp_max"
   )
+
   expect_is(data, "tbl")
   expect_equal(first_columns, first_columns_expected)
   expect_length(weather, 4)
