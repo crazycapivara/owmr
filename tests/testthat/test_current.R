@@ -30,6 +30,7 @@ test_that("parse to tibble", {
   # act
   data <- current %>% parse_response()
   first_columns <- names(data)[1:6]
+  weather <- data[startsWith(names(data), "weather")]
 
   # assert
   first_columns_expected <- c(
@@ -37,4 +38,5 @@ test_that("parse to tibble", {
   )
   expect_is(data, "tbl")
   expect_equal(first_columns, first_columns_expected)
+  expect_length(weather, 4)
 })
