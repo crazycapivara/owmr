@@ -10,7 +10,7 @@ parse_response(resp, simplify = TRUE)
 \arguments{
 \item{resp}{response returned from OpenWeatherMap}
 
-\item{simplify}{tibble only?}
+\item{simplify}{return tibble only?}
 }
 \description{
 Parse owm response to tibble object

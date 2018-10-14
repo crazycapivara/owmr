@@ -31,14 +31,6 @@ add_prefix <- function(data) {
   data
 }
 
-#' Parse owm response to tibble object
-#'
-#' @param resp response returned from OpenWeatherMap
-#' @param simplify tibble only?
-#'
-#' @name response_to_tibble
-NULL
-
 ### @export
 parse_current <- function(resp, simplify = TRUE) {
   keys <- c("weather", "wind", "clouds")
@@ -63,7 +55,24 @@ parse_current <- function(resp, simplify = TRUE) {
   resp
 }
 
-#' @rdname response_to_tibble
+helper_parse_forecast_daily <- function(resp) {
+  # forecast-daily-response misses some prefices
+  if(c("speed", "deg", "clouds") %in% names(resp$list) %>% all()) {
+    replace_ <- c(speed = "wind_speed", deg = "wind_deg", clouds = "clouds_all")
+    resp$list %<>% plyr::rename(replace_, warn_missing = FALSE)
+    resp$list$temp <- resp$list$temp.day
+  }
+
+  resp
+}
+
+#' Parse owm response to tibble object
+#'
+#' @param resp response returned from OpenWeatherMap
+#' @param simplify return tibble only?
+#'
+#' @name response_to_tibble
+#'
 #' @export
 parse_response <- function(resp, simplify = TRUE) {
   if (is.null(resp$list)) return(parse_current(resp))
@@ -72,12 +81,7 @@ parse_response <- function(resp, simplify = TRUE) {
     resp$list$dt_txt <- parse_unixtime(resp$list$dt)
   }
 
-  # daily-forecast-response misses some prefices
-  if(c("speed", "deg", "clouds") %in% names(resp$list) %>% all()) {
-    replace_ <- c(speed = "wind_speed", deg = "wind_deg", clouds = "clouds_all")
-    resp$list %<>% plyr::rename(replace_, warn_missing = FALSE)
-    resp$list$temp <- resp$list$temp.day
-  }
+  resp %<>% helper_parse_forecast_daily()
 
   # TODO: do we need 'tidyr' dependency?
   resp$data <- tidyr::unnest(resp$list, .sep = "_") %>%
