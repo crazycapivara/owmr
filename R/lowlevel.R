@@ -31,3 +31,7 @@ owmr_wrap_get <- function(path = "weather", api_url = api_url_) {
     httr::GET(api_url, query = query)
   }
 }
+
+owmr_class <- function(response, class_name) {
+  structure(response, class = c(class(response), class_name))
+}

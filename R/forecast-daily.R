@@ -12,5 +12,6 @@
 #' }
 get_forecast_daily <- function(city = NA, ...) {
   get <- owmr_wrap_get("forecast/daily")
-  get(city, ...) %>% owmr_parse()
+  get(city, ...) %>% owmr_parse() %>%
+    owmr_class("owmr_forecast_daily")
 }
