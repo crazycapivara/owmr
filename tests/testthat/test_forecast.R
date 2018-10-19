@@ -27,9 +27,11 @@ test_that("forecast data", {
   )
 })
 
+### TODO: Should use mock as well
 test_that("parse forecast response", {
   # prepare
-  resp <- mock_httr_GET() %>% owmr_parse()
+  resp <- mock_httr_GET() %>% owmr_parse() %>%
+    owmr_class("owmr_forecast")
 
   # act
   data <- parse_response(resp)
@@ -44,4 +46,5 @@ test_that("parse forecast response", {
   expect_is(data, "tbl")
   expect_equal(first_columns, first_columns_expected)
   expect_length(weather, 4)
+  expect_equal(class(resp), c("list", "owmr_forecast"))
 })
