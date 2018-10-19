@@ -3,9 +3,21 @@
 \name{response_to_tibble}
 \alias{response_to_tibble}
 \alias{parse_response}
+\alias{response_to_tibble}
+\alias{parse_response.owmr_weather}
+\alias{response_to_tibble}
+\alias{parse_response.default}
+\alias{response_to_tibble}
+\alias{parse_response.owmr_forecast_daily}
 \title{Parse owm response to tibble object}
 \usage{
 parse_response(resp, simplify = TRUE)
+
+\method{parse_response}{owmr_weather}(resp, simplify = TRUE)
+
+\method{parse_response}{default}(resp, simplify = TRUE)
+
+\method{parse_response}{owmr_forecast_daily}(resp, simplify = TRUE)
 }
 \arguments{
 \item{resp}{response returned from OpenWeatherMap}
