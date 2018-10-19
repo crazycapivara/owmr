@@ -32,7 +32,8 @@ test_that("forecast data", {
 ### TODO: use response returned from 'get_forecast'
 test_that("parse forecast response", {
   # prepare
-  resp <- mock_httr_GET() %>% owmr_parse() %>%
+  resp <- mock_httr_GET() %>%
+    owmr_parse() %>%
     owmr_class("owmr_forecast")
 
   # act
