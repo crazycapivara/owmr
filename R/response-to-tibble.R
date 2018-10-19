@@ -55,12 +55,9 @@ parse_current <- function(resp, simplify = TRUE) {
 }
 
 parse_default <- function(resp, simplify = TRUE) {
-
   if (is.null(resp$list$dt_txt) && resp$list$dt) {
     resp$list$dt_txt <- parse_unixtime(resp$list$dt)
   }
-
-  # resp %<>% helper_parse_forecast_daily()
 
   # TODO: do we need 'tidyr' dependency?
   resp$data <- tidyr::unnest(resp$list, .sep = "_") %>%
@@ -74,14 +71,11 @@ parse_default <- function(resp, simplify = TRUE) {
   resp
 }
 
+# forecast-daily-response misses some prefices
 parse_forecast_daily <- function(resp, simplify = TRUE) {
-  # forecast-daily-response misses some prefices
-  if (c("speed", "deg", "clouds") %in% names(resp$list) %>% all()) {
-    replace_ <- c(speed = "wind_speed", deg = "wind_deg", clouds = "clouds_all")
-    resp$list %<>% plyr::rename(replace_, warn_missing = FALSE)
-    resp$list$temp <- resp$list$temp.day
-  }
-
+  replace_ <- c(speed = "wind_speed", deg = "wind_deg", clouds = "clouds_all")
+  resp$list %<>% plyr::rename(replace_, warn_missing = FALSE)
+  resp$list$temp <- resp$list$temp.day
   parse_default(resp)
 }
 
@@ -108,7 +102,3 @@ parse_response.default <- parse_default
 #' @name response_to_tibble
 #' @export
 parse_response.owmr_forecast_daily <- parse_forecast_daily
-
-#parse_response.owmr_weather <- function(resp, simplify = TRUE) {
-#  parse_current(resp, simplify)
-#}
