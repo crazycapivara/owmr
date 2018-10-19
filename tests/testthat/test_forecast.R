@@ -20,14 +20,16 @@ test_that("forecast data", {
       # assert
       country_expected <- "GB"
       length_expected <- 16
+      class_expected <- c("list", "owmr_forecast")
 
       expect_equal(result$city$country, country_expected)
       expect_length(result$list, length_expected)
+      expect_equal(class(result), class_expected)
     }
   )
 })
 
-### TODO: Should use mock as well
+### TODO: use response returned from 'get_forecast'
 test_that("parse forecast response", {
   # prepare
   resp <- mock_httr_GET() %>% owmr_parse() %>%
@@ -46,5 +48,4 @@ test_that("parse forecast response", {
   expect_is(data, "tbl")
   expect_equal(first_columns, first_columns_expected)
   expect_length(weather, 4)
-  expect_equal(class(resp), c("list", "owmr_forecast"))
 })
