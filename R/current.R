@@ -16,7 +16,9 @@
 #' }
 get_current <- function(city = NA, ...) {
   get <- owmr_wrap_get("weather")
-  get(city, ...) %>% owmr_parse()
+  get(city, ...) %>%
+    owmr_parse() %>%
+    owmr_class("owmr_weather")
 }
 
 #' Find city by name or coordinates.
@@ -39,5 +41,7 @@ get_current <- function(city = NA, ...) {
 #' }
 find_city <- function(city = NA, ...) {
   get <- owmr_wrap_get("find")
-  get(city, ...) %>% owmr_parse()
+  get(city, ...) %>%
+    owmr_parse() %>%
+    owmr_class("owmr_find")
 }

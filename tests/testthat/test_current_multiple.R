@@ -16,6 +16,11 @@ test_that("check city ids", {
   expect_equal(current_multiple$list$id, city_ids_expected)
 })
 
+test_that("class", {
+  # assert
+  expect_equal(class(current_multiple), c("list", "owmr_group"))
+})
+
 test_that("parse response", {
   # act
   data <- current_multiple %>% parse_response()

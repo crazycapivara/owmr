@@ -20,10 +20,12 @@ test_that("current weather data", {
       name_expected <- "Kassel"
       country_expected <- "DE"
       length_expected <- 12
+      class_expected <- c("list", "owmr_weather")
 
       expect_equal(result$name, name_expected)
       expect_equal(result$sys$country, country_expected)
       expect_length(result, length_expected)
+      expect_equal(class(result), class_expected)
     }
   )
 })
