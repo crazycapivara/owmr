@@ -72,7 +72,7 @@ res[, 1:6]
     ## # A tibble: 1 x 6
     ##   dt_txt               temp pressure humidity temp_min temp_max
     ##   <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
-    ## 1 2018-10-28 19:20:00  5.18     1018       75        3        7
+    ## 1 2018-10-28 20:50:00  4.22     1017       81        3        6
 
 ``` r
 # ... by city id
@@ -103,10 +103,10 @@ get_current(rio$id, units = "metric") %>%
     ## # A tibble: 1 x 6
     ##   dt_txt               temp pressure humidity temp_min temp_max
     ##   <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
-    ## 1 2018-10-28 19:00:00    24     1013       60       24       24
+    ## 1 2018-10-28 21:00:00  23.2     1014       64       23       24
 
 ``` r
-# get current weather for cities around geo point
+# get current weather data for cities around geo point
 res <- find_cities_by_geo_point(
   lat = rio$lat,
   lon = rio$lon,
@@ -121,27 +121,27 @@ res[, idx]
     ## # A tibble: 5 x 7
     ##   dt_txt            temp pressure humidity temp_min temp_max name         
     ##   <chr>            <dbl>    <dbl>    <dbl>    <dbl>    <dbl> <chr>        
-    ## 1 2018-10-28 19:0…    24     1013       60       24       24 Rio de Janei…
-    ## 2 2018-10-28 19:0…    24     1013       60       24       24 São Cristóvão
-    ## 3 2018-10-28 19:0…    24     1013       60       24       24 Botafogo     
-    ## 4 2018-10-28 19:0…    24     1013       60       24       24 Pavão-Pavaoz…
-    ## 5 2018-10-28 19:0…    24     1013       60       24       24 Vila Joaniza
+    ## 1 2018-10-28 21:0…  23.2     1014       64       23       24 Rio de Janei…
+    ## 2 2018-10-28 21:0…  23.2     1014       64       23       24 São Cristóvão
+    ## 3 2018-10-28 21:0…  23.2     1014       69       23       24 Botafogo     
+    ## 4 2018-10-28 21:0…  23.2     1014       69       23       24 Pavão-Pavaoz…
+    ## 5 2018-10-28 21:0…  23.2     1014       64       23       24 Vila Joaniza
 
 ``` r
 # get forecast
-forecast <- get_forecast("London", units = "metric")
-forecast_tbl <- owmr_as_tibble(forecast)
+forecast <- get_forecast("London", units = "metric") %>%
+  owmr_as_tibble()
 
-forecast_tbl[, 1:6]
+forecast[, 1:6]
 ```
 
     ## # A tibble: 40 x 6
     ##    dt_txt               temp pressure humidity temp_min temp_max
     ##    <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
-    ##  1 2018-10-28 21:00:00  3.56    1023.       71     3.56     4.22
-    ##  2 2018-10-29 00:00:00  2.24    1021.       90     2.24     2.73
-    ##  3 2018-10-29 03:00:00  2.94    1019.       99     2.94     3.27
-    ##  4 2018-10-29 06:00:00  1.84    1018.       94     1.84     2   
+    ##  1 2018-10-28 21:00:00  2.76    1023.       71     2.76     4.22
+    ##  2 2018-10-29 00:00:00  1.64    1021.       90     1.64     2.73
+    ##  3 2018-10-29 03:00:00  2.54    1019.       99     2.54     3.27
+    ##  4 2018-10-29 06:00:00  1.64    1018.       94     1.64     2   
     ##  5 2018-10-29 09:00:00  4.65    1016.       84     4.65     4.65
     ##  6 2018-10-29 12:00:00  8.44    1013.       77     8.44     8.44
     ##  7 2018-10-29 15:00:00  8.47    1010.       70     8.47     8.47
@@ -151,30 +151,19 @@ forecast_tbl[, 1:6]
     ## # ... with 30 more rows
 
 ``` r
-"name: {{name}}, id: {{id}}, (forecast) rows: {{cnt}}" %$$%
-  list(
-    name = forecast$city$name,
-    id   = forecast$city$id,
-    cnt  = forecast$cnt
-  ) %>% cat()
-```
-
-    ## name: London, id: 2643743, (forecast) rows: 40
-
-``` r
 # apply funcs to some columns
 funcs <- list(
   temp = round,
   wind_speed = round
 )
-forecast_tbl %<>% parse_columns(funcs)
+forecast %<>% parse_columns(funcs)
 
 # do some templating ...
 ("{{dt_txt}}h {{temp}}°C, {{wind_speed}} m/s" %$$%
-  forecast_tbl) %>% head(10)
+  forecast) %>% head(10)
 ```
 
-    ##  [1] "2018-10-28 21:00:00h 4°C, 5 m/s" "2018-10-29 00:00:00h 2°C, 4 m/s"
+    ##  [1] "2018-10-28 21:00:00h 3°C, 5 m/s" "2018-10-29 00:00:00h 2°C, 4 m/s"
     ##  [3] "2018-10-29 03:00:00h 3°C, 4 m/s" "2018-10-29 06:00:00h 2°C, 4 m/s"
     ##  [5] "2018-10-29 09:00:00h 5°C, 3 m/s" "2018-10-29 12:00:00h 8°C, 4 m/s"
     ##  [7] "2018-10-29 15:00:00h 8°C, 5 m/s" "2018-10-29 18:00:00h 6°C, 4 m/s"

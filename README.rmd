@@ -73,7 +73,7 @@ res[, 1:6]
 get_current(rio$id, units = "metric") %>%
   owmr_as_tibble() %>% .[, 1:6]
 
-# get current weather for cities around geo point
+# get current weather data for cities around geo point
 res <- find_cities_by_geo_point(
   lat = rio$lat,
   lon = rio$lon,
@@ -85,28 +85,21 @@ idx <- c(names(res[1:6]), "name")
 res[, idx]
 
 # get forecast
-forecast <- get_forecast("London", units = "metric")
-forecast_tbl <- owmr_as_tibble(forecast)
+forecast <- get_forecast("London", units = "metric") %>%
+  owmr_as_tibble()
 
-forecast_tbl[, 1:6]
-
-"name: {{name}}, id: {{id}}, (forecast) rows: {{cnt}}" %$$%
-  list(
-    name = forecast$city$name,
-    id   = forecast$city$id,
-    cnt  = forecast$cnt
-  ) %>% cat()
+forecast[, 1:6]
 
 # apply funcs to some columns
 funcs <- list(
   temp = round,
   wind_speed = round
 )
-forecast_tbl %<>% parse_columns(funcs)
+forecast %<>% parse_columns(funcs)
 
 # do some templating ...
 ("{{dt_txt}}h {{temp}}°C, {{wind_speed}} m/s" %$$%
-  forecast_tbl) %>% head(10)
+  forecast) %>% head(10)
 ```
 
 ## Documentation
