@@ -5,6 +5,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(devtools)
 library(testthat)
 library(magrittr)
 library(owmr)
@@ -62,41 +63,50 @@ Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
 ```{r examples, echo=TRUE, eval=TRUE}
 # get current weather data by city name
 (res <- get_current("London", units = "metric") %>%
-  flatten()) %>% names()
-res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
+  owmr_as_tibble()) %>% names()
+res[, 1:6]
 
 # ... by city id
 (rio <- search_city_list("Rio de Janeiro")) %>%
   as.list()
 
 get_current(rio$id, units = "metric") %>%
-  flatten() %>% .[c("name", "main.temp", "main.humidity", "wind.speed")]
+  owmr_as_tibble() %>% .[, 1:6]
+
+# get current weather for cities around geo point
+res <- find_cities_by_geo_point(
+  lat = rio$lat,
+  lon = rio$lon,
+  cnt = 5,
+  units = "metric"
+) %>% owmr_as_tibble()
+
+idx <- c(names(res[1:6]), "name")
+res[, idx]
 
 # get forecast
 forecast <- get_forecast("London", units = "metric")
-names(forecast)
+forecast_tbl <- owmr_as_tibble(forecast)
+
+forecast_tbl[, 1:6]
 
 "name: {{name}}, id: {{id}}, (forecast) rows: {{cnt}}" %$$%
   list(
     name = forecast$city$name,
     id   = forecast$city$id,
-    cnt  = forecast$cnt) %>% cat()
+    cnt  = forecast$cnt
+  ) %>% cat()
 
-names(forecast$list)
-
-forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
-  head()
-
-# flatten weather column and tidy up column names
-forecast %<>% tidy_up()
-names(forecast$list)
-
-# apply funcs to some columns  
-forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
+# apply funcs to some columns
+funcs <- list(
+  temp = round,
+  wind_speed = round
+)
+forecast_tbl %<>% parse_columns(funcs)
 
 # do some templating ...
 ("{{dt_txt}}h {{temp}}°C, {{wind_speed}} m/s" %$$%
-  forecast$list) %>% head(10)
+  forecast_tbl) %>% head(10)
 ```
 
 ## Documentation
@@ -111,5 +121,5 @@ or type
 
 ## Run tests
 ```{r tests, echo=TRUE, eval=TRUE}
-test_dir("tests/testthat/")
+devtools::test()
 ```

@@ -56,34 +56,23 @@ Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
 ``` r
 # get current weather data by city name
 (res <- get_current("London", units = "metric") %>%
-  flatten()) %>% names()
+  owmr_as_tibble()) %>% names()
 ```
 
-    ##  [1] "coord.lon"           "coord.lat"           "weather.id"         
-    ##  [4] "weather.main"        "weather.description" "weather.icon"       
-    ##  [7] "base"                "main.temp"           "main.pressure"      
-    ## [10] "main.humidity"       "main.temp_min"       "main.temp_max"      
-    ## [13] "visibility"          "wind.speed"          "wind.deg"           
-    ## [16] "wind.gust"           "all"                 "dt"                 
-    ## [19] "sys.type"            "sys.id"              "sys.message"        
-    ## [22] "sys.country"         "sys.sunrise"         "sys.sunset"         
-    ## [25] "id"                  "name"                "cod"
+    ##  [1] "dt_txt"              "temp"                "pressure"           
+    ##  [4] "humidity"            "temp_min"            "temp_max"           
+    ##  [7] "weather_id"          "weather_main"        "weather_description"
+    ## [10] "weather_icon"        "wind_speed"          "wind_deg"           
+    ## [13] "clouds_all"          "dt_sunrise_txt"      "dt_sunset_txt"
 
 ``` r
-res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
+res[, 1:6]
 ```
 
-    ## $coord.lon
-    ## [1] -0.13
-    ## 
-    ## $coord.lat
-    ## [1] 51.51
-    ## 
-    ## $main.temp
-    ## [1] 18.18
-    ## 
-    ## $weather.description
-    ## [1] "light intensity shower rain"
+    ## # A tibble: 1 x 6
+    ##   dt_txt               temp pressure humidity temp_min temp_max
+    ##   <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+    ## 1 2018-10-28 19:20:00  5.18     1018       75        3        7
 
 ``` r
 # ... by city id
@@ -108,96 +97,88 @@ res[c("coord.lon", "coord.lat", "main.temp", "weather.description")]
 
 ``` r
 get_current(rio$id, units = "metric") %>%
-  flatten() %>% .[c("name", "main.temp", "main.humidity", "wind.speed")]
+  owmr_as_tibble() %>% .[, 1:6]
 ```
 
-    ## $name
-    ## [1] "Rio de Janeiro"
-    ## 
-    ## $main.temp
-    ## [1] 24.75
-    ## 
-    ## $main.humidity
-    ## [1] 88
-    ## 
-    ## $wind.speed
-    ## [1] 3.6
+    ## # A tibble: 1 x 6
+    ##   dt_txt               temp pressure humidity temp_min temp_max
+    ##   <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+    ## 1 2018-10-28 19:00:00    24     1013       60       24       24
+
+``` r
+# get current weather for cities around geo point
+res <- find_cities_by_geo_point(
+  lat = rio$lat,
+  lon = rio$lon,
+  cnt = 5,
+  units = "metric"
+) %>% owmr_as_tibble()
+
+idx <- c(names(res[1:6]), "name")
+res[, idx]
+```
+
+    ## # A tibble: 5 x 7
+    ##   dt_txt            temp pressure humidity temp_min temp_max name         
+    ##   <chr>            <dbl>    <dbl>    <dbl>    <dbl>    <dbl> <chr>        
+    ## 1 2018-10-28 19:0…    24     1013       60       24       24 Rio de Janei…
+    ## 2 2018-10-28 19:0…    24     1013       60       24       24 São Cristóvão
+    ## 3 2018-10-28 19:0…    24     1013       60       24       24 Botafogo     
+    ## 4 2018-10-28 19:0…    24     1013       60       24       24 Pavão-Pavaoz…
+    ## 5 2018-10-28 19:0…    24     1013       60       24       24 Vila Joaniza
 
 ``` r
 # get forecast
 forecast <- get_forecast("London", units = "metric")
-names(forecast)
+forecast_tbl <- owmr_as_tibble(forecast)
+
+forecast_tbl[, 1:6]
 ```
 
-    ## [1] "cod"     "message" "cnt"     "list"    "city"
+    ## # A tibble: 40 x 6
+    ##    dt_txt               temp pressure humidity temp_min temp_max
+    ##    <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+    ##  1 2018-10-28 21:00:00  3.56    1023.       71     3.56     4.22
+    ##  2 2018-10-29 00:00:00  2.24    1021.       90     2.24     2.73
+    ##  3 2018-10-29 03:00:00  2.94    1019.       99     2.94     3.27
+    ##  4 2018-10-29 06:00:00  1.84    1018.       94     1.84     2   
+    ##  5 2018-10-29 09:00:00  4.65    1016.       84     4.65     4.65
+    ##  6 2018-10-29 12:00:00  8.44    1013.       77     8.44     8.44
+    ##  7 2018-10-29 15:00:00  8.47    1010.       70     8.47     8.47
+    ##  8 2018-10-29 18:00:00  5.96    1008.       76     5.96     5.96
+    ##  9 2018-10-29 21:00:00  3.57    1005.       87     3.57     3.57
+    ## 10 2018-10-30 00:00:00  3.07    1003.       97     3.07     3.07
+    ## # ... with 30 more rows
 
 ``` r
 "name: {{name}}, id: {{id}}, (forecast) rows: {{cnt}}" %$$%
   list(
     name = forecast$city$name,
     id   = forecast$city$id,
-    cnt  = forecast$cnt) %>% cat()
+    cnt  = forecast$cnt
+  ) %>% cat()
 ```
 
     ## name: London, id: 2643743, (forecast) rows: 40
 
 ``` r
-names(forecast$list)
-```
-
-    ##  [1] "dt"              "weather"         "dt_txt"         
-    ##  [4] "main.temp"       "main.temp_min"   "main.temp_max"  
-    ##  [7] "main.pressure"   "main.sea_level"  "main.grnd_level"
-    ## [10] "main.humidity"   "main.temp_kf"    "clouds.all"     
-    ## [13] "wind.speed"      "wind.deg"        "rain.3h"        
-    ## [16] "sys.pod"
-
-``` r
-forecast$list[c("dt_txt", "main.temp", "main.temp_max", "wind.speed")] %>%
-  head()
-```
-
-    ##                dt_txt main.temp main.temp_max wind.speed
-    ## 1 2018-10-11 18:00:00     14.54         16.69       7.46
-    ## 2 2018-10-11 21:00:00     14.61         16.23       5.36
-    ## 3 2018-10-12 00:00:00     13.17         14.24       4.67
-    ## 4 2018-10-12 03:00:00     14.46         15.00       6.61
-    ## 5 2018-10-12 06:00:00     15.18         15.18       7.36
-    ## 6 2018-10-12 09:00:00     15.87         15.87       7.83
-
-``` r
-# flatten weather column and tidy up column names
-forecast %<>% tidy_up()
-names(forecast$list)
-```
-
-    ##  [1] "dt"                  "dt_txt"              "temp"               
-    ##  [4] "temp_min"            "temp_max"            "pressure"           
-    ##  [7] "sea_level"           "grnd_level"          "humidity"           
-    ## [10] "temp_kf"             "clouds_all"          "wind_speed"         
-    ## [13] "wind_deg"            "rain_3h"             "pod"                
-    ## [16] "weather_id"          "weather_main"        "weather_description"
-    ## [19] "weather_icon"
-
-``` r
-# apply funcs to some columns  
-forecast$list %<>% parse_columns(list(temp = round, wind_speed = round))
+# apply funcs to some columns
+funcs <- list(
+  temp = round,
+  wind_speed = round
+)
+forecast_tbl %<>% parse_columns(funcs)
 
 # do some templating ...
 ("{{dt_txt}}h {{temp}}°C, {{wind_speed}} m/s" %$$%
-  forecast$list) %>% head(10)
+  forecast_tbl) %>% head(10)
 ```
 
-    ##  [1] "2018-10-11 18:00:00h 15°C, 7 m/s" 
-    ##  [2] "2018-10-11 21:00:00h 15°C, 5 m/s" 
-    ##  [3] "2018-10-12 00:00:00h 13°C, 5 m/s" 
-    ##  [4] "2018-10-12 03:00:00h 14°C, 7 m/s" 
-    ##  [5] "2018-10-12 06:00:00h 15°C, 7 m/s" 
-    ##  [6] "2018-10-12 09:00:00h 16°C, 8 m/s" 
-    ##  [7] "2018-10-12 12:00:00h 18°C, 9 m/s" 
-    ##  [8] "2018-10-12 15:00:00h 18°C, 9 m/s" 
-    ##  [9] "2018-10-12 18:00:00h 19°C, 10 m/s"
-    ## [10] "2018-10-12 21:00:00h 20°C, 10 m/s"
+    ##  [1] "2018-10-28 21:00:00h 4°C, 5 m/s" "2018-10-29 00:00:00h 2°C, 4 m/s"
+    ##  [3] "2018-10-29 03:00:00h 3°C, 4 m/s" "2018-10-29 06:00:00h 2°C, 4 m/s"
+    ##  [5] "2018-10-29 09:00:00h 5°C, 3 m/s" "2018-10-29 12:00:00h 8°C, 4 m/s"
+    ##  [7] "2018-10-29 15:00:00h 8°C, 5 m/s" "2018-10-29 18:00:00h 6°C, 4 m/s"
+    ##  [9] "2018-10-29 21:00:00h 4°C, 4 m/s" "2018-10-30 00:00:00h 3°C, 4 m/s"
 
 Documentation
 -------------
@@ -214,16 +195,31 @@ Run tests
 ---------
 
 ``` r
-test_dir("tests/testthat/")
+devtools::test()
 ```
 
+    ## Loading owmr
+
+    ## owmr 0.7.4
+    ##    another crazy way to talk to OpenWeatherMap's API
+    ##    Documentation: type ?owmr or https://crazycapivara.github.io/owmr/
+    ##    Issues, notes and bleeding edge: https://github.com/crazycapivara/owmr/
+
+    ## Testing owmr
+
     ## city list: ..
-    ## mock httr::GET current: ...
-    ## current weather data for multiple cities: ...
-    ## current weather data: .....
-    ## mock httr::GET forecast: ..
+    ## mock httr::GET current: ....
+    ## current weather data for multiple cities: ......
+    ## current weather data: ........
+    ## _DEPRECATED: W.
+    ## mock httr::GET forecast: ......
     ## parse columns: ..
     ## render operator: ...
-    ## tidy up data: ....
+    ## tidy up data: ...
+    ## 
+    ## Warnings ------------------------------------------------------------------
+    ## 1. tidy up all (@test_deprecated.R#8) - 'tidy_up_' is deprecated.
+    ## Use 'owmr_as_tibble' instead.
+    ## See help("Deprecated")
     ## 
     ## DONE ======================================================================
