@@ -76,29 +76,33 @@ parse_forecast_daily <- function(resp, simplify = TRUE) {
   replace_ <- c(speed = "wind_speed", deg = "wind_deg", clouds = "clouds_all")
   resp$list %<>% plyr::rename(replace_, warn_missing = FALSE)
   resp$list$temp <- resp$list$temp.day
-  parse_default(resp)
+  parse_default(resp, simplify)
 }
 
-#' Parse owm response to tibble object
+#' Parse owmr response to tibble
 #'
-#' @param resp response returned from OpenWeatherMap
+#' @param resp response object returned from functions like
+#'   \code{\link{get_current}} or \code{\link{get_forecast}}
 #' @param simplify return tibble only?
 #'
 #' @return list containing tibble or tibble only (\code{simplify = TRUE})
-#' @name response_to_tibble
+#' @name owmr_as_tibble
 #' @export
-parse_response <- function(resp, simplify = TRUE) {
-  UseMethod("parse_response", resp)
+owmr_as_tibble <- function(resp, simplify = TRUE) {
+  UseMethod("owmr_as_tibble", resp)
 }
 
-#' @name response_to_tibble
-#' @export
-parse_response.owmr_weather <- parse_current
+# used in tests
+parse_response <- owmr_as_tibble
 
-#' @name response_to_tibble
+#' @name owmr_as_tibble
 #' @export
-parse_response.default <- parse_default
+owmr_as_tibble.owmr_weather <- parse_current
 
-#' @name response_to_tibble
+#' @name owmr_as_tibble
 #' @export
-parse_response.owmr_forecast_daily <- parse_forecast_daily
+owmr_as_tibble.default <- parse_default
+
+#' @name owmr_as_tibble
+#' @export
+owmr_as_tibble.owmr_forecast_daily <- parse_forecast_daily
