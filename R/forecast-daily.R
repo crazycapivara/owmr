@@ -1,8 +1,6 @@
-#' Get daily forcast data up to 16 days.
+#' Get daily forecast data up to 16 days.
 #'
 #' @inheritParams get_current
-# @param city city name or id
-# @param ... see owm api documentation
 #'
 #' @return list
 #' @export
@@ -14,5 +12,7 @@
 #' }
 get_forecast_daily <- function(city = NA, ...) {
   get <- owmr_wrap_get("forecast/daily")
-  get(city, ...) %>% owmr_parse()
+  get(city, ...) %>%
+    owmr_parse() %>%
+    owmr_class("owmr_forecast_daily")
 }

@@ -1,8 +1,6 @@
 #' Get 3h forecast data.
 #'
 #' @inheritParams get_current
-# @param city city name or id
-# @param ... see owm api documentation
 #'
 #' @return list
 #' @export
@@ -15,5 +13,7 @@
 #' }
 get_forecast <- function(city = NA, ...) {
   get <- owmr_wrap_get("forecast")
-  get(city, ...) %>% owmr_parse()
+  get(city, ...) %>%
+    owmr_parse() %>%
+    owmr_class("owmr_forecast")
 }
