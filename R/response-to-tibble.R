@@ -92,9 +92,6 @@ owmr_as_tibble <- function(resp, simplify = TRUE) {
   UseMethod("owmr_as_tibble", resp)
 }
 
-# used in tests
-parse_response <- owmr_as_tibble
-
 #' @name owmr_as_tibble
 #' @export
 owmr_as_tibble.owmr_weather <- parse_current

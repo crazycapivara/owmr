@@ -28,7 +28,7 @@ test_that("check city id", {
 
 test_that("parse to tibble", {
   # act
-  data <- current %>% parse_response()
+  data <- current %>% owmr_as_tibble()
   first_columns <- names(data)[1:6]
   weather <- data[startsWith(names(data), "weather")]
 

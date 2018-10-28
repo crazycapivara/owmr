@@ -21,9 +21,10 @@ test_that("class", {
   expect_equal(class(current_multiple), c("list", "owmr_group"))
 })
 
-test_that("parse response", {
+test_that("parse response to tibble", {
   # act
-  data <- current_multiple %>% parse_response()
+  data <- current_multiple %>%
+    owmr_as_tibble()
   idx_weather_description <- which(names(data) == "weather_description")
   contains_dt_txt <- "dt_txt" %in% names(data)
 

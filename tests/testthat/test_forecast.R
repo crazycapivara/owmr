@@ -37,7 +37,7 @@ test_that("parse forecast response", {
     owmr_class("owmr_forecast")
 
   # act
-  data <- parse_response(resp)
+  data <- owmr_as_tibble(resp)
   first_columns <- names(data)[1:6]
   weather <- data[startsWith(names(data), "weather")]
 
