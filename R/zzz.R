@@ -1,9 +1,8 @@
 .onAttach <- function(libname, pkgname) {
-  api_key_message <- c(
-    "\n",
-    "It is recommended that you store your api key in an environment variable called OWM_API_KEY.\n"
-  )
-  if (!identical(Sys.getenv("OWM_API_KEY"), "")) api_key_message <- ""
+  api_key_message <- ""
+  if (Sys.getenv("OWM_API_KEY") == "") {
+    api_key_message <- "\nIt is recommended that you store your api key in an environment variable called OWM_API_KEY.\n"
+  }
 
   packageStartupMessage(
     pkgname, " ", getNamespaceVersion(pkgname), "\n",
