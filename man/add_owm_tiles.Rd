@@ -4,7 +4,7 @@
 \alias{add_owm_tiles}
 \title{Add owm tiles to leaflet map.}
 \usage{
-add_owm_tiles(map, layer_name = owm_layers()$Temperature_new, ...)
+add_owm_tiles(map, layer_name = owm_layers$Temperature_new, ...)
 }
 \arguments{
 \item{map}{leaflet map object}

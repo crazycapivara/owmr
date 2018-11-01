@@ -16,3 +16,9 @@
 # Metabetchouan-Lac-a-la-Croix, needs to be fixed in case dataset
 # is updated
 "owm_cities"
+
+#' List of available owm weather map layers.
+#'
+#' @seealso
+#'   \url{https://openweathermap.org/api/weathermaps}
+"owm_layers"
