@@ -1,3 +1,5 @@
+^docs$
+^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 data-raw/
@@ -9,3 +11,4 @@ TODO.md
 docs/
 README.rmd
 cran-comments.md
+vignettes/owmr.Rmd
