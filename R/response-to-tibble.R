@@ -79,7 +79,7 @@ parse_forecast_daily <- function(resp, simplify = TRUE) {
   parse_default(resp, simplify)
 }
 
-#' Parse owmr response to tibble
+#' Parse owmr response to tibble.
 #'
 #' @param resp response object returned from functions like
 #'   \code{\link{get_current}} or \code{\link{get_forecast}}

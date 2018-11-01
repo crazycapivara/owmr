@@ -8,7 +8,7 @@
 \alias{owmr_as_tibble.default}
 \alias{owmr_as_tibble}
 \alias{owmr_as_tibble.owmr_forecast_daily}
-\title{Parse owmr response to tibble}
+\title{Parse owmr response to tibble.}
 \usage{
 owmr_as_tibble(resp, simplify = TRUE)
 
@@ -28,5 +28,5 @@ owmr_as_tibble(resp, simplify = TRUE)
 list containing tibble or tibble only (\code{simplify = TRUE})
 }
 \description{
-Parse owmr response to tibble
+Parse owmr response to tibble.
 }
