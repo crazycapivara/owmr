@@ -4,7 +4,6 @@ owm_tile_server <- "http://{s}.tile.openweathermap.org/map/%s/{z}/{x}/{y}.png?ap
 #'
 #' @return list of available owm layers
 #' @export
-#'
 owm_layers <- function() {
   list(
     Precipitation_new = "precipitation_new",
@@ -44,7 +43,6 @@ get_owm_tile_template <- function(layer_name) {
 #'    leaflet() %>% add_owm_tiles() %>%
 #'       addMarkers(data = quakes[1:20, ])
 #' }
-#'
 add_owm_tiles <- function(map, layer_name = owm_layers()$Temperature_new, ...) {
   tile_template <- get_owm_tile_template(layer_name)
   leaflet::addTiles(map, tile_template, ...)

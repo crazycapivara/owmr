@@ -25,5 +25,4 @@ Add owm tiles to leaflet map.
    leaflet() \%>\% add_owm_tiles() \%>\%
       addMarkers(data = quakes[1:20, ])
 }
-
 }
