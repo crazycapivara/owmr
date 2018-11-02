@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get icon url. — get_icon_url • OpenWeatherMap for R</title>
+<title>Find cities by bounding box. — find_cities_by_bbox • OpenWeatherMap for R</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Get icon url. — get_icon_url" />
+<meta property="og:title" content="Find cities by bounding box. — find_cities_by_bbox" />
 
-<meta property="og:description" content="Get icon url." />
+<meta property="og:description" content="Get current weather data for a number of cities
+within a given bounding box." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,49 +104,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get icon url.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/crazycapivara/owmr//blob/master/R/settings.R'><code>R/settings.R</code></a></small>
-    <div class="hidden name"><code>get_icon_url.Rd</code></div>
+    <h1>Find cities by bounding box.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/crazycapivara/owmr//blob/master/R/current-bbox.R'><code>R/current-bbox.R</code></a></small>
+    <div class="hidden name"><code>find_cities_by_bbox.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get icon url.</p>
+    <p>Get current weather data for a number of cities
+within a given bounding box.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_icon_url</span>(<span class='no'>icon</span>)</pre>
+    <pre class="usage"><span class='fu'>find_cities_by_bbox</span>(<span class='kw'>bbox</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12</span>, <span class='fl'>32</span>, <span class='fl'>15</span>, <span class='fl'>37</span>, <span class='fl'>10</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>icon</th>
-      <td><p>icon name as returned by owm</p></td>
+      <th>bbox</th>
+      <td><p>bounding box, numric vector of the form
+(lon-left, lat-bottom, lon-right, lat-top, zoom)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>see <a href='https://openweathermap.org/current'>https://openweathermap.org/current</a></p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>icon url</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-   <span class='no'>forecast</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_forecast.html'>get_forecast</a></span>(<span class='st'>"London"</span>)$<span class='no'>list</span>
-   <span class='no'>weather</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flatten_weather.html'>flatten_weather</a></span>(<span class='no'>forecast</span>$<span class='no'>weather</span>)
-   <span class='no'>icons</span> <span class='kw'>&lt;-</span> <span class='fu'>get_icon_url</span>(<span class='no'>weather</span>$<span class='no'>icon</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
