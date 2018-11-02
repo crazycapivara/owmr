@@ -1,8 +1,12 @@
 Package: owmr
 Title: OpenWeatherMap API Wrapper
-Version: 0.7.4
-Date: 2018-10-11
-Authors@R: person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre"))
+Version: 0.8.0
+Date: 2018-11-02
+Authors@R: c(
+    person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre")),
+    person("Amanda", "Dobbyn", role = "ctb")
+  )
+Maintainer: Stefan Kuethe <crazycapivara@gmail.com>
 Description: Accesses OpenWeatherMap's (owm) <https://openweathermap.org/> API.
    'owm' itself is a service providing weather data in the past, in the future and now.
    Furthermore, 'owm' serves weather map layers usable in frameworks like 'leaflet'.

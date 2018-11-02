@@ -13,4 +13,4 @@
   )
 }
 
-globalVariables(".")
+globalVariables(c(".", "owm_layers"))

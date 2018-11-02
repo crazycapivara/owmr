@@ -18,7 +18,8 @@ parse_columns <- function(data, functions_) {
   data
 }
 
-# TODO: document in order to export
+# TODO: document in order to export, OBSOLETE?
+# see same function in 'response-to-tibble.R'
 parse_dt <- function(dt) { # nocov start
   as.POSIXct(dt, origin = "1970-01-01")
 } # nocov end

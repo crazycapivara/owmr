@@ -1,4 +1,4 @@
-#' Tidy up owm data.
+#' Tidy up owm data. (DEPRECATED)
 #'
 #' @param data data frame
 #' @param flatten_weather_ see \code{\link{flatten_weather}}
@@ -28,8 +28,6 @@ tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remo
   .Deprecated("owmr_as_tibble")
   # flatten weather
   if (flatten_weather_ & "weather" %in% colnames(data)) {
-    # data %<>% cbind(weather = flatten_weather(data$weather))
-    # data$weather = NULL
     data %<>% cbind_weather()
   }
   # remove prefices
@@ -43,7 +41,7 @@ tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remo
   data
 }
 
-#' Tidy up owm data.
+#' Tidy up owm data. (DEPRECATED)
 #'
 #' Calls \code{\link{tidy_up_}} passing \code{data$list}
 #'    as \code{data} argument.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_up.R
 \name{tidy_up}
 \alias{tidy_up}
-\title{Tidy up owm data.}
+\title{Tidy up owm data. (DEPRECATED)}
 \usage{
 tidy_up(data, ...)
 }

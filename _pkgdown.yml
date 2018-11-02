@@ -1,0 +1,4 @@
+title: OpenWeatherMap for R
+template:
+  params:
+    bootswatch: cosmo
