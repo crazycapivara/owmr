@@ -1,4 +1,4 @@
-#' Flatten weather column in data frame.
+#' Flatten weather column in data frame. (DEPRECATED)
 #'
 #' @param data data frame containing weather column
 #'
@@ -8,8 +8,9 @@
 #' @examples\dontrun{
 #'    get_forecast("Kassel") %>% cbind_weather()
 #' }
-cbind_weather <- function(data){
+cbind_weather <- function(data) {
+  .Deprecated("owmr_as_tibble")
   data %<>% cbind(weather = flatten_weather(data$weather))
-  data$weather = NULL
+  data$weather <- NULL
   data
 }

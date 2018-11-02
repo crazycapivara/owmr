@@ -27,4 +27,3 @@ Get current weather data for given city.
    get_current(zip = "94040,US")
 }
 }
-

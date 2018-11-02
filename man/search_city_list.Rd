@@ -16,8 +16,8 @@ use \code{country_code = ""} as wildcard}
 data frame with matches
 }
 \description{
-search \code{\link{owm_cities}} dataset by city name
-and country code
+Search \code{\link{owm_cities}} dataset by city name
+and country code.
 }
 \examples{
 search_city_list("London", "GB")
@@ -27,4 +27,3 @@ search_city_list("Lond")
 \seealso{
 \code{\link{owm_cities}} dataset
 }
-

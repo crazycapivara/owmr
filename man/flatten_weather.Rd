@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_up-flatten_weather.R
 \name{flatten_weather}
 \alias{flatten_weather}
-\title{Parse weather column to (single) data frame.}
+\title{Parse weather column to (single) data frame. (DEPRECATED)}
 \usage{
 flatten_weather(x)
 }
@@ -13,7 +13,7 @@ flatten_weather(x)
 data frame
 }
 \description{
-Parse weather column to (single) data frame.
+Parse weather column to (single) data frame. (DEPRECATED)
 }
 \examples{
 \dontrun{
@@ -22,4 +22,3 @@ Parse weather column to (single) data frame.
    weather$description \%>\% print()
 }
 }
-

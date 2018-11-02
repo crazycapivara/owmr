@@ -1,7 +1,7 @@
 #' Look up coordinates and city id in owm's city list.
 #'
-#' search \code{\link{owm_cities}} dataset by city name
-#' and country code
+#' Search \code{\link{owm_cities}} dataset by city name
+#' and country code.
 #'
 #' @seealso \code{\link{owm_cities}} dataset
 #'
@@ -16,7 +16,7 @@
 #' search_city_list("London", "GB")
 #' search_city_list("London")
 #' search_city_list("Lond")
-search_city_list <- function(city, country_code = ""){
+search_city_list <- function(city, country_code = "") {
   result <- grepl(city, owmr::owm_cities$nm) &
     grepl(country_code, owmr::owm_cities$countryCode)
   owmr::owm_cities[result, ]

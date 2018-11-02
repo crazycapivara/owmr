@@ -16,11 +16,11 @@ find_cities_by_geo_point(lat, lon, cnt = 3, ...)
 \item{...}{see owm api documentation}
 }
 \value{
-list containing data frame with weather data
+list
 }
 \description{
 Get current weather data for a number of cities
-around given geo point.
+around a given geo point.
 }
 \examples{
 \dontrun{
@@ -30,4 +30,3 @@ around given geo point.
 \seealso{
 \code{\link{find_city}}
 }
-

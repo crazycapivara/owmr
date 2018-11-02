@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_up.R
 \name{tidy_up_}
 \alias{tidy_up_}
-\title{Tidy up owm data.}
+\title{Tidy up owm data. (DEPRECATED)}
 \usage{
 tidy_up_(data, flatten_weather_ = TRUE, use_underscore_ = TRUE,
   remove_prefix_ = c("main", "sys"))
@@ -21,7 +21,7 @@ tidy_up_(data, flatten_weather_ = TRUE, use_underscore_ = TRUE,
 updated data frame
 }
 \description{
-Tidy up owm data.
+Tidy up owm data. (DEPRECATED)
 }
 \examples{
 \dontrun{
@@ -40,4 +40,3 @@ Tidy up owm data.
    \code{\link{remove_prefix}},\cr
    \code{\link{use_underscore}}
 }
-

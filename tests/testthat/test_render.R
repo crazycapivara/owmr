@@ -1,24 +1,29 @@
 context("render operator")
 
 test_that("data frame input", {
-  # when
+  # prepare
   df <- iris[1:5, ]
-  result <- "{{Species}}: {{Sepal_Length}}" %$$%
-    df
-  # then
-  expected_cnt <- 5
-  expected_values <- c("setosa: 5.1", "setosa: 4.9")
-  # -----
-  expect_equal(length(result), expected_cnt)
-  expect_equal(result[1:2], expected_values)
+
+  # act
+  result <- "{{Species}}: {{Sepal_Length}}" %$$% df
+
+  # assert
+  length_expected <- 5
+  values_expected <- c("setosa: 5.1", "setosa: 4.9")
+
+  expect_length(result, length_expected)
+  expect_equal(result[1:2], values_expected)
 })
 
 test_that("list input", {
-  # when
-  l <- list(name = "stef" ,country = "DE")
+  # prepare
+  l <- list(name = "stef", country = "DE")
+
+  # act
   result <- "{{name}} lives in {{country}}" %$$% l
-  # then
-  expected <- "stef lives in DE"
-  # -----
-  expect_equal(result, expected)
+
+  # assert
+  result_expected <- "stef lives in DE"
+
+  expect_equal(result, result_expected)
 })

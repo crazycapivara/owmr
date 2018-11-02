@@ -11,6 +11,9 @@
 #'    # first of all you have to set up your api key
 #'    owmr_settings("your_api_key")
 #'
+#'    # or store it in an environment variable called OWM_API_KEY (recommended)
+#'    Sys.setenv(OWM_API_KEY = "your_api_key") # if not set globally
+#'
 #'    # get current weather data for "Kassel" with temperatures in °C
 #'    get_current("Kassel", units = "metric")
 #'
@@ -19,18 +22,15 @@
 #'
 #'    # ...
 #' }
-#'
-#' @importFrom magrittr %>% %<>%
-#' @export %>%
 NULL
 
-#' Pipe operator.
-#'
-#' exported from \pkg{magrittr}
-#'
-#' @aliases %>%
-#' @name pipe
-NULL
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
+#' @importFrom magrittr %<>%
+#' @export
+magrittr::`%<>%`
 
 exclusions <- list(
   "R/zzz.R",
@@ -39,6 +39,6 @@ exclusions <- list(
 )
 
 # export it or just run it in development mode?
-owmr_coverage <- function(){ # nocov start
+owmr_coverage <- function() { # nocov start
   covr::package_coverage(line_exclusions = exclusions)
 } # nocov end

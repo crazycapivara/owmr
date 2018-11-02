@@ -2,7 +2,7 @@
 % Please edit documentation in R/forecast-daily.R
 \name{get_forecast_daily}
 \alias{get_forecast_daily}
-\title{Get daily forcast data up to 16 days.}
+\title{Get daily forecast data up to 16 days.}
 \usage{
 get_forecast_daily(city = NA, ...)
 }
@@ -17,7 +17,7 @@ or \code{zip} (zip code) instead}
 list
 }
 \description{
-Get daily forcast data up to 16 days.
+Get daily forecast data up to 16 days.
 }
 \examples{
 \dontrun{
@@ -26,4 +26,3 @@ Get daily forcast data up to 16 days.
    forecast_frame <- result$list
 }
 }
-

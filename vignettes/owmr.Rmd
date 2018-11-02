@@ -1,0 +1,95 @@
+---
+title: "Get started with OpenWeatherMap for R"
+---
+
+## Installation
+
+```{r eval = FALSE}
+# stable
+install.packages("omwr")
+
+# unstable
+devtools::install_github("crazycapivara/owmr/")
+```
+
+## Setup
+
+First of all you have to store your API key in an environment variable called `OWM_API_KEY`.
+For the current this can be done with:
+
+```{r eval = FALSE}
+Sys.setenv("yourSuperSecretApiKey")
+```
+
+## Get data
+
+Due to the `...` parameter in R you can pass all parameters defined in the [openweathermap-api-reference](https://openweathermap.org/api) to the functions fetching data.
+
+```{r eval = TRUE, message = FALSE}
+library(owmr)
+
+current <- get_current("Kassel", units = "metric", lang = "de")
+class(current)
+
+forecast <- get_forecast("Malaga", units = "metric")
+class(forecast)
+
+(nyc <- search_city_list("New York City"))
+
+current_multiple <- find_cities_by_geo_point(
+  nyc$lat,
+  nyc$lon,
+  cnt = 5,
+  units = "metric"
+)
+class(current_multiple)
+```
+
+## Get similar-ish data frames with `owmr_as_tibble`
+
+```{r eval = TRUE}
+columns <- c("dt_txt", "temp","pressure", "humidity" ,"temp_min", "temp_max")
+
+current %>% owmr_as_tibble() %>%
+  .[, columns]
+forecast %>% owmr_as_tibble() %>%
+  .[1:4, columns]
+current_multiple %>% owmr_as_tibble() %>%
+  .[, c(columns, "name")]
+```
+
+## Leaflet Integration
+
+```{r eval = TRUE}
+rio <- search_city_list("Rio de Janeiro")
+
+# Get data for 9 cities around Rio
+owm_data <- find_cities_by_geo_point(
+  lat = rio$lat,
+  lon = rio$lon,
+  cnt = 9,
+  units = "metric"
+) %>% owmr_as_tibble()
+
+owm_data %<>% parse_columns(list(temp = round))
+head(owm_data)
+
+# Create a popup template
+popup_tpl <- paste0(
+  "<b>{{name}}</b></br>",
+  "{{coord_lon}}, {{coord_lat}}</br>",
+  "{{temp}}°C, ",
+  "<i>{{weather_description}}</i>"
+)
+
+# Test it ...
+popup_tpl %$$% owm_data %>% head(2)
+
+library(leaflet)
+
+leaflet(width = "100%") %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%
+  add_weather(owm_data, icon = owm_data$weather_icon, template = popup_tpl)
+```
+
+Furthermore, you can add weather map layers from OpenWeatherMap to the `map` object via `add_owm_tiles`. For available layers see `owm_layers`.

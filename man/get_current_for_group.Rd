@@ -12,7 +12,7 @@ get_current_for_group(city_ids, ...)
 \item{...}{see owm api documentation}
 }
 \value{
-list containing data frame with current weather data of cities
+list
 }
 \description{
 Get current weather data for multiple cities.
@@ -29,4 +29,3 @@ Get current weather data for multiple cities.
 \code{\link{owm_cities}} dataset in order to
    lookup city ids
 }
-

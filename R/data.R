@@ -10,9 +10,15 @@
 #'   \item{lon}{longitude}
 #'   \item{countryCode}{two letter country code}
 #' }
-#' @source \url{http://openweathermap.org/help/city_list.txt}
+#' @source \url{http://bulk.openweathermap.org/sample/city.list.json.gz}
 #'
 # NOTE: UTF-8 string found in `owm_cities$nm[7053]`
 # Metabetchouan-Lac-a-la-Croix, needs to be fixed in case dataset
 # is updated
 "owm_cities"
+
+#' List of available owm weather map layers.
+#'
+#' @seealso
+#'   \url{https://openweathermap.org/api/weathermaps}
+"owm_layers"

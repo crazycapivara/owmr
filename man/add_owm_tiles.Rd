@@ -4,7 +4,7 @@
 \alias{add_owm_tiles}
 \title{Add owm tiles to leaflet map.}
 \usage{
-add_owm_tiles(map, layer_name = "temp", ...)
+add_owm_tiles(map, layer_name = owm_layers$Temperature_new, ...)
 }
 \arguments{
 \item{map}{leaflet map object}
@@ -12,8 +12,7 @@ add_owm_tiles(map, layer_name = "temp", ...)
 \item{layer_name}{owm layer name,
 see \code{\link{owm_layers}}}
 
-\item{...}{optional parameters passed to
-\code{\link[leaflet]{addTiles}}}
+\item{...}{optional parameters passed to \code{\link[leaflet]{addTiles}}}
 }
 \value{
 updated map object
@@ -26,6 +25,4 @@ Add owm tiles to leaflet map.
    leaflet() \%>\% add_owm_tiles() \%>\%
       addMarkers(data = quakes[1:20, ])
 }
-
 }
-

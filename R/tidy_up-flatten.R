@@ -1,4 +1,4 @@
-#' Flatten list.
+#' Flatten list. (DEPRECATED)
 #'
 #' @param data list returned from owm
 #'
@@ -10,7 +10,8 @@
 #'    get_current("Rio de Janeiro") %>% flatten() %>%
 #'       tidy_up_()
 #' }
-flatten <- function(data){
+flatten <- function(data) {
+  .Deprecated("owmr_as_tibble")
   as.data.frame(data, stringsAsFactors = FALSE)[1, ] %>%
     as.list()
 }

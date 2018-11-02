@@ -24,4 +24,3 @@ Apply functions to columns.
    forecast \%<>\% parse_columns(list(dt = parse_dt))
 }
 }
-

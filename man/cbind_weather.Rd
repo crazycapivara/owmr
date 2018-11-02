@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_up-cbind_weather.R
 \name{cbind_weather}
 \alias{cbind_weather}
-\title{Flatten weather column in data frame.}
+\title{Flatten weather column in data frame. (DEPRECATED)}
 \usage{
 cbind_weather(data)
 }
@@ -13,11 +13,10 @@ cbind_weather(data)
 data frame with flattened weather (data)
 }
 \description{
-Flatten weather column in data frame.
+Flatten weather column in data frame. (DEPRECATED)
 }
 \examples{
 \dontrun{
    get_forecast("Kassel") \%>\% cbind_weather()
 }
 }
-

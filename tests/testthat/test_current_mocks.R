@@ -7,19 +7,25 @@ context("mock httr::GET current")
 test_that("current weather data", {
   with_mock(
     `httr::GET` = mock_httr_GET, {
-      # when
+      # prepare
+      api_key_org <- Sys.getenv("OWM_API_KEY")
       owmr_settings("my_api_key")
       city <- "Kassel"
-      # then
-      expected_name <- "Kassel"
-      expected_country <- "DE"
-      expected_nitems <- 12 # number of items
-      # -----
+
+      # act
       result <- get_current(city)
-      owmr_settings(NULL)
-      expect_equal(result$name, expected_name)
-      expect_equal(result$sys$country, expected_country)
-      expect_equal(length(result), expected_nitems)
+      Sys.setenv(OWM_API_KEY = api_key_org)
+
+      # assert
+      name_expected <- "Kassel"
+      country_expected <- "DE"
+      length_expected <- 12
+      class_expected <- c("list", "owmr_weather")
+
+      expect_equal(result$name, name_expected)
+      expect_equal(result$sys$country, country_expected)
+      expect_length(result, length_expected)
+      expect_equal(class(result), class_expected)
     }
   )
 })

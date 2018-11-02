@@ -20,23 +20,29 @@
 #' @export
 #'
 #' @examples \dontrun{
-#'    owm_data <- find_city("Malaga", units = "metric")$list %>% tidy_up_()
+#'    owm_data <- find_city("Malaga", units = "metric") %>%
+#'      owmr_as_tibble()
 #'    map <- leaflet() %>% addTiles() %>%
-#'       add_weather(owm_data,
-#'          template = "<b>{{name}}</b>, {{main_temp}}°C",
-#'          icon = owm_data$weather_icon)
+#'      add_weather(
+#'        owm_data,
+#'        template = "<b>{{name}}</b>, {{temp}}°C",
+#'        icon = owm_data$weather_icon
+#'      )
 #' }
-add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template = NULL, popup = NULL, ...){
-  if(is.null(lng) | is.null(lat)){
+add_weather <- function(map, data, lng = NULL, lat = NULL, icon = NULL, template = NULL, popup = NULL, ...) {
+  if (is.null(lng) | is.null(lat)) {
     lng <- data[[grep("lon", names(data))]]
     lat <- data[[grep("lat", names(data))]]
   }
-  if(!is.null(icon)){
+
+  if (!is.null(icon)) {
     icon %<>% get_icon_url() %>%
       leaflet::icons()
   }
-  if(!is.null(template)){
+
+  if (!is.null(template)) {
     popup <- template %$$% data
   }
+
   leaflet::addMarkers(map, lng, lat, data = data, icon = icon, popup = popup, ...)
 }

@@ -1,23 +1,28 @@
 context("city list")
 
 test_that("search by city name", {
-  # when
+  # prepare
   city <- "Kassel"
-  # then
+
+  # act
   result <- search_city_list(city)
-  expected_country_code <- result$countryCode
-  # ---
-  expect_equal(expected_country_code, "DE")
+
+  # assert
+  country_code_expected <- "DE"
+
+  expect_equal(result$countryCode, country_code_expected)
 })
 
 test_that("search by city name and country code", {
-  # when
+  # prepare
   city <- "^Malaga"
   country_code <- "ES"
-  # then
+
+  # act
   result <- search_city_list(city, country_code)
-  lng <- result$lon
-  expected_lng <- -4.42034
-  # ---
-  expect_equal(lng, expected_lng)
+
+  # assert
+  lng_expected <- -4.42034
+
+  expect_equal(result$lon, lng_expected)
 })

@@ -1,4 +1,4 @@
-#' Parse weather column to (single) data frame.
+#' Parse weather column to (single) data frame. (DEPRECATED)
 #'
 #' @param x weather column (NOT name)
 #'
@@ -10,6 +10,9 @@
 #'    weather <- flatten_weather(result$weather)
 #'    weather$description %>% print()
 #' }
-flatten_weather <- function(x){
-  lapply(x, function(df){df[1, ]}) %>% do.call(rbind, .)
+flatten_weather <- function(x) {
+  .Deprecated("owmr_as_tibble")
+  lapply(x, function(df) {
+    df[1, ]
+  }) %>% do.call(rbind, .)
 }

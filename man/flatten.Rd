@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_up-flatten.R
 \name{flatten}
 \alias{flatten}
-\title{Flatten list.}
+\title{Flatten list. (DEPRECATED)}
 \usage{
 flatten(data)
 }
@@ -13,7 +13,7 @@ flatten(data)
 flattened list
 }
 \description{
-Flatten list.
+Flatten list. (DEPRECATED)
 }
 \examples{
 \dontrun{
@@ -22,4 +22,3 @@ Flatten list.
       tidy_up_()
 }
 }
-

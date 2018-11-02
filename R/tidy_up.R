@@ -1,4 +1,4 @@
-#' Tidy up owm data.
+#' Tidy up owm data. (DEPRECATED)
 #'
 #' @param data data frame
 #' @param flatten_weather_ see \code{\link{flatten_weather}}
@@ -24,25 +24,24 @@
 #'    # keep all prefices
 #'    result$list %>% tidy_up_(remove_prefix_ = NULL)
 #' }
-tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main", "sys")){
+tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remove_prefix_ = c("main", "sys")) {
+  .Deprecated("owmr_as_tibble")
   # flatten weather
-  if(flatten_weather_ & "weather" %in% colnames(data)){
-    #data %<>% cbind(weather = flatten_weather(data$weather))
-    #data$weather = NULL
+  if (flatten_weather_ & "weather" %in% colnames(data)) {
     data %<>% cbind_weather()
   }
   # remove prefices
-  if(!is.null(remove_prefix_)){
+  if (!is.null(remove_prefix_)) {
     data %<>% remove_prefix(remove_prefix_)
   }
   # substitute dots with underscore
-  if(use_underscore_){
+  if (use_underscore_) {
     data %<>% use_underscore()
   }
   data
 }
 
-#' Tidy up owm data.
+#' Tidy up owm data. (DEPRECATED)
 #'
 #' Calls \code{\link{tidy_up_}} passing \code{data$list}
 #'    as \code{data} argument.
@@ -59,7 +58,7 @@ tidy_up_ <- function(data, flatten_weather_ = TRUE, use_underscore_ = TRUE, remo
 #' @examples \dontrun{
 #'    get_forecast("London") %>% tidy_up()
 #' }
-tidy_up <- function(data, ...){
+tidy_up <- function(data, ...) {
   data$list %<>% tidy_up_(...)
   data
 }
