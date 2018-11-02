@@ -2,6 +2,8 @@
 
 * Added generic function `owmr_as_tibble` to get similiar-ish and tidy data frames
 for all kind of responses
+* Removed `find_stations_by_geo_point` and `get_current_from_station` because of a new
+_owm stations api_
 
 # owmr 0.7.4
 
@@ -11,7 +13,7 @@ for all kind of responses
 # owmr 0.7.3
 
 * Added feature to store the api key in an environment variable called `OWM_API_KEY`
-  - even if it is still possible to set the key via `owmr_settings`, it is recommended that you use the environment variable instead
+* It is still possible to set the key via `owmr_settings`, but it is recommended that you use the environment variable instead
 
 # owmr 0.7.2
 
