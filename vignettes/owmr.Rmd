@@ -15,7 +15,7 @@ devtools::install_github("crazycapivara/owmr/")
 ## Setup
 
 First of all you have to store your API key in an environment variable called `OWM_API_KEY`.
-For the current this can be done with:
+For the current session this can be done with:
 
 ```{r eval = FALSE}
 Sys.setenv("yourSuperSecretApiKey")
