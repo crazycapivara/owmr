@@ -1,6 +1,11 @@
+# owmr 0.8.0
+
+* Added generic function `owmr_as_tibble` to get similiar-ish and tidy data frames
+for all kind of responses
+
 # owmr 0.7.4
 
-* Fix bug in `add_owm_tiles`
+* Fixed bug in `add_owm_tiles`
 * `find_stations_by_geo_point` and `get_current_from_station` are not supported anymore because of breaking changes in the owm api for stations. Functions will be removed in a future version.
 
 # owmr 0.7.3
