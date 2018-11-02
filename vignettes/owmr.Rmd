@@ -1,5 +1,5 @@
 ---
-title: "Get Started with OpenWeatherMap for R"
+title: "Get started with OpenWeatherMap for R"
 ---
 
 ## Installation
@@ -23,20 +23,22 @@ Sys.setenv("yourSuperSecretApiKey")
 
 ## Get data
 
+Due to the `...` parameter in R you can pass all parameters defined in the [openweathermap-api-reference](https://openweathermap.org/api) to the functions fetching data.
+
 ```{r eval = TRUE, message = FALSE}
 library(owmr)
 
-current <- get_current("Kassel", units = "metric")
+current <- get_current("Kassel", units = "metric", lang = "de")
 class(current)
 
-forecast <- get_forecast("Kassel", units = "metric")
+forecast <- get_forecast("Malaga", units = "metric")
 class(forecast)
 
-(kassel <- search_city_list("Kassel"))
+(nyc <- search_city_list("New York City"))
 
 current_multiple <- find_cities_by_geo_point(
-  kassel$lat,
-  kassel$lon,
+  nyc$lat,
+  nyc$lon,
   cnt = 5,
   units = "metric"
 )
@@ -89,3 +91,5 @@ leaflet(width = "100%") %>%
   addProviderTiles("CartoDB.DarkMatter") %>%
   add_weather(owm_data, icon = owm_data$weather_icon, template = popup_tpl)
 ```
+
+Furthermore, you can add weather map layers from OpenWeatherMap to the `map` object via `add_owm_tiles`. For available layers see `owm_layers`.
