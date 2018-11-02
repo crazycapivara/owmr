@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OpenWeatherMap for R</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.7.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.8.0</span>
       </span>
     </div>
 
@@ -104,12 +104,22 @@
       <small>Source: <a href='https://github.com/crazycapivara/owmr//blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="owmr-0-8-0" class="section level1">
+<h1 class="page-header">
+<a href="#owmr-0-8-0" class="anchor"></a>owmr 0.8.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added generic function <code>owmr_as_tibble</code> to get similiar-ish and tidy data frames for all kind of responses</li>
+<li>Removed <code>find_stations_by_geo_point</code> and <code>get_current_from_station</code> because of a new <em>owm stations api</em>
+</li>
+</ul>
+</div>
     <div id="owmr-0-7-4" class="section level1">
 <h1 class="page-header">
 <a href="#owmr-0-7-4" class="anchor"></a>owmr 0.7.4<small> Unreleased </small>
 </h1>
 <ul>
-<li>Fix bug in <code>add_owm_tiles</code>
+<li>Fixed bug in <code>add_owm_tiles</code>
 </li>
 <li>
 <code>find_stations_by_geo_point</code> and <code>get_current_from_station</code> are not supported anymore because of breaking changes in the owm api for stations. Functions will be removed in a future version.</li>
@@ -122,7 +132,7 @@
 <ul>
 <li>Added feature to store the api key in an environment variable called <code>OWM_API_KEY</code>
 </li>
-<li>even if it is still possible to set the key via <code>owmr_settings</code>, it is recommended that you use the environment variable instead</li>
+<li>It is still possible to set the key via <code>owmr_settings</code>, but it is recommended that you use the environment variable instead</li>
 </ul>
 </div>
     <div id="owmr-0-7-2" class="section level1">
@@ -202,6 +212,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#owmr-0-8-0">0.8.0</a></li>
         <li><a href="#owmr-0-7-4">0.7.4</a></li>
         <li><a href="#owmr-0-7-3">0.7.3</a></li>
         <li><a href="#owmr-0-7-2">0.7.2</a></li>

@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Started with OpenWeatherMap for R • OpenWeatherMap for R</title>
+<title>Get started with OpenWeatherMap for R • OpenWeatherMap for R</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started with OpenWeatherMap for R">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Get started with OpenWeatherMap for R">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OpenWeatherMap for R</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.7.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.8.0</span>
       </span>
     </div>
 
@@ -73,7 +73,7 @@
 <script src="owmr_files/leaflet-label-0.2.2/leaflet.label.js"></script><script src="owmr_files/Proj4Leaflet-0.7.2/proj4-compressed.js"></script><script src="owmr_files/Proj4Leaflet-0.7.2/proj4leaflet.js"></script><script src="owmr_files/leaflet-binding-1.1.0/leaflet.js"></script><script src="owmr_files/leaflet-providers-1.0.27/leaflet-providers.js"></script><script src="owmr_files/leaflet-providers-plugin-1.1.0/leaflet-providers-plugin.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Get Started with OpenWeatherMap for R</h1>
+      <h1>Get started with OpenWeatherMap for R</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/crazycapivara/owmr//blob/master/vignettes/owmr.Rmd"><code>vignettes/owmr.Rmd</code></a></small>
@@ -101,20 +101,21 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="get-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-data" class="anchor"></a>Get data</h2>
+<p>Due to the <code>...</code> parameter in R you can pass all parameters defined in the <a href="https://openweathermap.org/api">openweathermap-api-reference</a> to the functions fetching data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(owmr)
 
-current &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_current.html">get_current</a></span>(<span class="st">"Kassel"</span>, <span class="dt">units =</span> <span class="st">"metric"</span>)
+current &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_current.html">get_current</a></span>(<span class="st">"Kassel"</span>, <span class="dt">units =</span> <span class="st">"metric"</span>, <span class="dt">lang =</span> <span class="st">"de"</span>)
 <span class="kw">class</span>(current)</code></pre></div>
 <pre><code>## [1] "list"         "owmr_weather"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">forecast &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_forecast.html">get_forecast</a></span>(<span class="st">"Kassel"</span>, <span class="dt">units =</span> <span class="st">"metric"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">forecast &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_forecast.html">get_forecast</a></span>(<span class="st">"Malaga"</span>, <span class="dt">units =</span> <span class="st">"metric"</span>)
 <span class="kw">class</span>(forecast)</code></pre></div>
 <pre><code>## [1] "list"          "owmr_forecast"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(kassel &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_city_list.html">search_city_list</a></span>(<span class="st">"Kassel"</span>))</code></pre></div>
-<pre><code>##           id     nm      lat lon countryCode
-## 8293 2892518 Kassel 51.31667 9.5          DE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(nyc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_city_list.html">search_city_list</a></span>(<span class="st">"New York City"</span>))</code></pre></div>
+<pre><code>##            id            nm      lat       lon countryCode
+## 32214 5128581 New York City 40.71427 -74.00597          US</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">current_multiple &lt;-<span class="st"> </span><span class="kw"><a href="../reference/find_cities_by_geo_point.html">find_cities_by_geo_point</a></span>(
-  kassel<span class="op">$</span>lat,
-  kassel<span class="op">$</span>lon,
+  nyc<span class="op">$</span>lat,
+  nyc<span class="op">$</span>lon,
   <span class="dt">cnt =</span> <span class="dv">5</span>,
   <span class="dt">units =</span> <span class="st">"metric"</span>
 )
@@ -132,26 +133,26 @@ current <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">
 <pre><code>## # A tibble: 1 x 6
 ##   dt_txt               temp pressure humidity temp_min temp_max
 ##   &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2018-11-01 22:20:00  7.05     1013       93        6        8</code></pre>
+## 1 2018-11-02 12:20:00  11.3     1021       57       11       12</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">forecast <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">owmr_as_tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, columns]</code></pre></div>
 <pre><code>## # A tibble: 4 x 6
 ##   dt_txt               temp pressure humidity temp_min temp_max
 ##   &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2018-11-02 00:00:00  7.65     999.       95     6.29     7.65
-## 2 2018-11-02 03:00:00  7.28     999.       95     6.26     7.28
-## 3 2018-11-02 06:00:00  7.11    1001        96     6.43     7.11
-## 4 2018-11-02 09:00:00  9.17    1004.       80     8.83     9.17</code></pre>
+## 1 2018-11-02 12:00:00  16.0    1023.       63     16.0     18.7
+## 2 2018-11-02 15:00:00  15.8    1022.       74     15.8     17.8
+## 3 2018-11-02 18:00:00  15.7    1020.       81     15.7     17.0
+## 4 2018-11-02 21:00:00  16.1    1021.       84     16.1     16.8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">current_multiple <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">owmr_as_tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span>.[, <span class="kw">c</span>(columns, <span class="st">"name"</span>)]</code></pre></div>
 <pre><code>## # A tibble: 5 x 7
-##   dt_txt          temp pressure humidity temp_min temp_max name           
-##   &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;          
-## 1 2018-11-01 22…  7.34     1013       93        6        9 Kassel         
-## 2 2018-11-01 22…  7.34     1013       93        6        9 Kreisfreie Sta…
-## 3 2018-11-01 22…  7.34     1013       93        6        9 Fuldatal       
-## 4 2018-11-01 22…  7.34     1013       93        6        9 Niedervellmar  
-## 5 2018-11-01 22…  7.34     1013       93        6        9 Ihringshausen</code></pre>
+##   dt_txt            temp pressure humidity temp_min temp_max name         
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        
+## 1 2018-11-02 12:1…  19.1     1005       82     17.2     20.6 New York     
+## 2 2018-11-02 12:1…  19.1     1005       82     17.2     20.6 Hoboken      
+## 3 2018-11-02 12:1…  19.1     1005       82     17.2     20.6 Hudson County
+## 4 2018-11-02 12:1…  19.0     1005       82     17.2     20.6 Jersey City  
+## 5 2018-11-02 12:1…  19.2     1005       82     17.2     20.6 Long Island …</code></pre>
 </div>
 <div id="leaflet-integration" class="section level2">
 <h2 class="hasAnchor">
@@ -171,12 +172,12 @@ owm_data <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class=
 <pre><code>## # A tibble: 6 x 21
 ##   dt_txt  temp pressure humidity temp_min temp_max weather_id weather_main
 ##   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       
-## 1 2018-…    25     1012       61       24       26        802 Clouds      
-## 2 2018-…    25     1012       61       24       26        802 Clouds      
-## 3 2018-…    25     1012       61       24       26        802 Clouds      
-## 4 2018-…    25     1012       61       24       26        802 Clouds      
-## 5 2018-…    25     1013       57       24       26        803 Clouds      
-## 6 2018-…    25     1012       61       24       26        802 Clouds      
+## 1 2018-…    24     1015       88       23       25        804 Clouds      
+## 2 2018-…    24     1015       88       23       25        804 Clouds      
+## 3 2018-…    25     1015       73       24       25        803 Clouds      
+## 4 2018-…    25     1015       73       24       25        803 Clouds      
+## 5 2018-…    24     1015       88       23       25        804 Clouds      
+## 6 2018-…    24     1015       88       23       25        804 Clouds      
 ## # ... with 13 more variables: weather_description &lt;chr&gt;,
 ## #   weather_icon &lt;chr&gt;, wind_speed &lt;dbl&gt;, wind_deg &lt;dbl&gt;,
 ## #   clouds_all &lt;dbl&gt;, id &lt;int&gt;, name &lt;chr&gt;, dt &lt;int&gt;, rain &lt;lgl&gt;,
@@ -191,15 +192,15 @@ popup_tpl &lt;-<span class="st"> </span><span class="kw">paste0</span>(
 
 <span class="co"># Test it ...</span>
 popup_tpl <span class="op">%$$%</span><span class="st"> </span>owm_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] "&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;-43.2076, -22.9028&lt;/br&gt;25°C, &lt;i&gt;scattered clouds&lt;/i&gt;"
-## [2] "&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;-43.2334, -22.9&lt;/br&gt;25°C, &lt;i&gt;scattered clouds&lt;/i&gt;"</code></pre>
+<pre><code>## [1] "&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;-43.2076, -22.9028&lt;/br&gt;24°C, &lt;i&gt;overcast clouds&lt;/i&gt;"
+## [2] "&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;-43.2334, -22.9&lt;/br&gt;24°C, &lt;i&gt;overcast clouds&lt;/i&gt;"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/leaflet">leaflet</a></span>(<span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/addProviderTiles">addProviderTiles</a></span>(<span class="st">"CartoDB.DarkMatter"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_weather.html">add_weather</a></span>(owm_data, <span class="dt">icon =</span> owm_data<span class="op">$</span>weather_icon, <span class="dt">template =</span> popup_tpl)</code></pre></div>
-<div id="htmlwidget-9a64015f08d8643487d1" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9a64015f08d8643487d1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.9028,-22.9,-22.969,-22.9802,-22.8142,-22.8834,-22.9,-22.7856,-22.827],[-43.2076,-43.2334,-43.1857,-43.1967,-43.2308,-43.1037,-43.0998,-43.3117,-43.0539],{"iconUrl":{"data":["http://openweathermap.org/img/w/03d.png","http://openweathermap.org/img/w/04d.png"],"index":[0,0,0,0,1,0,0,1,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro<\/b><\/br>-43.2076, -22.9028<\/br>25°C, <i>scattered clouds<\/i>","<b>São Cristóvão<\/b><\/br>-43.2334, -22.9<\/br>25°C, <i>scattered clouds<\/i>","<b>Botafogo<\/b><\/br>-43.1857, -22.969<\/br>25°C, <i>scattered clouds<\/i>","<b>Pavão-Pavaozinho<\/b><\/br>-43.1967, -22.9802<\/br>25°C, <i>scattered clouds<\/i>","<b>Vila Joaniza<\/b><\/br>-43.2308, -22.8142<\/br>25°C, <i>broken clouds<\/i>","<b>Niteroi<\/b><\/br>-43.1037, -22.8834<\/br>25°C, <i>scattered clouds<\/i>","<b>Icaraí<\/b><\/br>-43.0998, -22.9<\/br>25°C, <i>scattered clouds<\/i>","<b>Duque de Caxias<\/b><\/br>-43.3117, -22.7856<\/br>25°C, <i>broken clouds<\/i>","<b>Sao Goncalo<\/b><\/br>-43.0539, -22.827<\/br>25°C, <i>scattered clouds<\/i>"],null,null,null,null,null,null]}],"limits":{"lat":[-22.9802,-22.7856],"lng":[-43.3117,-43.0539]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-37bacae4227bd9eeab6f" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37bacae4227bd9eeab6f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.9028,-22.9,-22.969,-22.9802,-22.8142,-22.8834,-22.9,-22.7856,-22.827],[-43.2076,-43.2334,-43.1857,-43.1967,-43.2308,-43.1037,-43.0998,-43.3117,-43.0539],{"iconUrl":{"data":"http://openweathermap.org/img/w/04d.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro<\/b><\/br>-43.2076, -22.9028<\/br>24°C, <i>overcast clouds<\/i>","<b>São Cristóvão<\/b><\/br>-43.2334, -22.9<\/br>24°C, <i>overcast clouds<\/i>","<b>Botafogo<\/b><\/br>-43.1857, -22.969<\/br>25°C, <i>broken clouds<\/i>","<b>Pavão-Pavaozinho<\/b><\/br>-43.1967, -22.9802<\/br>25°C, <i>broken clouds<\/i>","<b>Vila Joaniza<\/b><\/br>-43.2308, -22.8142<\/br>24°C, <i>overcast clouds<\/i>","<b>Niteroi<\/b><\/br>-43.1037, -22.8834<\/br>24°C, <i>overcast clouds<\/i>","<b>Icaraí<\/b><\/br>-43.0998, -22.9<\/br>24°C, <i>overcast clouds<\/i>","<b>Duque de Caxias<\/b><\/br>-43.3117, -22.7856<\/br>24°C, <i>overcast clouds<\/i>","<b>Sao Goncalo<\/b><\/br>-43.0539, -22.827<\/br>25°C, <i>broken clouds<\/i>"],null,null,null,null,null,null]}],"limits":{"lat":[-22.9802,-22.7856],"lng":[-43.3117,-43.0539]}},"evals":[],"jsHooks":[]}</script><p>Furthermore, you can add weather map layers from OpenWeatherMap to the <code>map</code> object via <code>add_owm_tiles</code>. For available layers see <code>owm_layers</code>.</p>
 </div>
   </div>
 
