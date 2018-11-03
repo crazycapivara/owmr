@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OpenWeatherMap for R</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.8.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.8.1</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>First of all you have to store your API key in an environment variable called <code>OWM_API_KEY</code>. For the current this can be done with:</p>
+<p>First of all you have to store your API key in an environment variable called <code>OWM_API_KEY</code>. For the current session this can be done with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="st">"yourSuperSecretApiKey"</span>)</code></pre></div>
 </div>
 <div id="get-data" class="section level2">
@@ -121,6 +121,10 @@ current &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get
 )
 <span class="kw">class</span>(current_multiple)</code></pre></div>
 <pre><code>## [1] "list"      "owmr_find"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bbox_greater_london &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.489</span>, <span class="fl">51.28</span>, <span class="fl">0.236</span>, <span class="fl">51.686</span>, <span class="dv">10</span>)
+current_greater_london &lt;-<span class="st"> </span><span class="kw"><a href="../reference/find_cities_by_bbox.html">find_cities_by_bbox</a></span>(bbox_greater_london)
+<span class="kw">class</span>(current_greater_london)</code></pre></div>
+<pre><code>## [1] "list"          "owmr_box_city"</code></pre>
 </div>
 <div id="get-similar-ish-data-frames-with-owmr_as_tibble" class="section level2">
 <h2 class="hasAnchor">
@@ -133,30 +137,40 @@ current <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">
 <pre><code>## # A tibble: 1 x 6
 ##   dt_txt               temp pressure humidity temp_min temp_max
 ##   &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2018-11-02 12:20:00  11.3     1021       57       11       12</code></pre>
+## 1 2018-11-02 18:20:00  8.69     1025       81        8        9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">forecast <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">owmr_as_tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, columns]</code></pre></div>
 <pre><code>## # A tibble: 4 x 6
 ##   dt_txt               temp pressure humidity temp_min temp_max
 ##   &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2018-11-02 12:00:00  16.0    1023.       63     16.0     18.7
-## 2 2018-11-02 15:00:00  15.8    1022.       74     15.8     17.8
-## 3 2018-11-02 18:00:00  15.7    1020.       81     15.7     17.0
-## 4 2018-11-02 21:00:00  16.1    1021.       84     16.1     16.8</code></pre>
+## 1 2018-11-02 18:00:00  15.1    1020.       81     15.1     17.0
+## 2 2018-11-02 21:00:00  15.3    1021.       84     15.3     16.8
+## 3 2018-11-03 00:00:00  18.6    1021.       73     18.6     19.6
+## 4 2018-11-03 03:00:00  21.8    1021.       72     21.8     22.3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">current_multiple <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">owmr_as_tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span>.[, <span class="kw">c</span>(columns, <span class="st">"name"</span>)]</code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   dt_txt            temp pressure humidity temp_min temp_max name         
 ##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        
-## 1 2018-11-02 12:1…  19.1     1005       82     17.2     20.6 New York     
-## 2 2018-11-02 12:1…  19.1     1005       82     17.2     20.6 Hoboken      
-## 3 2018-11-02 12:1…  19.1     1005       82     17.2     20.6 Hudson County
-## 4 2018-11-02 12:1…  19.0     1005       82     17.2     20.6 Jersey City  
-## 5 2018-11-02 12:1…  19.2     1005       82     17.2     20.6 Long Island …</code></pre>
+## 1 2018-11-02 18:1…  20.7     1006       74     18.3     22.2 New York     
+## 2 2018-11-02 18:1…  20.7     1006       74     18.3     22.2 Hoboken      
+## 3 2018-11-02 18:1…  20.7     1006       74     18.3     22.2 Hudson County
+## 4 2018-11-02 18:1…  20.6     1006       74     18.3     22.2 Jersey City  
+## 5 2018-11-02 18:1…  20.8     1006       74     18.3     22.2 Long Island …</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">current_greater_london <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">owmr_as_tibble</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span>.[, <span class="kw">c</span>(columns, <span class="st">"name"</span>)]</code></pre></div>
+<pre><code>## # A tibble: 5 x 7
+##   dt_txt          temp pressure humidity temp_min temp_max name           
+##   &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;          
+## 1 2018-11-02 18…  8.56     1026       75        6       11 Watford        
+## 2 2018-11-02 18…  8.38     1026       75        6       11 London Borough…
+## 3 2018-11-02 18…  8.21     1027       61        6       10 City of London 
+## 4 2018-11-02 18…  7.43     1027       61        4       10 Blackheath     
+## 5 2018-11-02 18…  7.87     1027       61        6       10 Dagenham</code></pre>
 </div>
 <div id="leaflet-integration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#leaflet-integration" class="anchor"></a>Leaflet Integration</h2>
+<a href="#leaflet-integration" class="anchor"></a>Leaflet integration</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rio &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_city_list.html">search_city_list</a></span>(<span class="st">"Rio de Janeiro"</span>)
 
 <span class="co"># Get data for 9 cities around Rio</span>
@@ -172,12 +186,12 @@ owm_data <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class=
 <pre><code>## # A tibble: 6 x 21
 ##   dt_txt  temp pressure humidity temp_min temp_max weather_id weather_main
 ##   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       
-## 1 2018-…    24     1015       88       23       25        804 Clouds      
-## 2 2018-…    24     1015       88       23       25        804 Clouds      
-## 3 2018-…    25     1015       73       24       25        803 Clouds      
-## 4 2018-…    25     1015       73       24       25        803 Clouds      
-## 5 2018-…    24     1015       88       23       25        804 Clouds      
-## 6 2018-…    24     1015       88       23       25        804 Clouds      
+## 1 2018-…    27     1013       74       26       28        804 Clouds      
+## 2 2018-…    27     1013       74       26       28        804 Clouds      
+## 3 2018-…    27     1013       74       26       28        804 Clouds      
+## 4 2018-…    27     1013       74       26       28        804 Clouds      
+## 5 2018-…    27     1013       65       26       28        804 Clouds      
+## 6 2018-…    27     1013       74       26       28        804 Clouds      
 ## # ... with 13 more variables: weather_description &lt;chr&gt;,
 ## #   weather_icon &lt;chr&gt;, wind_speed &lt;dbl&gt;, wind_deg &lt;dbl&gt;,
 ## #   clouds_all &lt;dbl&gt;, id &lt;int&gt;, name &lt;chr&gt;, dt &lt;int&gt;, rain &lt;lgl&gt;,
@@ -192,15 +206,15 @@ popup_tpl &lt;-<span class="st"> </span><span class="kw">paste0</span>(
 
 <span class="co"># Test it ...</span>
 popup_tpl <span class="op">%$$%</span><span class="st"> </span>owm_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] "&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;-43.2076, -22.9028&lt;/br&gt;24°C, &lt;i&gt;overcast clouds&lt;/i&gt;"
-## [2] "&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;-43.2334, -22.9&lt;/br&gt;24°C, &lt;i&gt;overcast clouds&lt;/i&gt;"</code></pre>
+<pre><code>## [1] "&lt;b&gt;Rio de Janeiro&lt;/b&gt;&lt;/br&gt;-43.2076, -22.9028&lt;/br&gt;27°C, &lt;i&gt;overcast clouds&lt;/i&gt;"
+## [2] "&lt;b&gt;São Cristóvão&lt;/b&gt;&lt;/br&gt;-43.2334, -22.9&lt;/br&gt;27°C, &lt;i&gt;overcast clouds&lt;/i&gt;"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/leaflet">leaflet</a></span>(<span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/addProviderTiles">addProviderTiles</a></span>(<span class="st">"CartoDB.DarkMatter"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_weather.html">add_weather</a></span>(owm_data, <span class="dt">icon =</span> owm_data<span class="op">$</span>weather_icon, <span class="dt">template =</span> popup_tpl)</code></pre></div>
-<div id="htmlwidget-37bacae4227bd9eeab6f" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-37bacae4227bd9eeab6f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.9028,-22.9,-22.969,-22.9802,-22.8142,-22.8834,-22.9,-22.7856,-22.827],[-43.2076,-43.2334,-43.1857,-43.1967,-43.2308,-43.1037,-43.0998,-43.3117,-43.0539],{"iconUrl":{"data":"http://openweathermap.org/img/w/04d.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro<\/b><\/br>-43.2076, -22.9028<\/br>24°C, <i>overcast clouds<\/i>","<b>São Cristóvão<\/b><\/br>-43.2334, -22.9<\/br>24°C, <i>overcast clouds<\/i>","<b>Botafogo<\/b><\/br>-43.1857, -22.969<\/br>25°C, <i>broken clouds<\/i>","<b>Pavão-Pavaozinho<\/b><\/br>-43.1967, -22.9802<\/br>25°C, <i>broken clouds<\/i>","<b>Vila Joaniza<\/b><\/br>-43.2308, -22.8142<\/br>24°C, <i>overcast clouds<\/i>","<b>Niteroi<\/b><\/br>-43.1037, -22.8834<\/br>24°C, <i>overcast clouds<\/i>","<b>Icaraí<\/b><\/br>-43.0998, -22.9<\/br>24°C, <i>overcast clouds<\/i>","<b>Duque de Caxias<\/b><\/br>-43.3117, -22.7856<\/br>24°C, <i>overcast clouds<\/i>","<b>Sao Goncalo<\/b><\/br>-43.0539, -22.827<\/br>25°C, <i>broken clouds<\/i>"],null,null,null,null,null,null]}],"limits":{"lat":[-22.9802,-22.7856],"lng":[-43.3117,-43.0539]}},"evals":[],"jsHooks":[]}</script><p>Furthermore, you can add weather map layers from OpenWeatherMap to the <code>map</code> object via <code>add_owm_tiles</code>. For available layers see <code>owm_layers</code>.</p>
+<div id="htmlwidget-d9dc47b7f52957610304" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d9dc47b7f52957610304">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.DarkMatter",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addMarkers","args":[[-22.9028,-22.9,-22.969,-22.9802,-22.8142,-22.8834,-22.9,-22.7856,-22.827],[-43.2076,-43.2334,-43.1857,-43.1967,-43.2308,-43.1037,-43.0998,-43.3117,-43.0539],{"iconUrl":{"data":"http://openweathermap.org/img/w/04d.png","index":[0,0,0,0,0,0,0,0,0]}},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Rio de Janeiro<\/b><\/br>-43.2076, -22.9028<\/br>27°C, <i>overcast clouds<\/i>","<b>São Cristóvão<\/b><\/br>-43.2334, -22.9<\/br>27°C, <i>overcast clouds<\/i>","<b>Botafogo<\/b><\/br>-43.1857, -22.969<\/br>27°C, <i>overcast clouds<\/i>","<b>Pavão-Pavaozinho<\/b><\/br>-43.1967, -22.9802<\/br>27°C, <i>overcast clouds<\/i>","<b>Vila Joaniza<\/b><\/br>-43.2308, -22.8142<\/br>27°C, <i>overcast clouds<\/i>","<b>Niteroi<\/b><\/br>-43.1037, -22.8834<\/br>27°C, <i>overcast clouds<\/i>","<b>Icaraí<\/b><\/br>-43.0998, -22.9<\/br>27°C, <i>overcast clouds<\/i>","<b>Duque de Caxias<\/b><\/br>-43.3117, -22.7856<\/br>27°C, <i>overcast clouds<\/i>","<b>Sao Goncalo<\/b><\/br>-43.0539, -22.827<\/br>27°C, <i>overcast clouds<\/i>"],null,null,null,null,null,null]}],"limits":{"lat":[-22.9802,-22.7856],"lng":[-43.3117,-43.0539]}},"evals":[],"jsHooks":[]}</script><p>Furthermore, you can add weather map layers from OpenWeatherMap to the <code>map</code> object via <code>add_owm_tiles</code>. For available layers see <code>owm_layers</code>.</p>
 </div>
   </div>
 
@@ -213,7 +227,7 @@ popup_tpl <span class="op">%$$%</span><span class="st"> </span>owm_data <span cl
       <li><a href="#setup">Setup</a></li>
       <li><a href="#get-data">Get data</a></li>
       <li><a href="#get-similar-ish-data-frames-with-owmr_as_tibble">Get similar-ish data frames with <code>owmr_as_tibble</code></a></li>
-      <li><a href="#leaflet-integration">Leaflet Integration</a></li>
+      <li><a href="#leaflet-integration">Leaflet integration</a></li>
       </ul>
 </div>
       </div>
