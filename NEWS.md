@@ -1,3 +1,8 @@
+# owmr 0.8.1
+
+* Added function `find_cities_by_bbox` to get current weather data for a number of cities
+within a given bounding box
+
 # owmr 0.8.0
 
 * Added generic function `owmr_as_tibble` to get similiar-ish and tidy data frames
@@ -26,7 +31,7 @@ _owm stations api_
 # owmr 0.7.0
 
 * Added functions to add owm tiles to leaflet map.
-  - Note: Performance of owm tile server seems to be low.
+* Note: Performance of owm tile server seems to be low.
 
 # owmr 0.6.1
 
@@ -47,7 +52,7 @@ _owm stations api_
 
 * Added function to search owm's city list by city name.
 * Added tests for current data.
-   - Added helper function to fetch 'fresh' data used in tests.
+* Added helper function to fetch 'fresh' data used in tests.
 
 # owmr 0.3.0
 

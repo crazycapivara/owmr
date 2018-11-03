@@ -15,7 +15,7 @@ devtools::install_github("crazycapivara/owmr/")
 ## Setup
 
 First of all you have to store your API key in an environment variable called `OWM_API_KEY`.
-For the current this can be done with:
+For the current session this can be done with:
 
 ```{r eval = FALSE}
 Sys.setenv("yourSuperSecretApiKey")
@@ -43,6 +43,10 @@ current_multiple <- find_cities_by_geo_point(
   units = "metric"
 )
 class(current_multiple)
+
+bbox_greater_london <- c(-0.489, 51.28, 0.236, 51.686, 10)
+current_greater_london <- find_cities_by_bbox(bbox_greater_london)
+class(current_greater_london)
 ```
 
 ## Get similar-ish data frames with `owmr_as_tibble`
@@ -56,9 +60,11 @@ forecast %>% owmr_as_tibble() %>%
   .[1:4, columns]
 current_multiple %>% owmr_as_tibble() %>%
   .[, c(columns, "name")]
+current_greater_london %>% owmr_as_tibble() %>%
+  .[, c(columns, "name")]
 ```
 
-## Leaflet Integration
+## Leaflet integration
 
 ```{r eval = TRUE}
 rio <- search_city_list("Rio de Janeiro")
