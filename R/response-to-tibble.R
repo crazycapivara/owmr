@@ -55,7 +55,7 @@ parse_current <- function(resp, simplify = TRUE) {
 }
 
 parse_default <- function(resp, simplify = TRUE) {
-  if (is.null(resp$list$dt_txt) && resp$list$dt) {
+  if (is.null(resp$list$dt_txt) && !is.null(resp$list$dt)) {
     resp$list$dt_txt <- parse_unixtime(resp$list$dt)
   }
 
