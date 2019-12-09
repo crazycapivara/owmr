@@ -60,7 +60,8 @@ parse_default <- function(resp, simplify = TRUE) {
   }
 
   # TODO: do we need 'tidyr' dependency?
-  resp$data <- tidyr::unnest(resp$list, .sep = "_") %>%
+  # resp$data <- tidyr::unnest(resp$list, .sep = "_") %>%
+  resp$data <- tidyr::unnest(resp$list, cols = c("weather"), names_sep = "_") %>%
     use_underscore() %>%
     remove_prefix("main") %>%
     plyr::rbind.fill(response_structure, .) %>%
