@@ -1,7 +1,7 @@
 Package: owmr
 Title: OpenWeatherMap API Wrapper
-Version: 0.8.1
-Date: 2018-11-02
+Version: 0.8.2
+Date: 2019-12-12
 Authors@R: c(
     person("Stefan", "Kuethe", email = "crazycapivara@gmail.com", role = c("aut", "cre")),
     person("Amanda", "Dobbyn", role = "ctb")
