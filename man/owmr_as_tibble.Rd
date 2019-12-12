@@ -2,11 +2,8 @@
 % Please edit documentation in R/response-to-tibble.R
 \name{owmr_as_tibble}
 \alias{owmr_as_tibble}
-\alias{owmr_as_tibble}
 \alias{owmr_as_tibble.owmr_weather}
-\alias{owmr_as_tibble}
 \alias{owmr_as_tibble.default}
-\alias{owmr_as_tibble}
 \alias{owmr_as_tibble.owmr_forecast_daily}
 \title{Parse owmr response to tibble.}
 \usage{

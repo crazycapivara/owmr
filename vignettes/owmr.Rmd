@@ -9,7 +9,7 @@ title: "Get started with OpenWeatherMap for R"
 install.packages("omwr")
 
 # unstable
-devtools::install_github("crazycapivara/owmr/")
+remotes::install_github("crazycapivara/owmr")
 ```
 
 ## Setup
@@ -18,7 +18,7 @@ First of all you have to store your API key in an environment variable called `O
 For the current session this can be done with:
 
 ```{r eval = FALSE}
-Sys.setenv("yourSuperSecretApiKey")
+Sys.setenv(OWM_API_KEY = "yourSuperSecretApiKey")
 ```
 
 ## Get data
