@@ -1,32 +1,36 @@
+# owmr 0.8.2
+
+* Fixed _deprecated_ warnings in _tidyr 1.0.0_.
+
 # owmr 0.8.1
 
 * Added function `find_cities_by_bbox` to get current weather data for a number of cities
-within a given bounding box
+within a given bounding box.
 
 # owmr 0.8.0
 
 * Added generic function `owmr_as_tibble` to get similiar-ish and tidy data frames
-for all kind of responses
+for all kind of responses.
 * Removed `find_stations_by_geo_point` and `get_current_from_station` because of a new
-_owm stations api_
+_owm stations api_.
 
 # owmr 0.7.4
 
-* Fixed bug in `add_owm_tiles`
+* Fixed bug in `add_owm_tiles`.
 * `find_stations_by_geo_point` and `get_current_from_station` are not supported anymore because of breaking changes in the owm api for stations. Functions will be removed in a future version.
 
 # owmr 0.7.3
 
-* Added feature to store the api key in an environment variable called `OWM_API_KEY`
-* It is still possible to set the key via `owmr_settings`, but it is recommended that you use the environment variable instead
+* Added feature to store the api key in an environment variable called `OWM_API_KEY`.
+* It is still possible to set the key via `owmr_settings`, but it is recommended that you use the environment variable instead.
 
 # owmr 0.7.2
 
-* Updated package description
+* Updated package description.
 
 # owmr 0.7.1
 
-* Fixed false poitives in check for undefined global variable `.` from `magrittr`
+* Fixed false poitives in check for undefined global variable `.` from _magrittr_.
 
 # owmr 0.7.0
 
